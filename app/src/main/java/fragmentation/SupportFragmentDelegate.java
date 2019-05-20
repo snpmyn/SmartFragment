@@ -29,25 +29,27 @@ import fragmentation.helper.internal.VisibleDelegate;
  * @date: 2019/5/20 9:52
  */
 public class SupportFragmentDelegate {
-    private static final long NOT_FOUND_ANIM_TIME = 300L;
-    static final int STATUS_UN_ROOT = 0;
     static final int STATUS_ROOT_ANIM_DISABLE = 1;
     static final int STATUS_ROOT_ANIM_ENABLE = 2;
-    private int mRootStatus = STATUS_UN_ROOT;
-    private boolean mIsSharedElement;
+    private static final long NOT_FOUND_ANIM_TIME = 300L;
+    private static final int STATUS_UN_ROOT = 0;
     FragmentAnimator mFragmentAnimator;
     AnimatorHelper mAnimHelper;
     boolean mLockAnim;
+    int mContainerId;
+    TransactionRecord mTransactionRecord;
+    Bundle mNewBundle;
+    boolean mAnimByActivity = true;
+    EnterAnimListener mEnterAnimListener;
+    private int mRootStatus = STATUS_UN_ROOT;
+    private boolean mIsSharedElement;
     private int mCustomEnterAnim = Integer.MIN_VALUE, mCustomExitAnim = Integer.MIN_VALUE, mCustomPopExitAnim = Integer.MIN_VALUE;
     private Handler mHandler;
     private boolean mFirstCreateView = true;
     private boolean mReplaceMode;
     private boolean mIsHidden = true;
-    int mContainerId;
     private TransactionDelegate mTransactionDelegate;
-    TransactionRecord mTransactionRecord;
-    protected FragmentActivity fragmentationActivity;
-    Bundle mNewBundle;
+    private FragmentActivity fragmentationActivity;
     private Bundle mSaveInstanceState;
     private ISupportFragment mSupportF;
     private Fragment mFragment;
@@ -56,9 +58,35 @@ public class SupportFragmentDelegate {
      */
     private VisibleDelegate mVisibleDelegate;
     private ISupportActivity mSupport;
-    boolean mAnimByActivity = true;
-    EnterAnimListener mEnterAnimListener;
     private boolean mRootViewClickable;
+    private Runnable mNotifyEnterAnimEndRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mFragment == null) {
+                return;
+            }
+            mSupportF.onEnterAnimationEnd(mSaveInstanceState);
+            if (mRootViewClickable) {
+                return;
+            }
+            final View view = mFragment.getView();
+            if (view == null) {
+                return;
+            }
+            ISupportFragment preFragment = SupportHelper.getPreFragment(mFragment);
+            if (preFragment == null) {
+                return;
+            }
+            long prePopExitDuration = preFragment.getSupportDelegate().getPopExitAnimDuration();
+            long enterDuration = getEnterAnimDuration();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setClickable(false);
+                }
+            }, prePopExitDuration - enterDuration);
+        }
+    };
 
     public SupportFragmentDelegate(ISupportFragment support) {
         if (!(support instanceof Fragment)) {
@@ -135,6 +163,7 @@ public class SupportFragmentDelegate {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+
             }
 
             @Override
@@ -185,7 +214,7 @@ public class SupportFragmentDelegate {
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getVisibleDelegate().onActivityCreated(savedInstanceState);
+        getVisibleDelegate().onActivityCreated();
         View view = mFragment.getView();
         if (view != null) {
             mRootViewClickable = view.isClickable();
@@ -262,7 +291,7 @@ public class SupportFragmentDelegate {
      * Called when the enter-animation end.
      * 入栈动画结束时回调
      */
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+    public void onEnterAnimationEnd() {
     }
 
     /**
@@ -270,7 +299,7 @@ public class SupportFragmentDelegate {
      * <p>
      * 同级下懒加载 ＋ ViewPager下的懒加载的结合回调方法
      */
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+    public void onLazyInitView() {
     }
 
     /**
@@ -356,25 +385,25 @@ public class SupportFragmentDelegate {
     }
 
     /**
-     * 类似{@link Activity#onActivityResult(int, int, Intent)}
+     * 类似{@link Activity}之onActivityResult(int, int, Intent)
      * <p>
-     * Similar to {@link Activity#onActivityResult(int, int, Intent)}
+     * Similar to {@link Activity}之onActivityResult(int, int, Intent)
      *
      * @see #startForResult(ISupportFragment, int)
      */
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+
     }
 
     /**
-     * 在start(TargetFragment,LaunchMode)时,启动模式为SingleTask/SingleTop, 回调TargetFragment的该方法
-     * 类似{@link Activity#onNewIntent(Intent)} )}
+     * 在start(TargetFragment,LaunchMode)时，启动模式为SingleTask/SingleTop，回调TargetFragment的该方法
+     * 类似{@link Activity}之onNewIntent(Intent)
      * <p>
-     * Similar to {@link Activity#onNewIntent(Intent)}
+     * Similar to {@link Activity}之onNewIntent(Intent)
      *
-     * @param args putNewBundle(Bundle newBundle)
      * @see #start(ISupportFragment, int)
      */
-    public void onNewBundle(Bundle args) {
+    public void onNewBundle() {
 
     }
 
@@ -387,6 +416,8 @@ public class SupportFragmentDelegate {
         this.mNewBundle = newBundle;
     }
 
+    /**********************************************************************************************/
+
     /**
      * Back Event
      *
@@ -395,8 +426,6 @@ public class SupportFragmentDelegate {
     public boolean onBackPressedSupport() {
         return false;
     }
-
-    /**********************************************************************************************/
 
     /**
      * 隐藏软键盘
@@ -472,7 +501,7 @@ public class SupportFragmentDelegate {
     }
 
     /**
-     * Start the target Fragment and pop itself
+     * Start the target Fragment and pop itself.
      */
     public void startWithPop(ISupportFragment toFragment) {
         mTransactionDelegate.startWithPop(mFragment.getFragmentManager(), mSupportF, toFragment);
@@ -490,7 +519,7 @@ public class SupportFragmentDelegate {
         startChild(toFragment, ISupportFragment.STANDARD);
     }
 
-    public void startChild(final ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode) {
+    private void startChild(final ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode) {
         mTransactionDelegate.dispatchStartTransaction(getChildFragmentManager(), getTopFragment(), toFragment, 0, launchMode, TransactionDelegate.TYPE_ADD);
     }
 
@@ -521,10 +550,10 @@ public class SupportFragmentDelegate {
      * Pop the last fragment transition from the manager's fragment
      * back stack.
      * <p>
-     * 出栈到目标fragment
+     * 出栈至目标fragment。
      *
      * @param targetFragmentClass   目标fragment
-     * @param includeTargetFragment 是否包含该fragment
+     * @param includeTargetFragment 含目标Fragment否
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {
         popTo(targetFragmentClass, includeTargetFragment, null);
@@ -532,7 +561,7 @@ public class SupportFragmentDelegate {
 
     /**
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
-     * 如果你想在出栈后，立刻进行FragmentTransaction操作，请使用该方法
+     * 若你想出栈后立刻FragmentTransaction操作，用该法。
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
         popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, TransactionDelegate.DEFAULT_POP_TO_ANIM);
@@ -602,41 +631,14 @@ public class SupportFragmentDelegate {
         }
     }
 
-    private Runnable mNotifyEnterAnimEndRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (mFragment == null) {
-                return;
-            }
-            mSupportF.onEnterAnimationEnd(mSaveInstanceState);
-            if (mRootViewClickable) {
-                return;
-            }
-            final View view = mFragment.getView();
-            if (view == null) {
-                return;
-            }
-            ISupportFragment preFragment = SupportHelper.getPreFragment(mFragment);
-            if (preFragment == null) {
-                return;
-            }
-            long prePopExitDuration = preFragment.getSupportDelegate().getPopExitAnimDuration();
-            long enterDuration = getEnterAnimDuration();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setClickable(false);
-                }
-            }, prePopExitDuration - enterDuration);
-        }
-    };
-
     private void compatSharedElements() {
         notifyEnterAnimEnd();
     }
 
     public void setBackground(View view) {
-        boolean flag = (mFragment.getTag() != null && mFragment.getTag().startsWith("android:switcher:")) || mRootStatus != STATUS_UN_ROOT ||
+        boolean flag = (mFragment.getTag() != null &&
+                mFragment.getTag().startsWith("android:switcher:")) ||
+                mRootStatus != STATUS_UN_ROOT ||
                 view.getBackground() != null;
         if (flag) {
             return;
@@ -716,7 +718,6 @@ public class SupportFragmentDelegate {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return NOT_FOUND_ANIM_TIME;
     }
@@ -732,7 +733,6 @@ public class SupportFragmentDelegate {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return NOT_FOUND_ANIM_TIME;
     }

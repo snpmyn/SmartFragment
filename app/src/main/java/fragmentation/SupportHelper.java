@@ -26,7 +26,7 @@ public class SupportHelper {
     /**
      * 显示软键盘
      */
-    public static void showSoftInput(final View view) {
+    static void showSoftInput(final View view) {
         if (view == null || view.getContext() == null) {
             return;
         }
@@ -43,7 +43,7 @@ public class SupportHelper {
     /**
      * 隐藏软键盘
      */
-    public static void hideSoftInput(View view) {
+    static void hideSoftInput(View view) {
         if (view == null || view.getContext() == null) {
             return;
         }
@@ -72,7 +72,7 @@ public class SupportHelper {
         return getTopFragment(fragmentManager, 0);
     }
 
-    public static ISupportFragment getTopFragment(FragmentManager fragmentManager, int containerId) {
+    static ISupportFragment getTopFragment(FragmentManager fragmentManager, int containerId) {
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fragmentManager);
         if (fragmentList == null) {
             return null;
@@ -129,19 +129,19 @@ public class SupportHelper {
      * <p>
      * find Fragment from FragmentStack
      */
-    public static <T extends ISupportFragment> T findFragment(FragmentManager fragmentManager, String fragmentTag) {
+    static <T extends ISupportFragment> T findFragment(FragmentManager fragmentManager, String fragmentTag) {
         return findStackFragment(null, fragmentTag, fragmentManager);
     }
 
     /**
      * 从栈顶开始，寻找FragmentManager以及其所有子栈，直到找到状态为show & userVisible的Fragment
      */
-    public static ISupportFragment getActiveFragment(FragmentManager fragmentManager) {
+    static ISupportFragment getActiveFragment(FragmentManager fragmentManager) {
         return getActiveFragment(fragmentManager, null);
     }
 
     @SuppressWarnings("unchecked")
-    static <T extends ISupportFragment> T findStackFragment(Class<T> fragmentClass, String toFragmentTag, FragmentManager fragmentManager) {
+    private static <T extends ISupportFragment> T findStackFragment(Class<T> fragmentClass, String toFragmentTag, FragmentManager fragmentManager) {
         Fragment fragment = null;
         if (toFragmentTag == null) {
             List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fragmentManager);
@@ -191,7 +191,7 @@ public class SupportHelper {
     /**
      * Get the topFragment from BackStack
      */
-    public static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
+    private static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
         int count = fragmentManager.getBackStackEntryCount();
         for (int i = count - 1; i >= 0; i--) {
             FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);

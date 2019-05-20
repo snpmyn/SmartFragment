@@ -54,7 +54,7 @@ public class VisibleDelegate {
         outState.putBoolean(FRAGMENTATION_STATE_SAVE_COMPAT_REPLACE, mFirstCreateViewCompatReplace);
     }
 
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated() {
         if (!mFirstCreateViewCompatReplace && mFragment.getTag() != null && mFragment.getTag().startsWith(FragmentationMagic.STRING_ANDROID_SWITCHER)) {
             return;
         }

@@ -10,20 +10,6 @@ import android.os.Parcelable;
  * @date: 2019/5/20 9:33
  */
 public final class ResultRecord implements Parcelable {
-    public int requestCode;
-    public int resultCode = 0;
-    public Bundle resultBundle;
-
-    public ResultRecord() {
-
-    }
-
-    protected ResultRecord(Parcel in) {
-        requestCode = in.readInt();
-        resultCode = in.readInt();
-        resultBundle = in.readBundle(getClass().getClassLoader());
-    }
-
     public static final Creator<ResultRecord> CREATOR = new Creator<ResultRecord>() {
         @Override
         public ResultRecord createFromParcel(Parcel in) {
@@ -35,6 +21,19 @@ public final class ResultRecord implements Parcelable {
             return new ResultRecord[size];
         }
     };
+    public int requestCode;
+    public int resultCode = 0;
+    public Bundle resultBundle;
+
+    public ResultRecord() {
+
+    }
+
+    private ResultRecord(Parcel in) {
+        requestCode = in.readInt();
+        resultCode = in.readInt();
+        resultBundle = in.readBundle(getClass().getClassLoader());
+    }
 
     @Override
     public int describeContents() {

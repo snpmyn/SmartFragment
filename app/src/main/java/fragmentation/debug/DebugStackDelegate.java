@@ -48,9 +48,7 @@ public class DebugStackDelegate implements SensorEventListener {
             return;
         }
         mSensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
-        mSensorManager.registerListener(this,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void onPostCreate(int mode) {
@@ -262,7 +260,7 @@ public class DebugStackDelegate implements SensorEventListener {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (Math.abs(x - downX) < clickLimitValue && Math.abs(y - downY) < clickLimitValue && isClickState) {
-                        isClickState = true;
+                        Log.e("onTouch", "isClickState = true");
                     } else {
                         isClickState = false;
                         stackView.setX(event.getRawX() + dX);

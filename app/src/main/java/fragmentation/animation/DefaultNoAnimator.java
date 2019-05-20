@@ -9,6 +9,18 @@ import android.os.Parcelable;
  * @date: 2019/5/20 9:23
  */
 public class DefaultNoAnimator extends FragmentAnimator implements Parcelable {
+    public static final Creator<DefaultNoAnimator> CREATOR = new Creator<DefaultNoAnimator>() {
+        @Override
+        public DefaultNoAnimator createFromParcel(Parcel in) {
+            return new DefaultNoAnimator(in);
+        }
+
+        @Override
+        public DefaultNoAnimator[] newArray(int size) {
+            return new DefaultNoAnimator[size];
+        }
+    };
+
     public DefaultNoAnimator() {
         enter = 0;
         exit = 0;
@@ -16,7 +28,7 @@ public class DefaultNoAnimator extends FragmentAnimator implements Parcelable {
         popExit = 0;
     }
 
-    protected DefaultNoAnimator(Parcel in) {
+    private DefaultNoAnimator(Parcel in) {
         super(in);
     }
 
@@ -29,16 +41,4 @@ public class DefaultNoAnimator extends FragmentAnimator implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<DefaultNoAnimator> CREATOR = new Creator<DefaultNoAnimator>() {
-        @Override
-        public DefaultNoAnimator createFromParcel(Parcel in) {
-            return new DefaultNoAnimator(in);
-        }
-
-        @Override
-        public DefaultNoAnimator[] newArray(int size) {
-            return new DefaultNoAnimator[size];
-        }
-    };
 }

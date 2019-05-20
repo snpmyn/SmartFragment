@@ -1,10 +1,6 @@
 package fragmentation;
 
-import android.os.Bundle;
-import android.view.MotionEvent;
-
 import androidx.annotation.DrawableRes;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -22,10 +18,10 @@ import fragmentation.queue.BaseAction;
  * @date: 2019/5/20 9:48
  */
 public class SupportActivityDelegate {
-    private ISupportActivity mSupport;
-    private FragmentActivity mActivity;
     boolean mPopMultipleNoAnim = false;
     boolean mFragmentClickable = true;
+    private ISupportActivity mSupport;
+    private FragmentActivity mActivity;
     private TransactionDelegate mTransactionDelegate;
     private FragmentAnimator mFragmentAnimator;
     private int mDefaultFragmentBackground = 0;
@@ -47,21 +43,21 @@ public class SupportActivityDelegate {
         return new BaseExtraTransaction.BaseExtraTransactionImpl<>((FragmentActivity) mSupport, getTopFragment(), getTransactionDelegate(), true);
     }
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate() {
         mTransactionDelegate = getTransactionDelegate();
         mDebugStackDelegate = new DebugStackDelegate(mActivity);
         mFragmentAnimator = mSupport.onCreateFragmentAnimator();
         mDebugStackDelegate.onCreate(Fragmentation.getDefault().getMode());
     }
 
-    public TransactionDelegate getTransactionDelegate() {
+    TransactionDelegate getTransactionDelegate() {
         if (mTransactionDelegate == null) {
             mTransactionDelegate = new TransactionDelegate(mSupport);
         }
         return mTransactionDelegate;
     }
 
-    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+    public void onPostCreate() {
         mDebugStackDelegate.onPostCreate(Fragmentation.getDefault().getMode());
     }
 
@@ -99,7 +95,7 @@ public class SupportActivityDelegate {
      * 构建Fragment转场动画
      * <p/>
      * 如果是在Activity内实现，则构建的是Activity内所有Fragment的转场动画，
-     * 如果是在Fragment内实现，则构建的是该Fragment的转场动画,此时优先级 >Activity的onCreateFragmentAnimator()
+     * 如果是在Fragment内实现，则构建的是该Fragment的转场动画，此时优先>Activity的onCreateFragmentAnimator()
      *
      * @return FragmentAnimator对象
      */
@@ -107,30 +103,30 @@ public class SupportActivityDelegate {
         return new DefaultVerticalAnimator();
     }
 
+    int getDefaultFragmentBackground() {
+        return mDefaultFragmentBackground;
+    }
+
     /**
-     * 当Fragment根布局没有设定background属性时,
-     * Fragmentation默认使用Theme的android:windowbackground作为Fragment的背景,
+     * 当Fragment根布局没有设定background属性时，
+     * Fragmentation默认使用Theme的android:windowbackground作为Fragment的背景，
      * 可以通过该方法改变Fragment背景。
      */
     public void setDefaultFragmentBackground(@DrawableRes int backgroundRes) {
         mDefaultFragmentBackground = backgroundRes;
     }
 
-    public int getDefaultFragmentBackground() {
-        return mDefaultFragmentBackground;
-    }
-
     /**
      * 显示栈视图dialog，调试时使用
      */
-    public void showFragmentStackHierarchyView() {
+    void showFragmentStackHierarchyView() {
         mDebugStackDelegate.showFragmentStackHierarchyView();
     }
 
     /**
      * 显示栈视图日志，调试时使用
      */
-    public void logFragmentStackHierarchy(String tag) {
+    void logFragmentStackHierarchy(String tag) {
         mDebugStackDelegate.logFragmentRecords(tag);
     }
 
@@ -146,7 +142,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * 不建议复写该方法，请使用 {@link #onBackPressedSupport} 代替
+     * 不建议复写该方法，请使用{@link #onBackPressedSupport}代替
      */
     public void onBackPressed() {
         mTransactionDelegate.mActionQueue.enqueue(new BaseAction(BaseAction.ACTION_BACK) {
@@ -167,7 +163,7 @@ public class SupportActivityDelegate {
 
     /**
      * 该方法回调时机为，Activity回退栈内Fragment的数量小于等于1时，默认finish Activity
-     * 请尽量复写该方法,避免复写onBackPress()，以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
+     * 请尽量复写该方法，避免复写onBackPress()，以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
      */
     public void onBackPressedSupport() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
@@ -181,12 +177,12 @@ public class SupportActivityDelegate {
         mDebugStackDelegate.onDestroy();
     }
 
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent() {
         // 防抖动（防止点击速度过快）
         return !mFragmentClickable;
     }
 
-    /**********************************************************************************************/
+    /********************************************************************************************/
 
     /**
      * 加载根Fragment，即Activity内的第一个Fragment或Fragment内的第一个子Fragment
@@ -247,7 +243,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * Start the target Fragment and pop itself
+     * Start the target Fragment and pop itself.
      */
     public void startWithPop(ISupportFragment toFragment) {
         mTransactionDelegate.startWithPop(getSupportFragmentManager(), getTopFragment(), toFragment);
@@ -272,10 +268,10 @@ public class SupportActivityDelegate {
      * Pop the last fragment transition from the manager's fragment
      * back stack.
      * <p>
-     * 出栈到目标fragment
+     * 出栈至目标fragment。
      *
      * @param targetFragmentClass   目标fragment
-     * @param includeTargetFragment 是否包含该fragment
+     * @param includeTargetFragment 含目标Fragment否
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {
         popTo(targetFragmentClass, includeTargetFragment, null);
@@ -283,7 +279,7 @@ public class SupportActivityDelegate {
 
     /**
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
-     * 如果你想在出栈后立刻进行FragmentTransaction操作，请使用该方法
+     * 若你想出栈后立刻FragmentTransaction操作，用该法。
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
         popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, TransactionDelegate.DEFAULT_POP_TO_ANIM);

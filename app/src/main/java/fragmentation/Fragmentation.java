@@ -14,10 +14,6 @@ import fragmentation.helper.ExceptionHandler;
  */
 public class Fragmentation {
     /**
-     * Dont display stack view.
-     */
-    public static final int NONE = 0;
-    /**
      * Shake it to display stack view.
      */
     public static final int SHAKE = 1;
@@ -25,14 +21,23 @@ public class Fragmentation {
      * As a bubble display stack view.
      */
     public static final int BUBBLE = 2;
-    static volatile Fragmentation INSTANCE;
+    /**
+     * Dont display stack view.
+     */
+    static final int NONE = 0;
+    private static volatile Fragmentation INSTANCE;
     private boolean debug;
-    private int mode = BUBBLE;
+    private int mode;
     private ExceptionHandler handler;
 
-    @IntDef({NONE, SHAKE, BUBBLE})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface StackViewMode {
+    private Fragmentation(FragmentationBuilder builder) {
+        debug = builder.debug;
+        if (debug) {
+            mode = builder.mode;
+        } else {
+            mode = NONE;
+        }
+        handler = builder.handler;
     }
 
     public static Fragmentation getDefault() {
@@ -46,14 +51,8 @@ public class Fragmentation {
         return INSTANCE;
     }
 
-    Fragmentation(FragmentationBuilder builder) {
-        debug = builder.debug;
-        if (debug) {
-            mode = builder.mode;
-        } else {
-            mode = NONE;
-        }
-        handler = builder.handler;
+    public static FragmentationBuilder builder() {
+        return new FragmentationBuilder();
     }
 
     public boolean isDebug() {
@@ -72,7 +71,7 @@ public class Fragmentation {
         this.handler = handler;
     }
 
-    public int getMode() {
+    int getMode() {
         return mode;
     }
 
@@ -80,8 +79,10 @@ public class Fragmentation {
         this.mode = mode;
     }
 
-    public static FragmentationBuilder builder() {
-        return new FragmentationBuilder();
+    @IntDef({NONE, SHAKE, BUBBLE})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface StackViewMode {
+
     }
 
     public static class FragmentationBuilder {

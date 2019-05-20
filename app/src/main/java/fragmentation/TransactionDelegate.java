@@ -33,7 +33,6 @@ import value.FragmentationMagic;
  */
 class TransactionDelegate {
     static final int DEFAULT_POP_TO_ANIM = Integer.MAX_VALUE;
-    private static final String TAG = "Fragmentation";
     static final String FRAGMENTATION_ARG_RESULT_RECORD = "fragment_arg_result_record";
     static final String FRAGMENTATION_ARG_ROOT_STATUS = "fragmentation_arg_root_status";
     static final String FRAGMENTATION_ARG_IS_SHARED_ELEMENT = "fragmentation_arg_is_shared_element";
@@ -44,23 +43,30 @@ class TransactionDelegate {
     static final String FRAGMENTATION_ARG_CUSTOM_POP_EXIT_ANIM = "fragmentation_arg_custom_pop_exit_anim";
     static final String FRAGMENTATION_STATE_SAVE_ANIMATOR = "fragmentation_state_save_animator";
     static final String FRAGMENTATION_STATE_SAVE_IS_HIDDEN = "fragmentation_state_save_status";
-    private static final String FRAGMENTATION_STATE_SAVE_RESULT = "fragmentation_state_save_result";
     static final int TYPE_ADD = 0;
     static final int TYPE_ADD_RESULT = 1;
     static final int TYPE_ADD_WITHOUT_HIDE = 2;
     static final int TYPE_ADD_RESULT_WITHOUT_HIDE = 3;
     static final int TYPE_REPLACE = 10;
     static final int TYPE_REPLACE_DONT_BACK = 11;
+    private static final String TAG = "Fragmentation";
+    private static final String FRAGMENTATION_STATE_SAVE_RESULT = "fragmentation_state_save_result";
+    ActionQueue mActionQueue;
     private ISupportActivity mSupport;
     private FragmentActivity mActivity;
     private Handler mHandler;
-    ActionQueue mActionQueue;
 
     TransactionDelegate(ISupportActivity support) {
         this.mSupport = support;
         this.mActivity = (FragmentActivity) support;
         mHandler = new Handler(Looper.getMainLooper());
         mActionQueue = new ActionQueue(mHandler);
+    }
+
+    private static <T> void checkNotNull(T value, String message) {
+        if (value == null) {
+            throw new NullPointerException(message);
+        }
     }
 
     void post(final Runnable runnable) {
@@ -192,7 +198,6 @@ class TransactionDelegate {
                 }
                 safePopTo(fragmentTag, fm, flag, willPopFragments);
             }
-
         });
         dispatchStartTransaction(fm, from, to, 0, ISupportFragment.STANDARD, TransactionDelegate.TYPE_ADD);
     }
@@ -233,7 +238,8 @@ class TransactionDelegate {
     }
 
     private void removeTopFragment(FragmentManager fm) {
-        try { // Safe popBackStack()
+        try {
+            // Safe popBackStack()
             ISupportFragment top = SupportHelper.getBackStackTopFragment(fm);
             if (top != null) {
                 fm.beginTransaction()
@@ -270,7 +276,6 @@ class TransactionDelegate {
             @Override
             public void run() {
                 doPopTo(targetFragmentTag, includeTargetFragment, fm, popAnim);
-
                 if (afterPopTransactionRunnable != null) {
                     afterPopTransactionRunnable.run();
                 }
@@ -620,7 +625,6 @@ class TransactionDelegate {
             @Override
             public void onEnterAnimStart() {
                 fromView.startAnimation(exitAnim);
-
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -666,12 +670,6 @@ class TransactionDelegate {
             return (ViewGroup) container;
         }
         return null;
-    }
-
-    private static <T> void checkNotNull(T value, String message) {
-        if (value == null) {
-            throw new NullPointerException(message);
-        }
     }
 
     private void handleAfterSaveInStateTransactionException(FragmentManager fm, String action) {

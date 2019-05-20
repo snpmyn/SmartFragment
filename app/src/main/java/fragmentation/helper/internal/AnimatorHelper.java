@@ -17,8 +17,8 @@ import fragmentation.animation.FragmentAnimator;
  * @date: 2019/5/20 9:33
  */
 public final class AnimatorHelper {
-    private Animation noneAnim, noneAnimFixed;
     public Animation enterAnim, exitAnim, popEnterAnim, popExitAnim;
+    private Animation noneAnim, noneAnimFixed;
     private Context context;
     private FragmentAnimator fragmentAnimator;
 

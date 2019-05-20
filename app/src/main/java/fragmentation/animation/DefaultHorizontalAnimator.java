@@ -11,6 +11,18 @@ import com.zsp.smartfragment.R;
  * @date: 2019/5/20 9:23
  */
 public class DefaultHorizontalAnimator extends FragmentAnimator implements Parcelable {
+    public static final Creator<DefaultHorizontalAnimator> CREATOR = new Creator<DefaultHorizontalAnimator>() {
+        @Override
+        public DefaultHorizontalAnimator createFromParcel(Parcel in) {
+            return new DefaultHorizontalAnimator(in);
+        }
+
+        @Override
+        public DefaultHorizontalAnimator[] newArray(int size) {
+            return new DefaultHorizontalAnimator[size];
+        }
+    };
+
     public DefaultHorizontalAnimator() {
         enter = R.anim.fragmentation_enter;
         exit = R.anim.fragmentation_exit;
@@ -18,7 +30,7 @@ public class DefaultHorizontalAnimator extends FragmentAnimator implements Parce
         popExit = R.anim.fragmentation_pop_exit;
     }
 
-    protected DefaultHorizontalAnimator(Parcel in) {
+    private DefaultHorizontalAnimator(Parcel in) {
         super(in);
     }
 
@@ -31,16 +43,4 @@ public class DefaultHorizontalAnimator extends FragmentAnimator implements Parce
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<DefaultHorizontalAnimator> CREATOR = new Creator<DefaultHorizontalAnimator>() {
-        @Override
-        public DefaultHorizontalAnimator createFromParcel(Parcel in) {
-            return new DefaultHorizontalAnimator(in);
-        }
-
-        @Override
-        public DefaultHorizontalAnimator[] newArray(int size) {
-            return new DefaultHorizontalAnimator[size];
-        }
-    };
 }
