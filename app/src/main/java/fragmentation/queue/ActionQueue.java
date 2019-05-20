@@ -10,39 +10,38 @@ import fragmentation.ISupportFragment;
 import fragmentation.SupportHelper;
 
 /**
+ * @decs: ActionQueue
  * The queue of perform action.
- * <p>
- * Created by YoKey on 17/12/29.
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:38
  */
 public class ActionQueue {
-    private Queue<Action> mQueue = new LinkedList<>();
+    private Queue<BaseAction> mQueue = new LinkedList<>();
     private Handler mMainHandler;
 
     public ActionQueue(Handler mainHandler) {
         this.mMainHandler = mainHandler;
     }
 
-    public void enqueue(final Action action) {
-        if (isThrottleBACK(action)) {
+    public void enqueue(final BaseAction baseAction) {
+        if (isThrottleBACK(baseAction)) {
             return;
         }
-
-        if (action.action == Action.ACTION_LOAD && mQueue.isEmpty()
+        if (baseAction.action == BaseAction.ACTION_LOAD && mQueue.isEmpty()
                 && Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            action.run();
+            baseAction.run();
             return;
         }
-
         mMainHandler.post(new Runnable() {
             @Override
             public void run() {
-                enqueueAction(action);
+                enqueueAction(baseAction);
             }
         });
     }
 
-    private void enqueueAction(Action action) {
-        mQueue.add(action);
+    private void enqueueAction(BaseAction baseAction) {
+        mQueue.add(baseAction);
         if (mQueue.size() == 1) {
             handleAction();
         }
@@ -52,34 +51,29 @@ public class ActionQueue {
         if (mQueue.isEmpty()) {
             return;
         }
-
-        Action action = mQueue.peek();
-        action.run();
-
-        executeNextAction(action);
+        BaseAction baseAction = mQueue.peek();
+        baseAction.run();
+        executeNextAction(baseAction);
     }
 
-    private void executeNextAction(Action action) {
-        if (action.action == Action.ACTION_POP) {
-            ISupportFragment top = SupportHelper.getBackStackTopFragment(action.fragmentManager);
-            action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
+    private void executeNextAction(BaseAction baseAction) {
+        if (baseAction.action == BaseAction.ACTION_POP) {
+            ISupportFragment top = SupportHelper.getBackStackTopFragment(baseAction.fragmentManager);
+            baseAction.duration = top == null ? BaseAction.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
         }
-
         mMainHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mQueue.poll();
                 handleAction();
             }
-        }, action.duration);
+        }, baseAction.duration);
     }
 
-    private boolean isThrottleBACK(Action action) {
-        if (action.action == Action.ACTION_BACK) {
-            Action head = mQueue.peek();
-            if (head != null && head.action == Action.ACTION_POP) {
-                return true;
-            }
+    private boolean isThrottleBACK(BaseAction baseAction) {
+        if (baseAction.action == BaseAction.ACTION_BACK) {
+            BaseAction head = mQueue.peek();
+            return head != null && head.action == BaseAction.ACTION_POP;
         }
         return false;
     }

@@ -1,4 +1,4 @@
-package fragmentation.anim;
+package fragmentation.animation;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,8 +6,9 @@ import android.os.Parcelable;
 import androidx.annotation.AnimRes;
 
 /**
- * Fragment动画实体类
- * Created by YoKeyword on 16/2/4.
+ * @decs: Fragment动画实体类
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:24
  */
 public class FragmentAnimator implements Parcelable {
     @AnimRes
@@ -20,6 +21,7 @@ public class FragmentAnimator implements Parcelable {
     protected int popExit;
 
     public FragmentAnimator() {
+
     }
 
     public FragmentAnimator(int enter, int exit) {
@@ -72,6 +74,9 @@ public class FragmentAnimator implements Parcelable {
 
     /**
      * enter animation
+     *
+     * @param exit exit
+     * @return FragmentAnimator
      */
     public FragmentAnimator setExit(int exit) {
         this.exit = exit;

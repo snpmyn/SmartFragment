@@ -1,11 +1,12 @@
-package fragmentation.anim;
-
+package fragmentation.animation;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by YoKeyword on 16/2/15.
+ * @decs: DefaultNoAnimator
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:23
  */
 public class DefaultNoAnimator extends FragmentAnimator implements Parcelable {
     public DefaultNoAnimator() {

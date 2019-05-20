@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment;
 
 import com.zsp.smartfragment.R;
 
-import fragmentation.anim.FragmentAnimator;
+import fragmentation.animation.FragmentAnimator;
 
 /**
- * @Hide Created by YoKeyword on 16/7/26.
+ * @decs: AnimatorHelper
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:33
  */
 public final class AnimatorHelper {
     private Animation noneAnim, noneAnimFixed;
     public Animation enterAnim, exitAnim, popEnterAnim, popExitAnim;
-
     private Context context;
     private FragmentAnimator fragmentAnimator;
 
@@ -36,7 +37,7 @@ public final class AnimatorHelper {
 
     public Animation getNoneAnim() {
         if (noneAnim == null) {
-            noneAnim = AnimationUtils.loadAnimation(context, R.anim.no_anim);
+            noneAnim = AnimationUtils.loadAnimation(context, R.anim.fragmentation_no);
         }
         return noneAnim;
     }
@@ -51,8 +52,9 @@ public final class AnimatorHelper {
 
     @Nullable
     public Animation compatChildFragmentExitAnim(Fragment fragment) {
-        if ((fragment.getTag() != null && fragment.getTag().startsWith("android:switcher:") && fragment.getUserVisibleHint()) ||
-                (fragment.getParentFragment() != null && fragment.getParentFragment().isRemoving() && !fragment.isHidden())) {
+        boolean flag = (fragment.getTag() != null && fragment.getTag().startsWith("android:switcher:") && fragment.getUserVisibleHint()) ||
+                (fragment.getParentFragment() != null && fragment.getParentFragment().isRemoving() && !fragment.isHidden());
+        if (flag) {
             Animation animation = new Animation() {
             };
             animation.setDuration(exitAnim.getDuration());
@@ -63,7 +65,7 @@ public final class AnimatorHelper {
 
     private Animation initEnterAnim() {
         if (fragmentAnimator.getEnter() == 0) {
-            enterAnim = AnimationUtils.loadAnimation(context, R.anim.no_anim);
+            enterAnim = AnimationUtils.loadAnimation(context, R.anim.fragmentation_no);
         } else {
             enterAnim = AnimationUtils.loadAnimation(context, fragmentAnimator.getEnter());
         }
@@ -72,7 +74,7 @@ public final class AnimatorHelper {
 
     private Animation initExitAnim() {
         if (fragmentAnimator.getExit() == 0) {
-            exitAnim = AnimationUtils.loadAnimation(context, R.anim.no_anim);
+            exitAnim = AnimationUtils.loadAnimation(context, R.anim.fragmentation_no);
         } else {
             exitAnim = AnimationUtils.loadAnimation(context, fragmentAnimator.getExit());
         }
@@ -81,7 +83,7 @@ public final class AnimatorHelper {
 
     private Animation initPopEnterAnim() {
         if (fragmentAnimator.getPopEnter() == 0) {
-            popEnterAnim = AnimationUtils.loadAnimation(context, R.anim.no_anim);
+            popEnterAnim = AnimationUtils.loadAnimation(context, R.anim.fragmentation_no);
         } else {
             popEnterAnim = AnimationUtils.loadAnimation(context, fragmentAnimator.getPopEnter());
         }
@@ -90,7 +92,7 @@ public final class AnimatorHelper {
 
     private Animation initPopExitAnim() {
         if (fragmentAnimator.getPopExit() == 0) {
-            popExitAnim = AnimationUtils.loadAnimation(context, R.anim.no_anim);
+            popExitAnim = AnimationUtils.loadAnimation(context, R.anim.fragmentation_no);
         } else {
             popExitAnim = AnimationUtils.loadAnimation(context, fragmentAnimator.getPopExit());
         }

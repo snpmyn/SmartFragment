@@ -3,8 +3,9 @@ package fragmentation.debug;
 import java.util.List;
 
 /**
- * 为了调试时 查看栈视图
- * Created by YoKeyword on 16/2/21.
+ * @decs: 调试碎片记录
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:24
  */
 public class DebugFragmentRecord {
     public CharSequence fragmentName;

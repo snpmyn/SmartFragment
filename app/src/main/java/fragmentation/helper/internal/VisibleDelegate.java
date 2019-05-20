@@ -7,30 +7,31 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentationMagician;
 
 import java.util.List;
 
-import androidx.fragment.app.FragmentationMagician;
 import fragmentation.ISupportFragment;
+import value.FragmentationMagic;
 
 /**
- * Created by YoKey on 17/4/4.
+ * @decs: VisibleDelegate
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:36
  */
-
 public class VisibleDelegate {
     private static final String FRAGMENTATION_STATE_SAVE_IS_INVISIBLE_WHEN_LEAVE = "fragmentation_invisible_when_leave";
     private static final String FRAGMENTATION_STATE_SAVE_COMPAT_REPLACE = "fragmentation_compat_replace";
-
-    // SupportVisible相关
+    /**
+     * SupportVisible相关
+     */
     private boolean mIsSupportVisible;
     private boolean mNeedDispatch = true;
     private boolean mInvisibleWhenLeave;
     private boolean mIsFirstVisible = true;
     private boolean mFirstCreateViewCompatReplace = true;
-
     private Handler mHandler;
     private Bundle mSaveInstanceState;
-
     private ISupportFragment mSupportF;
     private Fragment mFragment;
 
@@ -54,17 +55,15 @@ public class VisibleDelegate {
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (!mFirstCreateViewCompatReplace && mFragment.getTag() != null && mFragment.getTag().startsWith("android:switcher:")) {
+        if (!mFirstCreateViewCompatReplace && mFragment.getTag() != null && mFragment.getTag().startsWith(FragmentationMagic.STRING_ANDROID_SWITCHER)) {
             return;
         }
-
         if (mFirstCreateViewCompatReplace) {
             mFirstCreateViewCompatReplace = false;
         }
-
         if (!mInvisibleWhenLeave && !mFragment.isHidden() && mFragment.getUserVisibleHint()) {
-            if ((mFragment.getParentFragment() != null && isFragmentVisible(mFragment.getParentFragment()))
-                    || mFragment.getParentFragment() == null) {
+            boolean flag = mFragment.getParentFragment() == null || isFragmentVisible(mFragment.getParentFragment());
+            if (flag) {
                 mNeedDispatch = false;
                 safeDispatchUserVisibleHint(true);
             }
@@ -92,7 +91,7 @@ public class VisibleDelegate {
 
     public void onHiddenChanged(boolean hidden) {
         if (!hidden && !mFragment.isResumed()) {
-            //if fragment is shown but not resumed, ignore...
+            // if fragment is shown but not resumed, ignore...
             mInvisibleWhenLeave = false;
             return;
         }
@@ -108,7 +107,8 @@ public class VisibleDelegate {
     }
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (mFragment.isResumed() || (!mFragment.isAdded() && isVisibleToUser)) {
+        boolean flag = mFragment.isResumed() || (!mFragment.isAdded() && isVisibleToUser);
+        if (flag) {
             if (!mIsSupportVisible && isVisibleToUser) {
                 safeDispatchUserVisibleHint(true);
             } else if (mIsSupportVisible && !isVisibleToUser) {
@@ -119,7 +119,9 @@ public class VisibleDelegate {
 
     private void safeDispatchUserVisibleHint(boolean visible) {
         if (mIsFirstVisible) {
-            if (!visible){ return;}
+            if (!visible) {
+                return;
+            }
             enqueueDispatchVisible();
         } else {
             dispatchSupportVisible(visible);
@@ -136,19 +138,19 @@ public class VisibleDelegate {
     }
 
     private void dispatchSupportVisible(boolean visible) {
-        if (visible && isParentInvisible()) {return;}
-
+        if (visible && isParentInvisible()) {
+            return;
+        }
         if (mIsSupportVisible == visible) {
             mNeedDispatch = true;
             return;
         }
-
         mIsSupportVisible = visible;
-
         if (visible) {
-            if (checkAddState()) {return;}
+            if (checkAddState()) {
+                return;
+            }
             mSupportF.onSupportVisible();
-
             if (mIsFirstVisible) {
                 mIsFirstVisible = false;
                 mSupportF.onLazyInitView(mSaveInstanceState);
@@ -164,7 +166,9 @@ public class VisibleDelegate {
         if (!mNeedDispatch) {
             mNeedDispatch = true;
         } else {
-            if (checkAddState()) {return;}
+            if (checkAddState()) {
+                return;
+            }
             FragmentManager fragmentManager = mFragment.getChildFragmentManager();
             List<Fragment> childFragments = FragmentationMagician.getActiveFragments(fragmentManager);
             if (childFragments != null) {

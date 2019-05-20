@@ -6,20 +6,21 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentationMagician;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.FragmentationMagician;
-
 /**
- * Created by YoKey on 17/6/13.
+ * @decs: SupportHelper
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:53
  */
-
 public class SupportHelper {
     private static final long SHOW_SPACE = 200L;
 
     private SupportHelper() {
+
     }
 
     /**
@@ -51,17 +52,17 @@ public class SupportHelper {
     }
 
     /**
-     * 显示栈视图dialog,调试时使用
+     * 显示栈视图dialog，调试时使用
      */
     public static void showFragmentStackHierarchyView(ISupportActivity support) {
         support.getSupportDelegate().showFragmentStackHierarchyView();
     }
 
     /**
-     * 显示栈视图日志,调试时使用
+     * 显示栈视图日志，调试时使用
      */
-    public static void logFragmentStackHierarchy(ISupportActivity support, String TAG) {
-        support.getSupportDelegate().logFragmentStackHierarchy(TAG);
+    public static void logFragmentStackHierarchy(ISupportActivity support, String tag) {
+        support.getSupportDelegate().logFragmentStackHierarchy(tag);
     }
 
     /**
@@ -76,7 +77,6 @@ public class SupportHelper {
         if (fragmentList == null) {
             return null;
         }
-
         for (int i = fragmentList.size() - 1; i >= 0; i--) {
             Fragment fragment = fragmentList.get(i);
             if (fragment instanceof ISupportFragment) {
@@ -84,7 +84,6 @@ public class SupportHelper {
                 if (containerId == 0) {
                     return iFragment;
                 }
-
                 if (containerId == iFragment.getSupportDelegate().mContainerId) {
                     return iFragment;
                 }
@@ -103,12 +102,10 @@ public class SupportHelper {
         if (fragmentManager == null) {
             return null;
         }
-
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fragmentManager);
         if (fragmentList == null) {
             return null;
         }
-
         int index = fragmentList.indexOf(fragment);
         for (int i = index - 1; i >= 0; i--) {
             Fragment preFragment = fragmentList.get(i);
@@ -123,7 +120,6 @@ public class SupportHelper {
      * Same as fragmentManager.findFragmentByTag(fragmentClass.getName());
      * find Fragment from FragmentStack
      */
-    @SuppressWarnings("unchecked")
     public static <T extends ISupportFragment> T findFragment(FragmentManager fragmentManager, Class<T> fragmentClass) {
         return findStackFragment(fragmentClass, null, fragmentManager);
     }
@@ -133,13 +129,12 @@ public class SupportHelper {
      * <p>
      * find Fragment from FragmentStack
      */
-    @SuppressWarnings("unchecked")
     public static <T extends ISupportFragment> T findFragment(FragmentManager fragmentManager, String fragmentTag) {
         return findStackFragment(null, fragmentTag, fragmentManager);
     }
 
     /**
-     * 从栈顶开始，寻找FragmentManager以及其所有子栈, 直到找到状态为show & userVisible的Fragment
+     * 从栈顶开始，寻找FragmentManager以及其所有子栈，直到找到状态为show & userVisible的Fragment
      */
     public static ISupportFragment getActiveFragment(FragmentManager fragmentManager) {
         return getActiveFragment(fragmentManager, null);
@@ -148,15 +143,12 @@ public class SupportHelper {
     @SuppressWarnings("unchecked")
     static <T extends ISupportFragment> T findStackFragment(Class<T> fragmentClass, String toFragmentTag, FragmentManager fragmentManager) {
         Fragment fragment = null;
-
         if (toFragmentTag == null) {
             List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fragmentManager);
             if (fragmentList == null) {
                 return null;
             }
-
             int sizeChildFrgList = fragmentList.size();
-
             for (int i = sizeChildFrgList - 1; i >= 0; i--) {
                 Fragment brotherFragment = fragmentList.get(i);
                 if (brotherFragment instanceof ISupportFragment && brotherFragment.getClass().getName().equals(fragmentClass.getName())) {
@@ -201,7 +193,6 @@ public class SupportHelper {
      */
     public static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
         int count = fragmentManager.getBackStackEntryCount();
-
         for (int i = count - 1; i >= 0; i--) {
             FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);
             Fragment fragment = fragmentManager.findFragmentByTag(entry.getName());
@@ -210,7 +201,6 @@ public class SupportHelper {
                 if (containerId == 0) {
                     return supportFragment;
                 }
-
                 if (containerId == supportFragment.getSupportDelegate().mContainerId) {
                     return supportFragment;
                 }
@@ -222,11 +212,9 @@ public class SupportHelper {
     @SuppressWarnings("unchecked")
     static <T extends ISupportFragment> T findBackStackFragment(Class<T> fragmentClass, String toFragmentTag, FragmentManager fragmentManager) {
         int count = fragmentManager.getBackStackEntryCount();
-
         if (toFragmentTag == null) {
             toFragmentTag = fragmentClass.getName();
         }
-
         for (int i = count - 1; i >= 0; i--) {
             FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);
 
@@ -243,14 +231,11 @@ public class SupportHelper {
     static List<Fragment> getWillPopFragments(FragmentManager fm, String targetTag, boolean includeTarget) {
         Fragment target = fm.findFragmentByTag(targetTag);
         List<Fragment> willPopFragments = new ArrayList<>();
-
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fm);
         if (fragmentList == null) {
             return willPopFragments;
         }
-
         int size = fragmentList.size();
-
         int startIndex = -1;
         for (int i = size - 1; i >= 0; i--) {
             if (target == fragmentList.get(i)) {
@@ -262,11 +247,9 @@ public class SupportHelper {
                 break;
             }
         }
-
         if (startIndex == -1) {
             return willPopFragments;
         }
-
         for (int i = size - 1; i >= startIndex; i--) {
             Fragment fragment = fragmentList.get(i);
             if (fragment != null && fragment.getView() != null) {

@@ -15,119 +15,242 @@ import java.util.ArrayList;
 import fragmentation.helper.internal.TransactionRecord;
 
 /**
- * Created by YoKey on 16/11/24.
+ * @decs: BaseExtraTransaction
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:41
  */
-public abstract class ExtraTransaction {
-
+public abstract class BaseExtraTransaction {
     /**
-     * @param tag Optional tag name for the fragment, to later retrieve the
-     *            fragment with {@link SupportHelper#findFragment(FragmentManager, String)}
-     *            , pop(String)
-     *            or FragmentManager.findFragmentByTag(String).
+     * setTag
+     *
+     * @param tag Optional tag name for the fragment,
+     *            to later retrieve the fragment with {@link SupportHelper#findFragment(FragmentManager, String)},
+     *            pop(String) or FragmentManager.findFragmentByTag(String).
+     * @return BaseExtraTransaction
      */
-    public abstract ExtraTransaction setTag(String tag);
+    public abstract BaseExtraTransaction setTag(String tag);
 
     /**
-     * Set specific animation resources to run for the fragments that are
-     * entering and exiting in this transaction. These animations will not be
-     * played when popping the back stack.
+     * setCustomAnimations
+     * <p>
+     * Set specific animation resources to run for the fragments that are entering and exiting in this transaction.
+     * These animations will not be played when popping the back stack.
+     *
+     * @param targetFragmentEnter    targetFragmentEnter
+     * @param currentFragmentPopExit currentFragmentPopExit
+     * @return BaseExtraTransaction
      */
-    public abstract ExtraTransaction setCustomAnimations(@AnimatorRes @AnimRes int targetFragmentEnter,
-                                                         @AnimatorRes @AnimRes int currentFragmentPopExit);
+    public abstract BaseExtraTransaction setCustomAnimations(@AnimatorRes @AnimRes int targetFragmentEnter, @AnimatorRes @AnimRes int currentFragmentPopExit);
 
     /**
-     * Set specific animation resources to run for the fragments that are
-     * entering and exiting in this transaction. The <code>currentFragmentPopEnter</code>
-     * and <code>targetFragmentExit</code> animations will be played for targetFragmentEnter/currentFragmentPopExit
-     * operations specifically when popping the back stack.
+     * setCustomAnimations
+     * <p>
+     * Set specific animation resources to run for the fragments that are entering and exiting in this transaction.
+     * The <code>currentFragmentPopEnter</code>
+     * and <code>targetFragmentExit</code> animations will be played for targetFragmentEnter/currentFragmentPopExit operations specifically when popping the back stack.
+     *
+     * @param targetFragmentEnter     targetFragmentEnter
+     * @param currentFragmentPopExit  currentFragmentPopExit
+     * @param currentFragmentPopEnter currentFragmentPopEnter
+     * @param targetFragmentExit      targetFragmentExit
+     * @return BaseExtraTransaction
      */
-    public abstract ExtraTransaction setCustomAnimations(@AnimatorRes @AnimRes int targetFragmentEnter,
-                                                         @AnimatorRes @AnimRes int currentFragmentPopExit,
-                                                         @AnimatorRes @AnimRes int currentFragmentPopEnter,
-                                                         @AnimatorRes @AnimRes int targetFragmentExit);
+    public abstract BaseExtraTransaction setCustomAnimations(@AnimatorRes @AnimRes int targetFragmentEnter,
+                                                             @AnimatorRes @AnimRes int currentFragmentPopExit,
+                                                             @AnimatorRes @AnimRes int currentFragmentPopEnter,
+                                                             @AnimatorRes @AnimRes int targetFragmentExit);
 
     /**
-     * Used with custom Transitions to map a View from a removed or hidden
-     * Fragment to a View from a shown or added Fragment.
+     * addSharedElement
+     * <p>
+     * Used with custom Transitions to map a View from a removed or hidden Fragment to a View from a shown or added Fragment.
      * <var>sharedElement</var> must have a unique transitionName in the View hierarchy.
      *
-     * @param sharedElement A View in a disappearing Fragment to match with a View in an
-     *                      appearing Fragment.
-     * @param sharedName    The transitionName for a View in an appearing Fragment to match to the shared
-     *                      element.
-     * @see Fragment#setSharedElementReturnTransition(Object)
+     * @param sharedElement A View in a disappearing Fragment to match with a View in an appearing Fragment.
+     * @param sharedName    The transitionName for a View in an appearing Fragment to match to the shared element.
+     * @return BaseExtraTransaction
      * @see Fragment#setSharedElementEnterTransition(Object)
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
-    public abstract ExtraTransaction addSharedElement(View sharedElement, String sharedName);
+    public abstract BaseExtraTransaction addSharedElement(View sharedElement, String sharedName);
 
+    /**
+     * loadRootFragment
+     *
+     * @param containerId containerId
+     * @param toFragment  toFragment
+     */
     public abstract void loadRootFragment(int containerId, ISupportFragment toFragment);
 
+    /**
+     * loadRootFragment
+     *
+     * @param containerId    containerId
+     * @param toFragment     toFragment
+     * @param addToBackStack addToBackStack
+     * @param allowAnim      allowAnim
+     */
     public abstract void loadRootFragment(int containerId, ISupportFragment toFragment, boolean addToBackStack, boolean allowAnim);
 
+    /**
+     * start
+     *
+     * @param toFragment toFragment
+     */
     public abstract void start(ISupportFragment toFragment);
 
+    /**
+     * startDontHideSelf
+     *
+     * @param toFragment toFragment
+     */
     public abstract void startDontHideSelf(ISupportFragment toFragment);
 
+    /**
+     * startDontHideSelf
+     *
+     * @param toFragment toFragment
+     * @param launchMode launchMode
+     */
     public abstract void startDontHideSelf(ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode);
 
+    /**
+     * start
+     *
+     * @param toFragment toFragment
+     * @param launchMode launchMode
+     */
     public abstract void start(ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode);
 
+    /**
+     * startForResult
+     *
+     * @param toFragment  toFragment
+     * @param requestCode requestCode
+     */
     public abstract void startForResult(ISupportFragment toFragment, int requestCode);
 
+    /**
+     * startForResultDontHideSelf
+     *
+     * @param toFragment  toFragment
+     * @param requestCode requestCode
+     */
     public abstract void startForResultDontHideSelf(ISupportFragment toFragment, int requestCode);
 
+    /**
+     * startWithPop
+     *
+     * @param toFragment toFragment
+     */
     public abstract void startWithPop(ISupportFragment toFragment);
 
+    /**
+     * startWithPopTo
+     *
+     * @param toFragment            toFragment
+     * @param targetFragmentTag     targetFragmentTag
+     * @param includeTargetFragment includeTargetFragment
+     */
     public abstract void startWithPopTo(ISupportFragment toFragment, String targetFragmentTag, boolean includeTargetFragment);
 
+    /**
+     * replace
+     *
+     * @param toFragment toFragment
+     */
     public abstract void replace(ISupportFragment toFragment);
 
     /**
-     * 使用setTag()自定义Tag时，使用下面popTo()／popToChild()出栈
+     * popTo
+     * <p>
+     * setTag()自定Tag时通下popTo()／popToChild()出栈。
      *
-     * @param targetFragmentTag     通过setTag()设置的tag
-     * @param includeTargetFragment 是否包含目标(Tag为targetFragmentTag)Fragment
+     * @param targetFragmentTag     通setTag()所设tag
+     * @param includeTargetFragment 含目标（Tag为targetFragmentTag）Fragment否
      */
     public abstract void popTo(String targetFragmentTag, boolean includeTargetFragment);
 
+    /**
+     * popTo
+     *
+     * @param targetFragmentTag           targetFragmentTag
+     * @param includeTargetFragment       includeTargetFragment
+     * @param afterPopTransactionRunnable afterPopTransactionRunnable
+     * @param popAnim                     popAnim
+     */
     public abstract void popTo(String targetFragmentTag, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim);
 
+    /**
+     * popToChild
+     *
+     * @param targetFragmentTag     targetFragmentTag
+     * @param includeTargetFragment includeTargetFragment
+     */
     public abstract void popToChild(String targetFragmentTag, boolean includeTargetFragment);
 
+    /**
+     * popToChild
+     *
+     * @param targetFragmentTag           targetFragmentTag
+     * @param includeTargetFragment       includeTargetFragment
+     * @param afterPopTransactionRunnable afterPopTransactionRunnable
+     * @param popAnim                     popAnim
+     */
     public abstract void popToChild(String targetFragmentTag, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim);
 
     /**
+     * dontAddToBackStack
+     * <p>
      * Don't add this extraTransaction to the back stack.
+     *
+     * @return DontAddToBackStackTransaction
      */
     public abstract DontAddToBackStackTransaction dontAddToBackStack();
 
     /**
-     * 使用dontAddToBackStack() 加载Fragment时， 使用remove()移除Fragment
+     * 移除
+     * <p>
+     * dontAddToBackStack()加载Fragment时用remove()移Fragment。
+     *
+     * @param fragment        fragment
+     * @param showPreFragment showPreFragment
      */
     public abstract void remove(ISupportFragment fragment, boolean showPreFragment);
 
     public interface DontAddToBackStackTransaction {
         /**
-         * add() +  hide(preFragment)
+         * start
+         * <p>
+         * add() + hide(preFragment)
+         *
+         * @param toFragment toFragment
          */
         void start(ISupportFragment toFragment);
 
         /**
-         * Only add()
+         * add
+         * <p>
+         * Only add().
+         *
+         * @param toFragment toFragment
          */
         void add(ISupportFragment toFragment);
 
         /**
-         * replace()
+         * replace
+         *
+         * @param toFragment toFragment
          */
         void replace(ISupportFragment toFragment);
     }
 
     /**
      * Impl
+     *
+     * @param <T> ISupportFragment
      */
-    final static class ExtraTransactionImpl<T extends ISupportFragment> extends ExtraTransaction implements DontAddToBackStackTransaction {
+    final static class BaseExtraTransactionImpl<T extends ISupportFragment> extends BaseExtraTransaction implements DontAddToBackStackTransaction {
         private FragmentActivity mActivity;
         private T mSupportF;
         private Fragment mFragment;
@@ -135,7 +258,7 @@ public abstract class ExtraTransaction {
         private boolean mFromActivity;
         private TransactionRecord mRecord;
 
-        ExtraTransactionImpl(FragmentActivity activity, T supportF, TransactionDelegate transactionDelegate, boolean fromActivity) {
+        BaseExtraTransactionImpl(FragmentActivity activity, T supportF, TransactionDelegate transactionDelegate, boolean fromActivity) {
             this.mActivity = activity;
             this.mSupportF = supportF;
             this.mFragment = (Fragment) supportF;
@@ -145,14 +268,13 @@ public abstract class ExtraTransaction {
         }
 
         @Override
-        public ExtraTransaction setTag(String tag) {
+        public BaseExtraTransaction setTag(String tag) {
             mRecord.tag = tag;
             return this;
         }
 
         @Override
-        public ExtraTransaction setCustomAnimations(@AnimRes int targetFragmentEnter
-                , @AnimRes int currentFragmentPopExit) {
+        public BaseExtraTransaction setCustomAnimations(@AnimRes int targetFragmentEnter, @AnimRes int currentFragmentPopExit) {
             mRecord.targetFragmentEnter = targetFragmentEnter;
             mRecord.currentFragmentPopExit = currentFragmentPopExit;
             mRecord.currentFragmentPopEnter = 0;
@@ -161,10 +283,10 @@ public abstract class ExtraTransaction {
         }
 
         @Override
-        public ExtraTransaction setCustomAnimations(@AnimRes int targetFragmentEnter,
-                                                    @AnimRes int currentFragmentPopExit,
-                                                    @AnimRes int currentFragmentPopEnter,
-                                                    @AnimRes int targetFragmentExit) {
+        public BaseExtraTransaction setCustomAnimations(@AnimRes int targetFragmentEnter,
+                                                        @AnimRes int currentFragmentPopExit,
+                                                        @AnimRes int currentFragmentPopEnter,
+                                                        @AnimRes int targetFragmentExit) {
             mRecord.targetFragmentEnter = targetFragmentEnter;
             mRecord.currentFragmentPopExit = currentFragmentPopExit;
             mRecord.currentFragmentPopEnter = currentFragmentPopEnter;
@@ -173,7 +295,7 @@ public abstract class ExtraTransaction {
         }
 
         @Override
-        public ExtraTransaction addSharedElement(View sharedElement, String sharedName) {
+        public BaseExtraTransaction addSharedElement(View sharedElement, String sharedName) {
             if (mRecord.sharedElementList == null) {
                 mRecord.sharedElementList = new ArrayList<>();
             }
@@ -205,7 +327,7 @@ public abstract class ExtraTransaction {
 
         @Override
         public void popTo(String targetFragmentTag, boolean includeTargetFragment) {
-            popTo(targetFragmentTag, includeTargetFragment, null, TransactionDelegate.DEFAULT_POPTO_ANIM);
+            popTo(targetFragmentTag, includeTargetFragment, null, TransactionDelegate.DEFAULT_POP_TO_ANIM);
         }
 
         @Override
@@ -215,7 +337,7 @@ public abstract class ExtraTransaction {
 
         @Override
         public void popToChild(String targetFragmentTag, boolean includeTargetFragment) {
-            popToChild(targetFragmentTag, includeTargetFragment, null, TransactionDelegate.DEFAULT_POPTO_ANIM);
+            popToChild(targetFragmentTag, includeTargetFragment, null, TransactionDelegate.DEFAULT_POP_TO_ANIM);
         }
 
         @Override

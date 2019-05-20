@@ -21,14 +21,14 @@ import com.zsp.smartfragment.R;
 import java.util.List;
 
 /**
- * Created by YoKeyword on 16/2/21.
+ * @decs: DebugHierarchyViewContainer
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:26
  */
 public class DebugHierarchyViewContainer extends ScrollView {
     private Context mContext;
-
     private LinearLayout mLinearLayout;
     private LinearLayout mTitleLayout;
-
     private int mItemHeight;
     private int mPadding;
 
@@ -54,7 +54,6 @@ public class DebugHierarchyViewContainer extends ScrollView {
         mLinearLayout.setOrientation(LinearLayout.VERTICAL);
         hScrollView.addView(mLinearLayout);
         addView(hScrollView);
-
         mItemHeight = dip2px(50);
         mPadding = dip2px(16);
     }
@@ -68,11 +67,9 @@ public class DebugHierarchyViewContainer extends ScrollView {
         mLinearLayout.removeAllViews();
         LinearLayout ll = getTitleLayout();
         mLinearLayout.addView(ll);
-
         if (fragmentRecords == null) {
             return;
         }
-
         DebugHierarchyViewContainer.this.setView(fragmentRecords, 0, null);
     }
 
@@ -81,22 +78,19 @@ public class DebugHierarchyViewContainer extends ScrollView {
         if (mTitleLayout != null) {
             return mTitleLayout;
         }
-
         mTitleLayout = new LinearLayout(mContext);
         mTitleLayout.setPadding(dip2px(24), dip2px(24), 0, dip2px(8));
         mTitleLayout.setOrientation(LinearLayout.HORIZONTAL);
         ViewGroup.LayoutParams flParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLayout.setLayoutParams(flParams);
-
         TextView title = new TextView(mContext);
-        title.setText("栈视图(Stack)");
+        title.setText(getContext().getString(R.string.stackView));
         title.setTextSize(20);
         title.setTextColor(Color.BLACK);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         p.gravity = Gravity.CENTER_VERTICAL;
         title.setLayoutParams(p);
         mTitleLayout.addView(title);
-
         ImageView img = new ImageView(mContext);
         img.setImageResource(R.drawable.fragmentation_help);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -117,39 +111,36 @@ public class DebugHierarchyViewContainer extends ScrollView {
         for (int i = fragmentRecordList.size() - 1; i >= 0; i--) {
             DebugFragmentRecord child = fragmentRecordList.get(i);
             int tempHierarchy = hierarchy;
-
             final TextView childTvItem;
             childTvItem = getTextView(child, tempHierarchy);
             childTvItem.setTag(R.id.hierarchy, tempHierarchy);
-
             final List<DebugFragmentRecord> childFragmentRecord = child.childFragmentRecord;
             if (childFragmentRecord != null && childFragmentRecord.size() > 0) {
                 tempHierarchy++;
-                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_ic_right, 0, 0, 0);
-                final int finalChilHierarchy = tempHierarchy;
+                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_right, 0, 0, 0);
+                final int finalChildHierarchy = tempHierarchy;
                 childTvItem.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (v.getTag(R.id.isexpand) != null) {
-                            boolean isExpand = (boolean) v.getTag(R.id.isexpand);
+                        if (v.getTag(R.id.isExpand) != null) {
+                            boolean isExpand = (boolean) v.getTag(R.id.isExpand);
                             if (isExpand) {
-                                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_ic_right, 0, 0, 0);
-                                DebugHierarchyViewContainer.this.removeView(finalChilHierarchy);
+                                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_right, 0, 0, 0);
+                                DebugHierarchyViewContainer.this.removeView(finalChildHierarchy);
                             } else {
-                                handleExpandView(childFragmentRecord, finalChilHierarchy, childTvItem);
+                                handleExpandView(childFragmentRecord, finalChildHierarchy, childTvItem);
 
                             }
-                            v.setTag(R.id.isexpand, !isExpand);
+                            v.setTag(R.id.isExpand, !isExpand);
                         } else {
-                            childTvItem.setTag(R.id.isexpand, true);
-                            handleExpandView(childFragmentRecord, finalChilHierarchy, childTvItem);
+                            childTvItem.setTag(R.id.isExpand, true);
+                            handleExpandView(childFragmentRecord, finalChildHierarchy, childTvItem);
                         }
                     }
                 });
             } else {
                 childTvItem.setPadding(childTvItem.getPaddingLeft() + mPadding, 0, mPadding, 0);
             }
-
             if (tvItem == null) {
                 mLinearLayout.addView(childTvItem);
             } else {
@@ -160,7 +151,7 @@ public class DebugHierarchyViewContainer extends ScrollView {
 
     private void handleExpandView(List<DebugFragmentRecord> childFragmentRecord, int finalChilHierarchy, TextView childTvItem) {
         DebugHierarchyViewContainer.this.setView(childFragmentRecord, finalChilHierarchy, childTvItem);
-        childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_ic_expandable, 0, 0, 0);
+        childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_expandable, 0, 0, 0);
     }
 
     private void removeView(int hierarchy) {
@@ -175,7 +166,6 @@ public class DebugHierarchyViewContainer extends ScrollView {
 
     private TextView getTextView(DebugFragmentRecord fragmentRecord, int hierarchy) {
         TextView tvItem = new TextView(mContext);
-
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemHeight);
         tvItem.setLayoutParams(params);
         if (hierarchy == 0) {
@@ -185,13 +175,10 @@ public class DebugHierarchyViewContainer extends ScrollView {
         tvItem.setGravity(Gravity.CENTER_VERTICAL);
         tvItem.setPadding((int) (mPadding + hierarchy * mPadding * 1.5), 0, mPadding, 0);
         tvItem.setCompoundDrawablePadding(mPadding / 2);
-
         TypedArray a = mContext.obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
-        tvItem.setBackgroundDrawable(a.getDrawable(0));
+        tvItem.setBackground(a.getDrawable(0));
         a.recycle();
-
         tvItem.setText(fragmentRecord.fragmentName);
-
         return tvItem;
     }
 }

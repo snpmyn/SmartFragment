@@ -6,19 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import fragmentation.ExtraTransaction;
+import fragmentation.BaseExtraTransaction;
 import fragmentation.ISupportActivity;
 import fragmentation.ISupportFragment;
 import fragmentation.SupportActivityDelegate;
 import fragmentation.SupportHelper;
-import fragmentation.anim.FragmentAnimator;
+import fragmentation.animation.FragmentAnimator;
 
 /**
- * Base class for activities that use the support-based
- * {@link ISupportActivity} and
- * {@link AppCompatActivity} APIs.
- * <p>
- * Created by YoKey on 17/6/20.
+ * @decs: SupportActivity
+ * Base class for activities that use the support-based.
+ * {@link ISupportActivity} and {@link AppCompatActivity} APIs.
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:56
  */
 public class SupportActivity extends AppCompatActivity implements ISupportActivity {
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
@@ -33,7 +33,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
      * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
      */
     @Override
-    public ExtraTransaction extraTransaction() {
+    public BaseExtraTransaction extraTransaction() {
         return mDelegate.extraTransaction();
     }
 
@@ -64,7 +64,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
     }
 
     /**
-     * 不建议复写该方法,请使用 {@link #onBackPressedSupport} 代替
+     * 不建议复写该方法，请使用{@link #onBackPressedSupport}代替
      */
     @Override
     final public void onBackPressed() {
@@ -72,8 +72,8 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
     }
 
     /**
-     * 该方法回调时机为,Activity回退栈内Fragment的数量 小于等于1 时,默认finish Activity
-     * 请尽量复写该方法,避免复写onBackPress(),以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
+     * 该方法回调时机为，Activity回退栈内Fragment的数量小于等于1时，默认finish Activity
+     * 请尽量复写该方法，避免复写onBackPress()，以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
      */
     @Override
     public void onBackPressedSupport() {
@@ -103,8 +103,8 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
      * Set all fragments animation.
      * 构建Fragment转场动画
      * <p/>
-     * 如果是在Activity内实现,则构建的是Activity内所有Fragment的转场动画,
-     * 如果是在Fragment内实现,则构建的是该Fragment的转场动画,此时优先级 > Activity的onCreateFragmentAnimator()
+     * 如果是在Activity内实现，则构建的是Activity内所有Fragment的转场动画，
+     * 如果是在Fragment内实现，则构建的是该Fragment的转场动画，此时优先级 > Activity的onCreateFragmentAnimator()
      *
      * @return FragmentAnimator对象
      */
@@ -121,7 +121,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
     /****************************************以下为可选方法(Optional methods)******************************************************/
 
     /**
-     * 加载根Fragment, 即Activity内的第一个Fragment 或 Fragment内的第一个子Fragment
+     * 加载根Fragment，即Activity内的第一个Fragment或Fragment内的第一个子Fragment
      *
      * @param containerId 容器id
      * @param toFragment  目标Fragment
@@ -135,7 +135,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
     }
 
     /**
-     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     * 加载多个同级根Fragment，类似WeChat、QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, ISupportFragment... toFragments) {
         mDelegate.loadMultipleRootFragment(containerId, showPosition, toFragments);
@@ -143,7 +143,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
 
     /**
      * show一个Fragment,hide其他同栈所有Fragment
-     * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+     * 使用该方法时，要确保同级栈内无多余的Fragment（只有通过loadMultipleRootFragment()载入的Fragment）
      * <p>
      * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
      *
@@ -154,7 +154,8 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
     }
 
     /**
-     * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+     * show一个Fragment，hide一个Fragment
+     * 主要用于类似微信主页那种切换tab的情况
      */
     public void showHideFragment(ISupportFragment showFragment, ISupportFragment hideFragment) {
         mDelegate.showHideFragment(showFragment, hideFragment);
@@ -232,7 +233,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
 
     /**
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
-     * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
+     * 如果你想在出栈后立刻进行FragmentTransaction操作，请使用该方法
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
         mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);

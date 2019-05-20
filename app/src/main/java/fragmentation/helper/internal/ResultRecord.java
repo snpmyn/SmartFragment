@@ -5,9 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * @Hide
- * Result 记录
- * Created by YoKeyword on 16/6/2.
+ * @decs: ResultRecord
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:33
  */
 public final class ResultRecord implements Parcelable {
     public int requestCode;
@@ -15,6 +15,7 @@ public final class ResultRecord implements Parcelable {
     public Bundle resultBundle;
 
     public ResultRecord() {
+
     }
 
     protected ResultRecord(Parcel in) {

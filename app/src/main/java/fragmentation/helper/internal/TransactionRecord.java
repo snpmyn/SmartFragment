@@ -5,7 +5,9 @@ import android.view.View;
 import java.util.ArrayList;
 
 /**
- * @hide Created by YoKey on 16/11/25.
+ * @decs: TransactionRecord
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:34
  */
 public final class TransactionRecord {
     public String tag;

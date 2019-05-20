@@ -4,25 +4,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import fragmentation.ExtraTransaction;
+import fragmentation.BaseExtraTransaction;
 import fragmentation.ISupportFragment;
 import fragmentation.SupportFragmentDelegate;
 import fragmentation.SupportHelper;
-import fragmentation.anim.FragmentAnimator;
+import fragmentation.animation.FragmentAnimator;
 
 /**
+ * @decs: SupportFragment
  * Base class for activities that use the support-based
- * {@link ISupportFragment} and
- * {@link Fragment} APIs.
- * Created by YoKey on 17/6/22.
+ * {@link ISupportFragment} and {@link Fragment} APIs.
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:58
  */
 public class SupportFragment extends Fragment implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
-    protected FragmentActivity _mActivity;
+    protected FragmentActivity fragmentationActivity;
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -34,7 +36,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
      */
     @Override
-    public ExtraTransaction extraTransaction() {
+    public BaseExtraTransaction extraTransaction() {
         return mDelegate.extraTransaction();
     }
 
@@ -42,7 +44,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mDelegate.onAttach(activity);
-        _mActivity = mDelegate.getActivity();
+        fragmentationActivity = mDelegate.getActivity();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mDelegate.onSaveInstanceState(outState);
     }
@@ -109,14 +111,14 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * <p>
      * The runnable will be run after all the previous action has been run.
      * <p>
-     * 前面的事务全部执行后 执行该Action
+     * 前面的事务全部执行后执行该Action
      *
      * @deprecated Use {@link #post(Runnable)} instead.
      */
     @Deprecated
     @Override
     public void enqueueAction(Runnable runnable) {
-        mDelegate.enqueueAction(runnable);
+        mDelegate.post(runnable);
     }
 
     /**
@@ -124,7 +126,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * <p>
      * The runnable will be run after all the previous action has been run.
      * <p>
-     * 前面的事务全部执行后 执行该Action
+     * 前面的事务全部执行后执行该Action
      */
     @Override
     public void post(Runnable runnable) {
@@ -133,18 +135,17 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     /**
      * Called when the enter-animation end.
-     * 入栈动画 结束时,回调
+     * 入栈动画结束时回调
      */
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         mDelegate.onEnterAnimationEnd(savedInstanceState);
     }
 
-
     /**
      * Lazy initial，Called when fragment is first called.
      * <p>
-     * 同级下的 懒加载 ＋ ViewPager下的懒加载  的结合回调方法
+     * 同级下的懒加载 ＋ ViewPager下的懒加载的结合回调方法
      */
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
@@ -163,7 +164,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * Called when the fragment is invivible.
+     * Called when the fragment is invisible.
      * <p>
      * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
@@ -182,7 +183,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     /**
      * Set fragment animation with a higher priority than the ISupportActivity
-     * 设定当前Fragmemt动画,优先级比在SupportActivity里高
+     * 设定当前Fragment动画，优先级比在SupportActivity里高
      */
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
@@ -190,7 +191,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 获取设置的全局动画 copy
+     * 获取设置的全局动画copy
      *
      * @return FragmentAnimator
      */
@@ -208,9 +209,9 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 按返回键触发,前提是SupportActivity的onBackPressed()方法能被调用
+     * 按返回键触发，前提是SupportActivity的onBackPressed()方法能被调用
      *
-     * @return false则继续向上传递, true则消费掉该事件
+     * @return false则继续向上传递，true则消费掉该事件
      */
     @Override
     public boolean onBackPressedSupport() {
@@ -218,7 +219,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 类似 {@link Activity#setResult(int, Intent)}
+     * 类似{@link Activity#setResult(int, Intent)}
      * <p>
      * Similar to {@link Activity#setResult(int, Intent)}
      *
@@ -230,7 +231,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 类似  {@link Activity#onActivityResult(int, int, Intent)}
+     * 类似{@link Activity#onActivityResult(int, int, Intent)}
      * <p>
      * Similar to {@link Activity#onActivityResult(int, int, Intent)}
      *
@@ -242,7 +243,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 在start(TargetFragment,LaunchMode)时,启动模式为SingleTask/SingleTop, 回调TargetFragment的该方法
+     * 在start(TargetFragment,LaunchMode)时，启动模式为SingleTask/SingleTop, 回调TargetFragment的该方法
      * 类似 {@link Activity#onNewIntent(Intent)}
      * <p>
      * Similar to {@link Activity#onNewIntent(Intent)}
@@ -256,7 +257,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 添加NewBundle,用于启动模式为SingleTask/SingleTop时
+     * 添加NewBundle，用于启动模式为SingleTask/SingleTop时
      *
      * @see #start(ISupportFragment, int)
      */
@@ -264,7 +265,6 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     public void putNewBundle(Bundle newBundle) {
         mDelegate.putNewBundle(newBundle);
     }
-
 
     /****************************************以下为可选方法(Optional methods)******************************************************/
 
@@ -276,14 +276,14 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 显示软键盘,调用该方法后,会在onPause时自动隐藏软键盘
+     * 显示软键盘，调用该方法后，会在onPause时自动隐藏软键盘
      */
     protected void showSoftInput(final View view) {
         mDelegate.showSoftInput(view);
     }
 
     /**
-     * 加载根Fragment, 即Activity内的第一个Fragment 或 Fragment内的第一个子Fragment
+     * 加载根Fragment，即Activity内的第一个Fragment或Fragment内的第一个子Fragment
      *
      * @param containerId 容器id
      * @param toFragment  目标Fragment
@@ -297,15 +297,15 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     * 加载多个同级根Fragment，类似WeChat、QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, ISupportFragment... toFragments) {
         mDelegate.loadMultipleRootFragment(containerId, showPosition, toFragments);
     }
 
     /**
-     * show一个Fragment,hide其他同栈所有Fragment
-     * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+     * show一个Fragment，hide其他同栈所有Fragment
+     * 使用该方法时，要确保同级栈内无多余的Fragment（只有通过loadMultipleRootFragment()载入的Fragment）
      * <p>
      * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
      *
@@ -316,7 +316,8 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     /**
-     * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+     * show一个Fragment，hide一个Fragment
+     * 主要用于类似微信主页那种切换tab的情况
      */
     public void showHideFragment(ISupportFragment showFragment, ISupportFragment hideFragment) {
         mDelegate.showHideFragment(showFragment, hideFragment);
@@ -356,7 +357,6 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         mDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
     }
 
-
     public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
         mDelegate.replaceFragment(toFragment, addToBackStack);
     }
@@ -387,7 +387,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     /**
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
-     * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
+     * 如果你想在出栈后立刻进行FragmentTransaction操作，请使用该方法
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
         mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);

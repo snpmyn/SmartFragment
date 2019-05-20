@@ -1,5 +1,6 @@
 package androidx.fragment.app;
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import java.lang.reflect.Field;
@@ -8,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * http://stackoverflow.com/questions/23504790/android-multiple-fragment-transaction-ordering
- * <p>
- * Created by YoKey on 16/1/22.
+ * @decs: FragmentationMagician
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:22
  */
 public class FragmentationMagician {
     private static boolean sSupportLessThan25dot4 = false;
@@ -19,10 +20,12 @@ public class FragmentationMagician {
     static {
         Field[] fields = FragmentManagerImpl.class.getDeclaredFields();
         for (Field field : fields) {
-            if (field.getName().equals("mStopped")) { //  > v27.1.0
+            if ("mStopped".equals(field.getName())) {
+                // > v27.1.0
                 sSupportGreaterThan27dot1dot0 = true;
                 break;
-            } else if (field.getName().equals("mAvailIndices")) { // < 25.4.0
+            } else if ("mAvailIndices".equals(field.getName())) {
+                // < 25.4.0
                 sSupportLessThan25dot4 = true;
                 break;
             }
@@ -47,8 +50,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * To fix the FragmentManagerImpl.mAvailIndices incorrect ordering when pop() multiple Fragments
-     * on pre-support-v4-25.4.0
+     * To fix the FragmentManagerImpl.mAvailIndices incorrect ordering when pop() multiple Fragments on pre-support-v4-25.4.0
      */
     @SuppressWarnings("unchecked")
     public static void reorderIndices(FragmentManager fragmentManager) {
@@ -87,11 +89,9 @@ public class FragmentationMagician {
     }
 
     /**
-     * Like {@link FragmentManager#popBackStack()}} but allows the commit to be executed after an
-     * activity's state is saved.  This is dangerous because the action can
-     * be lost if the activity needs to later be restored from its state, so
-     * this should only be used for cases where it is okay for the UI state
-     * to change unexpectedly on the user.
+     * Like {@link FragmentManager#popBackStack()}} but allows the commit to be executed after an activity's state is saved.
+     * This is dangerous because the action can be lost if the activity needs to later be restored from its state,
+     * so this should only be used for cases where it is okay for the UI state to change unexpectedly on the user.
      */
     public static void popBackStackAllowingStateLoss(final FragmentManager fragmentManager) {
         FragmentationMagician.hookStateSaved(fragmentManager, new Runnable() {
@@ -103,8 +103,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * Like {@link FragmentManager#popBackStackImmediate()}} but allows the commit to be executed after an
-     * activity's state is saved.
+     * Like {@link FragmentManager#popBackStackImmediate()}} but allows the commit to be executed after an activity's state is saved.
      */
     public static void popBackStackImmediateAllowingStateLoss(final FragmentManager fragmentManager) {
         FragmentationMagician.hookStateSaved(fragmentManager, new Runnable() {
@@ -116,8 +115,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * Like {@link FragmentManager#popBackStackImmediate(String, int)}} but allows the commit to be executed after an
-     * activity's state is saved.
+     * Like {@link FragmentManager#popBackStackImmediate(String, int)}} but allows the commit to be executed after an activity's state is saved.
      */
     public static void popBackStackAllowingStateLoss(final FragmentManager fragmentManager, final String name, final int flags) {
         FragmentationMagician.hookStateSaved(fragmentManager, new Runnable() {
@@ -129,8 +127,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * Like {@link FragmentManager#executePendingTransactions()} but allows the commit to be executed after an
-     * activity's state is saved.
+     * Like {@link FragmentManager#executePendingTransactions()} but allows the commit to be executed after an activity's state is saved.
      */
     public static void executePendingTransactionsAllowingStateLoss(final FragmentManager fragmentManager) {
         FragmentationMagician.hookStateSaved(fragmentManager, new Runnable() {
@@ -142,7 +139,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * On 25.4.0+，fragmentManager.getFragments () returns mAdd, instead of the mActive on 25.4.0-
+     * On 25.4.0+，fragmentManager.getFragments () returns mAdd, instead of the mActive on 25.4.0-.
      */
     @SuppressWarnings("unchecked")
     public static List<Fragment> getActiveFragments(FragmentManager fragmentManager) {
@@ -153,7 +150,6 @@ public class FragmentationMagician {
         if (sSupportLessThan25dot4) {
             return fragmentManager.getFragments();
         }
-
         // For compat 25.4.0+
         try {
             FragmentManagerImpl fragmentManagerImpl = (FragmentManagerImpl) fragmentManager;
@@ -178,7 +174,7 @@ public class FragmentationMagician {
         return fragments;
     }
 
-    private static Object getValue(Object object, String fieldName) throws Exception {
+    private static Object getValue(Object object, String fieldName) {
         Field field;
         Class<?> clazz = object.getClass();
         try {
@@ -186,6 +182,7 @@ public class FragmentationMagician {
             field.setAccessible(true);
             return field.get(object);
         } catch (Exception e) {
+            Log.e("getValue", e.getMessage());
         }
         return null;
     }
@@ -194,7 +191,6 @@ public class FragmentationMagician {
         if (!(fragmentManager instanceof FragmentManagerImpl)) {
             return;
         }
-
         FragmentManagerImpl fragmentManagerImpl = (FragmentManagerImpl) fragmentManager;
         if (isStateSaved(fragmentManager)) {
             fragmentManagerImpl.mStateSaved = false;
@@ -217,7 +213,6 @@ public class FragmentationMagician {
             runnable.run();
             return;
         }
-
         fragmentManagerImpl.mStopped = false;
         runnable.run();
         fragmentManagerImpl.mStopped = true;

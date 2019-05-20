@@ -9,20 +9,23 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-
 import androidx.fragment.app.FragmentationMagician;
-import fragmentation.anim.DefaultVerticalAnimator;
-import fragmentation.anim.FragmentAnimator;
-import fragmentation.debug.DebugStackDelegate;
-import fragmentation.queue.Action;
 
+import fragmentation.animation.DefaultVerticalAnimator;
+import fragmentation.animation.FragmentAnimator;
+import fragmentation.debug.DebugStackDelegate;
+import fragmentation.queue.BaseAction;
+
+/**
+ * @decs: SupportActivityDelegate
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:48
+ */
 public class SupportActivityDelegate {
     private ISupportActivity mSupport;
     private FragmentActivity mActivity;
-
     boolean mPopMultipleNoAnim = false;
     boolean mFragmentClickable = true;
-
     private TransactionDelegate mTransactionDelegate;
     private FragmentAnimator mFragmentAnimator;
     private int mDefaultFragmentBackground = 0;
@@ -40,14 +43,13 @@ public class SupportActivityDelegate {
      * Perform some extra transactions.
      * 额外的事务：自定义Tag，添加SharedElement动画，操作非回退栈Fragment
      */
-    public ExtraTransaction extraTransaction() {
-        return new ExtraTransaction.ExtraTransactionImpl<>((FragmentActivity) mSupport, getTopFragment(), getTransactionDelegate(), true);
+    public BaseExtraTransaction extraTransaction() {
+        return new BaseExtraTransaction.BaseExtraTransactionImpl<>((FragmentActivity) mSupport, getTopFragment(), getTransactionDelegate(), true);
     }
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mTransactionDelegate = getTransactionDelegate();
         mDebugStackDelegate = new DebugStackDelegate(mActivity);
-
         mFragmentAnimator = mSupport.onCreateFragmentAnimator();
         mDebugStackDelegate.onCreate(Fragmentation.getDefault().getMode());
     }
@@ -64,7 +66,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * 获取设置的全局动画 copy
+     * 获取设置的全局动画copy
      *
      * @return FragmentAnimator
      */
@@ -78,7 +80,6 @@ public class SupportActivityDelegate {
      */
     public void setFragmentAnimator(FragmentAnimator fragmentAnimator) {
         this.mFragmentAnimator = fragmentAnimator;
-
         for (Fragment fragment : FragmentationMagician.getActiveFragments(getSupportFragmentManager())) {
             if (fragment instanceof ISupportFragment) {
                 ISupportFragment iF = (ISupportFragment) fragment;
@@ -97,8 +98,8 @@ public class SupportActivityDelegate {
      * Set all fragments animation.
      * 构建Fragment转场动画
      * <p/>
-     * 如果是在Activity内实现,则构建的是Activity内所有Fragment的转场动画,
-     * 如果是在Fragment内实现,则构建的是该Fragment的转场动画,此时优先级 > Activity的onCreateFragmentAnimator()
+     * 如果是在Activity内实现，则构建的是Activity内所有Fragment的转场动画，
+     * 如果是在Fragment内实现，则构建的是该Fragment的转场动画,此时优先级 >Activity的onCreateFragmentAnimator()
      *
      * @return FragmentAnimator对象
      */
@@ -107,7 +108,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * 当Fragment根布局 没有 设定background属性时,
+     * 当Fragment根布局没有设定background属性时,
      * Fragmentation默认使用Theme的android:windowbackground作为Fragment的背景,
      * 可以通过该方法改变Fragment背景。
      */
@@ -120,17 +121,17 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * 显示栈视图dialog,调试时使用
+     * 显示栈视图dialog，调试时使用
      */
     public void showFragmentStackHierarchyView() {
         mDebugStackDelegate.showFragmentStackHierarchyView();
     }
 
     /**
-     * 显示栈视图日志,调试时使用
+     * 显示栈视图日志，调试时使用
      */
-    public void logFragmentStackHierarchy(String TAG) {
-        mDebugStackDelegate.logFragmentRecords(TAG);
+    public void logFragmentStackHierarchy(String tag) {
+        mDebugStackDelegate.logFragmentRecords(tag);
     }
 
     /**
@@ -138,37 +139,35 @@ public class SupportActivityDelegate {
      * <p>
      * The runnable will be run after all the previous action has been run.
      * <p>
-     * 前面的事务全部执行后 执行该Action
+     * 前面的事务全部执行后执行该Action
      */
     public void post(final Runnable runnable) {
         mTransactionDelegate.post(runnable);
     }
 
     /**
-     * 不建议复写该方法,请使用 {@link #onBackPressedSupport} 代替
+     * 不建议复写该方法，请使用 {@link #onBackPressedSupport} 代替
      */
     public void onBackPressed() {
-        mTransactionDelegate.mActionQueue.enqueue(new Action(Action.ACTION_BACK) {
+        mTransactionDelegate.mActionQueue.enqueue(new BaseAction(BaseAction.ACTION_BACK) {
             @Override
             public void run() {
                 if (!mFragmentClickable) {
                     mFragmentClickable = true;
                 }
-
-                // 获取activeFragment:即从栈顶开始 状态为show的那个Fragment
+                // 获取activeFragment:即从栈顶开始状态为show的那个Fragment
                 ISupportFragment activeFragment = SupportHelper.getActiveFragment(getSupportFragmentManager());
                 if (mTransactionDelegate.dispatchBackPressedEvent(activeFragment)) {
                     return;
                 }
-
                 mSupport.onBackPressedSupport();
             }
         });
     }
 
     /**
-     * 该方法回调时机为,Activity回退栈内Fragment的数量 小于等于1 时,默认finish Activity
-     * 请尽量复写该方法,避免复写onBackPress(),以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
+     * 该方法回调时机为，Activity回退栈内Fragment的数量小于等于1时，默认finish Activity
+     * 请尽量复写该方法,避免复写onBackPress()，以保证SupportFragment内的onBackPressedSupport()回退事件正常执行
      */
     public void onBackPressedSupport() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
@@ -183,14 +182,14 @@ public class SupportActivityDelegate {
     }
 
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        // 防抖动(防止点击速度过快)
+        // 防抖动（防止点击速度过快）
         return !mFragmentClickable;
     }
 
     /**********************************************************************************************/
 
     /**
-     * 加载根Fragment, 即Activity内的第一个Fragment 或 Fragment内的第一个子Fragment
+     * 加载根Fragment，即Activity内的第一个Fragment或Fragment内的第一个子Fragment
      */
     public void loadRootFragment(int containerId, ISupportFragment toFragment) {
         loadRootFragment(containerId, toFragment, true, false);
@@ -201,7 +200,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     * 加载多个同级根Fragment，类似WeChat、QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, ISupportFragment... toFragments) {
         mTransactionDelegate.loadMultipleRootTransaction(getSupportFragmentManager(), containerId, showPosition, toFragments);
@@ -209,7 +208,7 @@ public class SupportActivityDelegate {
 
     /**
      * show一个Fragment,hide其他同栈所有Fragment
-     * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+     * 使用该方法时，要确保同级栈内无多余的Fragment（只有通过loadMultipleRootFragment()载入的Fragment）
      * <p>
      * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
      *
@@ -284,10 +283,10 @@ public class SupportActivityDelegate {
 
     /**
      * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
-     * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
+     * 如果你想在出栈后立刻进行FragmentTransaction操作，请使用该方法
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
-        popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, TransactionDelegate.DEFAULT_POPTO_ANIM);
+        popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, TransactionDelegate.DEFAULT_POP_TO_ANIM);
     }
 
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim) {

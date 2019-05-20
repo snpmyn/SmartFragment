@@ -1,4 +1,4 @@
-package fragmentation.anim;
+package fragmentation.animation;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,15 +6,16 @@ import android.os.Parcelable;
 import com.zsp.smartfragment.R;
 
 /**
- * Created by YoKeyword on 16/2/5.
+ * @decs: DefaultHorizontalAnimator
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:23
  */
 public class DefaultHorizontalAnimator extends FragmentAnimator implements Parcelable {
-
     public DefaultHorizontalAnimator() {
-        enter = R.anim.h_fragment_enter;
-        exit = R.anim.h_fragment_exit;
-        popEnter = R.anim.h_fragment_pop_enter;
-        popExit = R.anim.h_fragment_pop_exit;
+        enter = R.anim.fragmentation_enter;
+        exit = R.anim.fragmentation_exit;
+        popEnter = R.anim.fragmentation_pop_enter;
+        popExit = R.anim.fragmentation_pop_exit;
     }
 
     protected DefaultHorizontalAnimator(Parcel in) {

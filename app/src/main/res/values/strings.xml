@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SmartFragment</string>
+    <string name="stackView">栈视图(Stack)</string>
 </resources>

@@ -8,7 +8,9 @@ import java.lang.annotation.RetentionPolicy;
 import fragmentation.helper.ExceptionHandler;
 
 /**
- * Created by YoKey on 17/2/5.
+ * @decs: Fragmentation
+ * @author: 郑少鹏
+ * @date: 2019/5/20 9:42
  */
 public class Fragmentation {
     /**
@@ -23,9 +25,7 @@ public class Fragmentation {
      * As a bubble display stack view.
      */
     public static final int BUBBLE = 2;
-
     static volatile Fragmentation INSTANCE;
-
     private boolean debug;
     private int mode = BUBBLE;
     private ExceptionHandler handler;
@@ -98,11 +98,14 @@ public class Fragmentation {
         }
 
         /**
-         * Sets the mode to display the stack view
-         *
+         * FragmentationBuilder
+         * <p>
+         * Sets the mode to display the stack view.
          * None if debug(false).
+         * Default:NONE.
          *
-         * Default:NONE
+         * @param mode mode
+         * @return FragmentationBuilder
          */
         public FragmentationBuilder stackViewMode(@StackViewMode int mode) {
             this.mode = mode;
@@ -120,8 +123,7 @@ public class Fragmentation {
         public Fragmentation install() {
             synchronized (Fragmentation.class) {
                 if (Fragmentation.INSTANCE != null) {
-                    throw new RuntimeException("Default instance already exists." +
-                            " It may be only set once before it's used the first time to ensure consistent behavior.");
+                    throw new RuntimeException("Default instance already exists." + " It may be only set once before it's used the first time to ensure consistent behavior.");
                 }
                 Fragmentation.INSTANCE = new Fragmentation(this);
                 return Fragmentation.INSTANCE;
