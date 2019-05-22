@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.AnimRes;
 
 /**
- * @decs: Fragment动画实体类
+ * @decs: 碎片动画实体类
  * @author: 郑少鹏
  * @date: 2019/5/20 9:24
  */

@@ -117,7 +117,7 @@ public class DebugHierarchyViewContainer extends ScrollView {
             final List<DebugFragmentRecord> childFragmentRecord = child.childFragmentRecord;
             if (childFragmentRecord != null && childFragmentRecord.size() > 0) {
                 tempHierarchy++;
-                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_right, 0, 0, 0);
+                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_arrow_right, 0, 0, 0);
                 final int finalChildHierarchy = tempHierarchy;
                 childTvItem.setOnClickListener(new OnClickListener() {
                     @Override
@@ -125,7 +125,7 @@ public class DebugHierarchyViewContainer extends ScrollView {
                         if (v.getTag(R.id.isExpand) != null) {
                             boolean isExpand = (boolean) v.getTag(R.id.isExpand);
                             if (isExpand) {
-                                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_right, 0, 0, 0);
+                                childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_arrow_right, 0, 0, 0);
                                 DebugHierarchyViewContainer.this.removeView(finalChildHierarchy);
                             } else {
                                 handleExpandView(childFragmentRecord, finalChildHierarchy, childTvItem);
@@ -149,9 +149,9 @@ public class DebugHierarchyViewContainer extends ScrollView {
         }
     }
 
-    private void handleExpandView(List<DebugFragmentRecord> childFragmentRecord, int finalChilHierarchy, TextView childTvItem) {
-        DebugHierarchyViewContainer.this.setView(childFragmentRecord, finalChilHierarchy, childTvItem);
-        childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_expandable, 0, 0, 0);
+    private void handleExpandView(List<DebugFragmentRecord> childFragmentRecord, int finalChildHierarchy, TextView childTvItem) {
+        DebugHierarchyViewContainer.this.setView(childFragmentRecord, finalChildHierarchy, childTvItem);
+        childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_arrow_bottom, 0, 0, 0);
     }
 
     private void removeView(int hierarchy) {

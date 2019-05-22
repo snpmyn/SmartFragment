@@ -129,7 +129,7 @@ class TransactionDelegate {
     }
 
     /**
-     * Show showFragment then hide hideFragment
+     * Show showFragment then hide hideFragment.
      */
     void showHideFragment(final FragmentManager fm, final ISupportFragment showFragment, final ISupportFragment hideFragment) {
         enqueue(fm, new BaseAction() {
@@ -141,7 +141,7 @@ class TransactionDelegate {
     }
 
     /**
-     * Start the target Fragment and pop itself
+     * Start the target Fragment and pop itself.
      */
     void startWithPop(final FragmentManager fm, final ISupportFragment from, final ISupportFragment to) {
         enqueue(fm, new BaseAction(BaseAction.ACTION_POP_MOCK) {
@@ -209,9 +209,7 @@ class TransactionDelegate {
         enqueue(fm, new BaseAction(BaseAction.ACTION_POP, fm) {
             @Override
             public void run() {
-                FragmentTransaction ft = fm.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                        .remove(fragment);
+                FragmentTransaction ft = fm.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).remove(fragment);
                 if (showPreFragment) {
                     ISupportFragment preFragment = SupportHelper.getPreFragment(fragment);
                     if (preFragment instanceof Fragment) {
@@ -248,7 +246,7 @@ class TransactionDelegate {
                         .commitAllowingStateLoss();
             }
         } catch (Exception ignored) {
-
+            Log.e("removeTopFragment", ignored.getMessage());
         }
     }
 
@@ -284,7 +282,8 @@ class TransactionDelegate {
     }
 
     /**
-     * Dispatch the pop-event. Priority of the top of the stack of Fragment
+     * Dispatch the pop-event.
+     * Priority of the top of the stack of fragment.
      */
     boolean dispatchBackPressedEvent(ISupportFragment activeFragment) {
         if (activeFragment != null) {

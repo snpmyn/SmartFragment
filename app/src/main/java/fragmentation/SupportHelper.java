@@ -182,14 +182,14 @@ public class SupportHelper {
     }
 
     /**
-     * Get the topFragment from BackStack
+     * Get the topFragment from BackStack.
      */
     public static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager) {
         return getBackStackTopFragment(fragmentManager, 0);
     }
 
     /**
-     * Get the topFragment from BackStack
+     * Get the topFragment from BackStack.
      */
     private static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
         int count = fragmentManager.getBackStackEntryCount();

@@ -151,7 +151,7 @@ public class SupportActivityDelegate {
                 if (!mFragmentClickable) {
                     mFragmentClickable = true;
                 }
-                // 获取activeFragment:即从栈顶开始状态为show的那个Fragment
+                // 获取activeFragment：即从栈顶开始状态为show的那个Fragment
                 ISupportFragment activeFragment = SupportHelper.getActiveFragment(getSupportFragmentManager());
                 if (mTransactionDelegate.dispatchBackPressedEvent(activeFragment)) {
                     return;
@@ -203,7 +203,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * show一个Fragment,hide其他同栈所有Fragment
+     * show一个Fragment，hide其他同栈所有Fragment
      * 使用该方法时，要确保同级栈内无多余的Fragment（只有通过loadMultipleRootFragment()载入的Fragment）
      * <p>
      * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
@@ -215,7 +215,7 @@ public class SupportActivityDelegate {
     }
 
     /**
-     * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+     * show一个Fragment，hide一个Fragment；主要用于类似微信主页那种切换tab的情况
      *
      * @param showFragment 需要show的Fragment
      * @param hideFragment 需要hide的Fragment

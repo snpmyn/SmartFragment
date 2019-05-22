@@ -315,7 +315,7 @@ public class SupportFragmentDelegate {
     /**
      * Called when the fragment is invisible.
      * <p>
-     * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
+     * Is the combination of [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
     public void onSupportInvisible() {
 

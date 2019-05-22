@@ -211,7 +211,7 @@ public abstract class BaseExtraTransaction {
     /**
      * 移除
      * <p>
-     * dontAddToBackStack()加载Fragment时用remove()移Fragment。
+     * dontAddToBackStack()加载Fragment时通remove()移Fragment。
      *
      * @param fragment        fragment
      * @param showPreFragment showPreFragment
