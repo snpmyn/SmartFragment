@@ -21,7 +21,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentationMagician;
 
-import com.zsp.smartfragment.R;
+import com.zsp.fragmentation.R;
 
 import java.util.ArrayList;
 import java.util.List;
