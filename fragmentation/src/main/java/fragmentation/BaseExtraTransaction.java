@@ -200,25 +200,25 @@ public abstract class BaseExtraTransaction {
     public abstract void popToChild(String targetFragmentTag, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim);
 
     /**
-     * dontAddToBackStack
+     * doNotAddToBackStack
      * <p>
      * Don't add this extraTransaction to the back stack.
      *
-     * @return DontAddToBackStackTransaction
+     * @return DoNotAddToBackStackTransaction
      */
-    public abstract DontAddToBackStackTransaction dontAddToBackStack();
+    public abstract DoNotAddToBackStackTransaction doNotAddToBackStack();
 
     /**
      * 移除
      * <p>
-     * dontAddToBackStack()加载Fragment时通remove()移Fragment。
+     * doNotAddToBackStack()加载Fragment时通remove()移Fragment。
      *
      * @param fragment        fragment
      * @param showPreFragment showPreFragment
      */
     public abstract void remove(ISupportFragment fragment, boolean showPreFragment);
 
-    public interface DontAddToBackStackTransaction {
+    public interface DoNotAddToBackStackTransaction {
         /**
          * start
          * <p>
@@ -250,7 +250,7 @@ public abstract class BaseExtraTransaction {
      *
      * @param <T> ISupportFragment
      */
-    final static class BaseExtraTransactionImpl<T extends ISupportFragment> extends BaseExtraTransaction implements DontAddToBackStackTransaction {
+    final static class BaseExtraTransactionImpl<T extends ISupportFragment> extends BaseExtraTransaction implements DoNotAddToBackStackTransaction {
         private FragmentActivity mActivity;
         private T mSupportF;
         private Fragment mFragment;
@@ -315,8 +315,8 @@ public abstract class BaseExtraTransaction {
         }
 
         @Override
-        public DontAddToBackStackTransaction dontAddToBackStack() {
-            mRecord.dontAddToBackStack = true;
+        public DoNotAddToBackStackTransaction doNotAddToBackStack() {
+            mRecord.doNotAddToBackStack = true;
             return this;
         }
 

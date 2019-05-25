@@ -15,7 +15,7 @@ public final class TransactionRecord {
     public int currentFragmentPopExit = Integer.MIN_VALUE;
     public int currentFragmentPopEnter = Integer.MIN_VALUE;
     public int targetFragmentExit = Integer.MIN_VALUE;
-    public boolean dontAddToBackStack = false;
+    public boolean doNotAddToBackStack = false;
     public ArrayList<SharedElement> sharedElementList;
 
     public static class SharedElement {

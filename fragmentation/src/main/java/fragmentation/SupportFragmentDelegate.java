@@ -512,7 +512,7 @@ public class SupportFragmentDelegate {
     }
 
     public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
-        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DONT_BACK);
+        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DO_NOT_BACK);
     }
 
     public void startChild(ISupportFragment toFragment) {
@@ -532,7 +532,7 @@ public class SupportFragmentDelegate {
     }
 
     public void replaceChildFragment(ISupportFragment toFragment, boolean addToBackStack) {
-        mTransactionDelegate.dispatchStartTransaction(getChildFragmentManager(), getTopFragment(), toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DONT_BACK);
+        mTransactionDelegate.dispatchStartTransaction(getChildFragmentManager(), getTopFragment(), toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DO_NOT_BACK);
     }
 
     public void pop() {
@@ -550,9 +550,9 @@ public class SupportFragmentDelegate {
      * Pop the last fragment transition from the manager's fragment
      * back stack.
      * <p>
-     * 出栈至目标fragment。
+     * 出栈至目标Fragment。
      *
-     * @param targetFragmentClass   目标fragment
+     * @param targetFragmentClass   目标Fragment
      * @param includeTargetFragment 含目标Fragment否
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {

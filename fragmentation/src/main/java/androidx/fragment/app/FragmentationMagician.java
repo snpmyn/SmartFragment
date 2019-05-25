@@ -49,7 +49,7 @@ public class FragmentationMagician {
     }
 
     /**
-     * To fix the FragmentManagerImpl.mAvailIndices incorrect ordering when pop() multiple Fragments on pre-support-v4-25.4.0
+     * To fix the FragmentManagerImpl.mAvailIndices incorrect ordering when pop() multiple Fragments on pre-support-v4-25.4.0.
      */
     @SuppressWarnings("unchecked")
     public static void reorderIndices(FragmentManager fragmentManager) {
@@ -182,7 +182,7 @@ public class FragmentationMagician {
     /**
      * Compat v27.1.0+
      * <p>
-     * So the code to compile Fragmentation needs v27.1.0+
+     * So the code to compile Fragmentation needs v27.1.0+.
      *
      * @see FragmentManager#isStateSaved()
      */

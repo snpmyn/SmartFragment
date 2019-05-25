@@ -254,7 +254,7 @@ public class SupportActivityDelegate {
     }
 
     public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
-        mTransactionDelegate.dispatchStartTransaction(getSupportFragmentManager(), getTopFragment(), toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DONT_BACK);
+        mTransactionDelegate.dispatchStartTransaction(getSupportFragmentManager(), getTopFragment(), toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DO_NOT_BACK);
     }
 
     /**
@@ -268,9 +268,9 @@ public class SupportActivityDelegate {
      * Pop the last fragment transition from the manager's fragment
      * back stack.
      * <p>
-     * 出栈至目标fragment。
+     * 出栈至目标Fragment。
      *
-     * @param targetFragmentClass   目标fragment
+     * @param targetFragmentClass   目标Fragment
      * @param includeTargetFragment 含目标Fragment否
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {

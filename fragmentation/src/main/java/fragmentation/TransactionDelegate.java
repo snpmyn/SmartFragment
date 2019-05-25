@@ -48,7 +48,7 @@ class TransactionDelegate {
     static final int TYPE_ADD_WITHOUT_HIDE = 2;
     static final int TYPE_ADD_RESULT_WITHOUT_HIDE = 3;
     static final int TYPE_REPLACE = 10;
-    static final int TYPE_REPLACE_DONT_BACK = 11;
+    static final int TYPE_REPLACE_DO_NOT_BACK = 11;
     private static final String TAG = "Fragmentation";
     private static final String FRAGMENTATION_STATE_SAVE_RESULT = "fragmentation_state_save_result";
     ActionQueue mActionQueue;
@@ -355,7 +355,7 @@ class TransactionDelegate {
             if (transactionRecord.tag != null) {
                 toFragmentTag = transactionRecord.tag;
             }
-            dontAddToBackStack = transactionRecord.dontAddToBackStack;
+            dontAddToBackStack = transactionRecord.doNotAddToBackStack;
             if (transactionRecord.sharedElementList != null) {
                 sharedElementList = transactionRecord.sharedElementList;
                 // Compat SharedElement
@@ -431,7 +431,7 @@ class TransactionDelegate {
                 ft.replace(from.getSupportDelegate().mContainerId, toF, toFragmentTag);
             }
         }
-        if (!dontAddToBackStack && type != TYPE_REPLACE_DONT_BACK) {
+        if (!dontAddToBackStack && type != TYPE_REPLACE_DO_NOT_BACK) {
             ft.addToBackStack(toFragmentTag);
         }
         supportCommit(fm, ft);
