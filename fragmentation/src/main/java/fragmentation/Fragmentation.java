@@ -22,7 +22,7 @@ public class Fragmentation {
      */
     public static final int BUBBLE = 2;
     /**
-     * Dont display stack view.
+     * DoNot display stack view.
      */
     static final int NONE = 0;
     private static volatile Fragmentation INSTANCE;

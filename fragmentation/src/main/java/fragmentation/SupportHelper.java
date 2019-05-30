@@ -118,6 +118,7 @@ public class SupportHelper {
 
     /**
      * Same as fragmentManager.findFragmentByTag(fragmentClass.getName());
+     * <p>
      * find Fragment from FragmentStack
      */
     public static <T extends ISupportFragment> T findFragment(FragmentManager fragmentManager, Class<T> fragmentClass) {

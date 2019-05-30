@@ -292,6 +292,7 @@ public class SupportFragmentDelegate {
      * 入栈动画结束时回调
      */
     public void onEnterAnimationEnd() {
+
     }
 
     /**
@@ -300,6 +301,7 @@ public class SupportFragmentDelegate {
      * 同级下懒加载 ＋ ViewPager下的懒加载的结合回调方法
      */
     public void onLazyInitView() {
+
     }
 
     /**
@@ -310,6 +312,7 @@ public class SupportFragmentDelegate {
      * Is the combination of [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
     public void onSupportVisible() {
+
     }
 
     /**
