@@ -1,2 +1,1 @@
-## SmartFragment
-SmartFragment
+聪明的Fragment管理框架。
