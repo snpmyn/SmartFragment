@@ -7,7 +7,7 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.zsp.library.R;
+import com.zsp.smart.fragment.library.R;
 
 import fragmentation.animation.FragmentAnimator;
 

@@ -3,7 +3,7 @@ package fragmentation.animation;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.zsp.library.R;
+import com.zsp.smart.fragment.library.R;
 
 /**
  * @decs: DefaultVerticalAnimator
