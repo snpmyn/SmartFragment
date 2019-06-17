@@ -51,7 +51,7 @@ public class SupportFragmentDelegate {
     private TransactionDelegate mTransactionDelegate;
     private FragmentActivity fragmentationActivity;
     private Bundle mSaveInstanceState;
-    private ISupportFragment mSupportF;
+    private ISupportFragment fSupport;
     private Fragment mFragment;
     /**
      * SupportVisible
@@ -65,7 +65,7 @@ public class SupportFragmentDelegate {
             if (mFragment == null) {
                 return;
             }
-            mSupportF.onEnterAnimationEnd(mSaveInstanceState);
+            fSupport.onEnterAnimationEnd(mSaveInstanceState);
             if (mRootViewClickable) {
                 return;
             }
@@ -92,7 +92,7 @@ public class SupportFragmentDelegate {
         if (!(support instanceof Fragment)) {
             throw new RuntimeException("Must extends Fragment");
         }
-        this.mSupportF = support;
+        this.fSupport = support;
         this.mFragment = (Fragment) support;
     }
 
@@ -104,7 +104,7 @@ public class SupportFragmentDelegate {
         if (mTransactionDelegate == null) {
             throw new RuntimeException(mFragment.getClass().getSimpleName() + " not attach!");
         }
-        return new BaseExtraTransaction.BaseExtraTransactionImpl<>((FragmentActivity) mSupport, mSupportF, mTransactionDelegate, false);
+        return new BaseExtraTransaction.BaseExtraTransactionImpl<>((FragmentActivity) mSupport, fSupport, mTransactionDelegate, false);
     }
 
     public void onAttach(Activity activity) {
@@ -349,7 +349,7 @@ public class SupportFragmentDelegate {
             throw new RuntimeException("Fragment has not been attached to Activity!");
         }
         if (mFragmentAnimator == null) {
-            mFragmentAnimator = mSupportF.onCreateFragmentAnimator();
+            mFragmentAnimator = fSupport.onCreateFragmentAnimator();
             if (mFragmentAnimator == null) {
                 mFragmentAnimator = mSupport.getFragmentAnimator();
             }
@@ -493,29 +493,29 @@ public class SupportFragmentDelegate {
      * @param launchMode Similar to Activity's LaunchMode.
      */
     public void start(final ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode) {
-        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, 0, launchMode, TransactionDelegate.TYPE_ADD);
+        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), fSupport, toFragment, 0, launchMode, TransactionDelegate.TYPE_ADD);
     }
 
     /**
      * Launch an fragment for which you would like a result when it poped.
      */
     public void startForResult(ISupportFragment toFragment, int requestCode) {
-        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, requestCode, ISupportFragment.STANDARD, TransactionDelegate.TYPE_ADD_RESULT);
+        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), fSupport, toFragment, requestCode, ISupportFragment.STANDARD, TransactionDelegate.TYPE_ADD_RESULT);
     }
 
     /**
      * Start the target Fragment and pop itself.
      */
     public void startWithPop(ISupportFragment toFragment) {
-        mTransactionDelegate.startWithPop(mFragment.getFragmentManager(), mSupportF, toFragment);
+        mTransactionDelegate.startWithPop(mFragment.getFragmentManager(), fSupport, toFragment);
     }
 
     public void startWithPopTo(ISupportFragment toFragment, Class<?> targetFragmentClass, boolean includeTargetFragment) {
-        mTransactionDelegate.startWithPopTo(mFragment.getFragmentManager(), mSupportF, toFragment, targetFragmentClass.getName(), includeTargetFragment);
+        mTransactionDelegate.startWithPopTo(mFragment.getFragmentManager(), fSupport, toFragment, targetFragmentClass.getName(), includeTargetFragment);
     }
 
     public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
-        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DO_NOT_BACK);
+        mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), fSupport, toFragment, 0, ISupportFragment.STANDARD, addToBackStack ? TransactionDelegate.TYPE_REPLACE : TransactionDelegate.TYPE_REPLACE_DO_NOT_BACK);
     }
 
     public void startChild(ISupportFragment toFragment) {
@@ -678,7 +678,7 @@ public class SupportFragmentDelegate {
 
     public VisibleDelegate getVisibleDelegate() {
         if (mVisibleDelegate == null) {
-            mVisibleDelegate = new VisibleDelegate(mSupportF);
+            mVisibleDelegate = new VisibleDelegate(fSupport);
         }
         return mVisibleDelegate;
     }

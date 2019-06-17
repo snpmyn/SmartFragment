@@ -24,7 +24,7 @@ public class ActionQueue {
     }
 
     public void enqueue(final BaseAction baseAction) {
-        if (isThrottleBACK(baseAction)) {
+        if (isThrottleBack(baseAction)) {
             return;
         }
         if (baseAction.action == BaseAction.ACTION_LOAD && mQueue.isEmpty()
@@ -52,8 +52,10 @@ public class ActionQueue {
             return;
         }
         BaseAction baseAction = mQueue.peek();
-        baseAction.run();
-        executeNextAction(baseAction);
+        if (baseAction != null) {
+            baseAction.run();
+            executeNextAction(baseAction);
+        }
     }
 
     private void executeNextAction(BaseAction baseAction) {
@@ -70,7 +72,7 @@ public class ActionQueue {
         }, baseAction.duration);
     }
 
-    private boolean isThrottleBACK(BaseAction baseAction) {
+    private boolean isThrottleBack(BaseAction baseAction) {
         if (baseAction.action == BaseAction.ACTION_BACK) {
             BaseAction head = mQueue.peek();
             return head != null && head.action == BaseAction.ACTION_POP;

@@ -78,8 +78,8 @@ public class SupportActivityDelegate {
         this.mFragmentAnimator = fragmentAnimator;
         for (Fragment fragment : FragmentationMagician.getActiveFragments(getSupportFragmentManager())) {
             if (fragment instanceof ISupportFragment) {
-                ISupportFragment iF = (ISupportFragment) fragment;
-                SupportFragmentDelegate delegate = iF.getSupportDelegate();
+                ISupportFragment iSupportFragment = (ISupportFragment) fragment;
+                SupportFragmentDelegate delegate = iSupportFragment.getSupportDelegate();
                 if (delegate.mAnimByActivity) {
                     delegate.mFragmentAnimator = fragmentAnimator.copy();
                     if (delegate.mAnimHelper != null) {

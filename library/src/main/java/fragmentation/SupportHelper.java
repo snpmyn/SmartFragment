@@ -35,7 +35,9 @@ public class SupportHelper {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
-                imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+                if (imm != null) {
+                    imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+                }
             }
         }, SHOW_SPACE);
     }
@@ -48,7 +50,9 @@ public class SupportHelper {
             return;
         }
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /**

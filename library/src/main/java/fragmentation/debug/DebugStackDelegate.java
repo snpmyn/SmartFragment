@@ -48,7 +48,9 @@ public class DebugStackDelegate implements SensorEventListener {
             return;
         }
         mSensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        if (mSensorManager != null) {
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     public void onPostCreate(int mode) {
@@ -236,8 +238,8 @@ public class DebugStackDelegate implements SensorEventListener {
 
     private class StackViewTouchListener implements View.OnTouchListener {
         private View stackView;
-        private float dX, dY = 0f;
-        private float downX, downY = 0f;
+        private float dx, dy = 0f;
+        private float xDown, yDown = 0f;
         private boolean isClickState;
         private int clickLimitValue;
 
@@ -253,23 +255,23 @@ public class DebugStackDelegate implements SensorEventListener {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     isClickState = true;
-                    downX = x;
-                    downY = y;
-                    dX = stackView.getX() - event.getRawX();
-                    dY = stackView.getY() - event.getRawY();
+                    xDown = x;
+                    yDown = y;
+                    dx = stackView.getX() - event.getRawX();
+                    dy = stackView.getY() - event.getRawY();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (Math.abs(x - downX) < clickLimitValue && Math.abs(y - downY) < clickLimitValue && isClickState) {
+                    if (Math.abs(x - xDown) < clickLimitValue && Math.abs(y - yDown) < clickLimitValue && isClickState) {
                         Log.e("onTouch", "isClickState = true");
                     } else {
                         isClickState = false;
-                        stackView.setX(event.getRawX() + dX);
-                        stackView.setY(event.getRawY() + dY);
+                        stackView.setX(event.getRawX() + dx);
+                        stackView.setY(event.getRawY() + dy);
                     }
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
-                    if (x - downX < clickLimitValue && isClickState) {
+                    if (x - xDown < clickLimitValue && isClickState) {
                         stackView.performClick();
                     }
                     break;

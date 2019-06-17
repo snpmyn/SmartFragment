@@ -32,11 +32,11 @@ public class VisibleDelegate {
     private boolean mFirstCreateViewCompatReplace = true;
     private Handler mHandler;
     private Bundle mSaveInstanceState;
-    private ISupportFragment mSupportF;
+    private ISupportFragment fSupport;
     private Fragment mFragment;
 
     public VisibleDelegate(ISupportFragment fragment) {
-        this.mSupportF = fragment;
+        this.fSupport = fragment;
         this.mFragment = (Fragment) fragment;
     }
 
@@ -150,15 +150,15 @@ public class VisibleDelegate {
             if (checkAddState()) {
                 return;
             }
-            mSupportF.onSupportVisible();
+            fSupport.onSupportVisible();
             if (mIsFirstVisible) {
                 mIsFirstVisible = false;
-                mSupportF.onLazyInitView(mSaveInstanceState);
+                fSupport.onLazyInitView(mSaveInstanceState);
             }
             dispatchChild(true);
         } else {
             dispatchChild(false);
-            mSupportF.onSupportInvisible();
+            fSupport.onSupportInvisible();
         }
     }
 
