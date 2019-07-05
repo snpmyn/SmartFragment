@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
@@ -21,9 +23,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class EventBusActivityScope {
     private static final String TAG = EventBusActivityScope.class.getSimpleName();
-    private static final Map<Activity, LazyEventBusInstance> ACTIVITY_EVENTBUS_BUS_SCOPE_POOL = new ConcurrentHashMap<>();
     private static AtomicBoolean sInitialized = new AtomicBoolean(false);
     private static volatile EventBus sInvalidEventBus;
+    private static final Map<Activity, LazyEventBusInstance> S_ACTIVITY_EVENT_BUS_SCOPE_POOL = new ConcurrentHashMap<>();
 
     static void init(Context context) {
         if (sInitialized.getAndSet(true)) {
@@ -34,42 +36,45 @@ public class EventBusActivityScope {
                     private Handler mainHandler = new Handler(Looper.getMainLooper());
 
                     @Override
-                    public void onActivityCreated(Activity activity, Bundle bundle) {
-                        ACTIVITY_EVENTBUS_BUS_SCOPE_POOL.put(activity, new LazyEventBusInstance());
+                    public void onActivityCreated(@NonNull Activity activity, Bundle bundle) {
+                        S_ACTIVITY_EVENT_BUS_SCOPE_POOL.put(activity, new LazyEventBusInstance());
                     }
 
                     @Override
-                    public void onActivityStarted(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityResumed(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityPaused(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityStopped(Activity activity) {
+                    public void onActivityStarted(@NonNull Activity activity) {
 
                     }
 
                     @Override
-                    public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+                    public void onActivityResumed(@NonNull Activity activity) {
+
                     }
 
                     @Override
-                    public void onActivityDestroyed(final Activity activity) {
-                        if (!ACTIVITY_EVENTBUS_BUS_SCOPE_POOL.containsKey(activity)) {
+                    public void onActivityPaused(@NonNull Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivityStopped(@NonNull Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+                    }
+
+                    @Override
+                    public void onActivityDestroyed(@NonNull final Activity activity) {
+                        if (!S_ACTIVITY_EVENT_BUS_SCOPE_POOL.containsKey(activity)) {
                             return;
-
                         }
                         mainHandler.post(new Runnable() {
                             // Make sure Fragment's onDestroy() has been called.
                             @Override
                             public void run() {
-                                ACTIVITY_EVENTBUS_BUS_SCOPE_POOL.remove(activity);
+                                S_ACTIVITY_EVENT_BUS_SCOPE_POOL.remove(activity);
                             }
                         });
                     }
@@ -78,16 +83,13 @@ public class EventBusActivityScope {
 
     /**
      * Get the activity-scope EventBus instance.
-     *
-     * @param activity Activity
-     * @return EventBus
      */
     public static EventBus getDefault(Activity activity) {
         if (activity == null) {
             Log.e(TAG, "Can't find the Activity, the Activity is null!");
             return invalidEventBus();
         }
-        LazyEventBusInstance lazyEventBusInstance = ACTIVITY_EVENTBUS_BUS_SCOPE_POOL.get(activity);
+        LazyEventBusInstance lazyEventBusInstance = S_ACTIVITY_EVENT_BUS_SCOPE_POOL.get(activity);
         if (lazyEventBusInstance == null) {
             Log.e(TAG, "Can't find the Activity, it has been removed!");
             return invalidEventBus();
@@ -100,7 +102,6 @@ public class EventBusActivityScope {
             synchronized (EventBusActivityScope.class) {
                 if (sInvalidEventBus == null) {
                     sInvalidEventBus = new EventBus();
-
                 }
             }
         }
