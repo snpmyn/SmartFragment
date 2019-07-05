@@ -28,6 +28,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     /*自带*/
-    implementation project(path: ':fragmentationcore')
+    api project(path: ':fragmentationcore')
     /*FragmentationCore*/
 }

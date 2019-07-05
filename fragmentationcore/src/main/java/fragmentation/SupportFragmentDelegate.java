@@ -56,7 +56,7 @@ public class SupportFragmentDelegate {
     private VisibleDelegate mVisibleDelegate;
     private ISupportActivity mSupport;
     private ISupportFragment mSupportF;
-    private FragmentActivity _mActivity;
+    private FragmentActivity mFragmentActivity;
     private boolean mRootViewClickable;
     private Runnable mNotifyEnterAnimEndRunnable = new Runnable() {
         @Override
@@ -113,7 +113,7 @@ public class SupportFragmentDelegate {
     public void onAttach(Activity activity) {
         if (activity instanceof ISupportActivity) {
             this.mSupport = (ISupportActivity) activity;
-            this._mActivity = (FragmentActivity) activity;
+            this.mFragmentActivity = (FragmentActivity) activity;
             mTransactionDelegate = mSupport.getSupportDelegate().getTransactionDelegate();
         } else {
             throw new RuntimeException(activity.getClass().getSimpleName() + " must impl ISupportActivity!");
@@ -141,7 +141,7 @@ public class SupportFragmentDelegate {
             mIsHidden = savedInstanceState.getBoolean(TransactionDelegate.FRAGMENTATION_STATE_SAVE_IS_HIDDEN);
             mContainerId = savedInstanceState.getInt(TransactionDelegate.FRAGMENTATION_ARG_CONTAINER);
         }
-        mAnimHelper = new AnimatorHelper(_mActivity.getApplicationContext(), mFragmentAnimator);
+        mAnimHelper = new AnimatorHelper(mFragmentActivity.getApplicationContext(), mFragmentAnimator);
         final Animation enter = getEnterAnim();
         if (enter == null) {
             return;
@@ -253,7 +253,7 @@ public class SupportFragmentDelegate {
             notifyEnterAnimEnd();
         } else if (mCustomEnterAnim != Integer.MIN_VALUE) {
             fixAnimationListener(mCustomEnterAnim == 0 ?
-                    mAnimHelper.getNoneAnimation() : AnimationUtils.loadAnimation(_mActivity, mCustomEnterAnim));
+                    mAnimHelper.getNoneAnimation() : AnimationUtils.loadAnimation(mFragmentActivity, mCustomEnterAnim));
         }
         if (mFirstCreateView) {
             mFirstCreateView = false;
@@ -659,7 +659,7 @@ public class SupportFragmentDelegate {
     }
 
     private int getWindowBackground() {
-        TypedArray a = _mActivity.getTheme().obtainStyledAttributes(new int[]{
+        TypedArray a = mFragmentActivity.getTheme().obtainStyledAttributes(new int[]{
                 android.R.attr.windowBackground
         });
         int background = a.getResourceId(0, 0);
@@ -687,7 +687,7 @@ public class SupportFragmentDelegate {
     }
 
     public FragmentActivity getActivity() {
-        return _mActivity;
+        return mFragmentActivity;
     }
 
     private Animation getEnterAnim() {
@@ -697,7 +697,7 @@ public class SupportFragmentDelegate {
             }
         } else {
             try {
-                return AnimationUtils.loadAnimation(_mActivity, mCustomEnterAnim);
+                return AnimationUtils.loadAnimation(mFragmentActivity, mCustomEnterAnim);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -720,7 +720,7 @@ public class SupportFragmentDelegate {
             }
         } else {
             try {
-                return AnimationUtils.loadAnimation(_mActivity, mCustomExitAnim).getDuration();
+                return AnimationUtils.loadAnimation(mFragmentActivity, mCustomExitAnim).getDuration();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -735,7 +735,7 @@ public class SupportFragmentDelegate {
             }
         } else {
             try {
-                return AnimationUtils.loadAnimation(_mActivity, mCustomPopExitAnim).getDuration();
+                return AnimationUtils.loadAnimation(mFragmentActivity, mCustomPopExitAnim).getDuration();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -751,7 +751,7 @@ public class SupportFragmentDelegate {
             }
         } else {
             try {
-                return AnimationUtils.loadAnimation(_mActivity, mCustomExitAnim);
+                return AnimationUtils.loadAnimation(mFragmentActivity, mCustomExitAnim);
             } catch (Exception e) {
                 e.printStackTrace();
             }
