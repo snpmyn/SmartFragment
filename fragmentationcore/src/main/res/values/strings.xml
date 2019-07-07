@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">library</string>
+    <string name="app_name">FragmentationCore</string>
     <string name="stackView">栈视图（Stack）</string>
     <string name="stackHelp">*: Not in backStack\n☀: Visible</string>
 </resources>

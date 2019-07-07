@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">SmartFragment</string>
+    <string name="exitAppHint">再按一次退出</string>
+    <string name="one">一</string>
+    <string name="three">三</string>
+    <string name="otherPager">其它页</string>
+    <string name="fatherFragmentLaunch">父Fragment启动</string>
+    <string name="modifySuccess">修改成功</string>
+    <string name="testContent">测试内容</string>
+    <string name="testTitle">测试标题</string>
+    <string name="modifyPrePageTitle">修改上个页面标题</string>
+    <string name="testStartForResult">测试startForResult</string>
+    <string name="launch">启动</string>
+    <string name="zhiHu">知乎</string>
 </resources>

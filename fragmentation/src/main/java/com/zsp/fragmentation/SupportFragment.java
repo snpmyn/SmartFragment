@@ -56,7 +56,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     /**
      * SupportActivity
      */
-    private SupportActivity fragmentationSupportActivity;
+    protected SupportActivity fragmentationSupportActivity;
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -77,7 +77,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         supportFragmentDelegate.onAttach(activity);
         fragmentationSupportActivity = (SupportActivity) supportFragmentDelegate.getActivity();
@@ -432,7 +432,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         supportFragmentDelegate.showHideFragment(showFragment, hideFragment);
     }
 
-    void start(ISupportFragment toFragment) {
+    public void start(ISupportFragment toFragment) {
         supportFragmentDelegate.start(toFragment);
     }
 
@@ -454,7 +454,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * @param toFragment  目标Fragment
      * @param requestCode 响应码
      */
-    void startForResult(ISupportFragment toFragment, int requestCode) {
+    protected void startForResult(ISupportFragment toFragment, int requestCode) {
         supportFragmentDelegate.startForResult(toFragment, requestCode);
     }
 
@@ -482,11 +482,11 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         supportFragmentDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
     }
 
-    void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
+    protected void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
         supportFragmentDelegate.replaceFragment(toFragment, addToBackStack);
     }
 
-    private void pop() {
+    protected void pop() {
         supportFragmentDelegate.pop();
     }
 
@@ -495,7 +495,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * <p>
      * Pop the child fragment.
      */
-    private void popChild() {
+    protected void popChild() {
         supportFragmentDelegate.popChild();
     }
 
