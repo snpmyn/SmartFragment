@@ -482,7 +482,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         supportFragmentDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
     }
 
-    protected void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
+    public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
         supportFragmentDelegate.replaceFragment(toFragment, addToBackStack);
     }
 
