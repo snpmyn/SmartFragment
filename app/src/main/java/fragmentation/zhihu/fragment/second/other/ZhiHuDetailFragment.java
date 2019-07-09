@@ -20,6 +20,12 @@ import fragmentation.base.BaseFragment;
  * @date: 2019/1/21 17:45
  */
 public class ZhiHuDetailFragment extends BaseFragment {
+    @BindView(R.id.toolbarMt)
+    MaterialToolbar materialToolbar;
+    @BindView(R.id.zhiHuDetailFragmentTv)
+    TextView zhiHuDetailFragmentTv;
+    @BindView(R.id.zhiHuDetailFragmentFab)
+    FloatingActionButton zhiHuDetailFragmentFab;
     /**
      * RequestKey
      */
@@ -32,12 +38,6 @@ public class ZhiHuDetailFragment extends BaseFragment {
      * RequestCode
      */
     private static final int REQUEST_CODE_MODIFY_FRAGMENT = 100;
-    @BindView(R.id.toolbarMt)
-    MaterialToolbar materialToolbar;
-    @BindView(R.id.zhiHuDetailFragmentTv)
-    TextView zhiHuDetailFragmentTv;
-    @BindView(R.id.zhiHuDetailFragmentFab)
-    FloatingActionButton zhiHuDetailFragmentFab;
     /**
      * 标题
      */
@@ -142,15 +142,25 @@ public class ZhiHuDetailFragment extends BaseFragment {
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_MODIFY_FRAGMENT && resultCode == RESULT_OK && data != null) {
-            mTitle = data.getString(RESULT_KEY_TITLE);
-            materialToolbar.setTitle(mTitle);
-            // 存改动内容
-            if (getArguments() != null) {
-                getArguments().putString(KEY_TITLE, mTitle);
-            }
-            ToastUtils.shortShow(fragmentationSupportActivity, getString(R.string.modifySuccess));
+        switch (resultCode) {
+            case RESULT_OK:
+                if (requestCode == REQUEST_CODE_MODIFY_FRAGMENT && data != null) {
+                    mTitle = data.getString(RESULT_KEY_TITLE);
+                    materialToolbar.setTitle(mTitle);
+                    // 存改动内容
+                    if (getArguments() != null) {
+                        getArguments().putString(KEY_TITLE, mTitle);
+                    }
+                    ToastUtils.shortShow(fragmentationSupportActivity, getString(R.string.modifySuccess));
+                }
+                break;
+            case RESULT_CANCELED:
+                ToastUtils.shortShow(fragmentationSupportActivity, getString(R.string.modifyFail));
+                break;
+            default:
+                break;
         }
+
     }
 
     /**

@@ -38,9 +38,9 @@ public class DefaultHorizontalAnimator extends FragmentAnimator implements Parce
     }
 
     public DefaultHorizontalAnimator() {
-        enter = R.anim.h_fragment_enter;
-        exit = R.anim.h_fragment_exit;
-        popEnter = R.anim.h_fragment_pop_enter;
-        popExit = R.anim.h_fragment_pop_exit;
+        enter = R.anim.horizontal_fragment_enter;
+        exit = R.anim.horizontal_fragment_exit;
+        popEnter = R.anim.horizontal_fragment_pop_enter;
+        popExit = R.anim.horizontal_fragment_pop_exit;
     }
 }

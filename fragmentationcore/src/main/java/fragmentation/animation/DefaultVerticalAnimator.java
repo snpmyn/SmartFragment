@@ -38,9 +38,9 @@ public class DefaultVerticalAnimator extends FragmentAnimator implements Parcela
     }
 
     public DefaultVerticalAnimator() {
-        enter = R.anim.v_fragment_enter;
-        exit = R.anim.v_fragment_exit;
-        popEnter = R.anim.v_fragment_pop_enter;
-        popExit = R.anim.v_fragment_pop_exit;
+        enter = R.anim.veritical_fragment_enter;
+        exit = R.anim.veritical__fragment_exit;
+        popEnter = R.anim.veritical__fragment_pop_enter;
+        popExit = R.anim.veritical__fragment_pop_exit;
     }
 }

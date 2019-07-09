@@ -6,6 +6,7 @@
     <string name="otherPager">其它页</string>
     <string name="fatherFragmentLaunch">父Fragment启动</string>
     <string name="modifySuccess">修改成功</string>
+    <string name="modifyFail">修改失败</string>
     <string name="testContent">测试内容</string>
     <string name="testTitle">测试标题</string>
     <string name="modifyPrePageTitle">修改上个页面标题</string>
