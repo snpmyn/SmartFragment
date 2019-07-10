@@ -356,7 +356,9 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         return supportFragmentDelegate.onBackPressedSupport();
     }
 
-    /****************************************以下为可选法（Optional methods）******************************************************/
+    /*
+     ****************************************以下为可选法（Optional methods）****************************************
+     */
 
     /**
      * 显软键盘

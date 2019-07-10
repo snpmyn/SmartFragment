@@ -146,12 +146,14 @@ public class SupportActivityDelegate {
     void logFragmentStackHierarchy(String tag) {
         mDebugStackDelegate.logFragmentRecords(tag);
     }
+
     /**
      * Causes the Runnable r to be added to the action queue.
      * <p>
      * The runnable will be run after all the previous action has been run.
      * <p>
      * 前面事务全执行后执行该Action。
+     *
      * @param runnable 线程
      */
     public void post(final Runnable runnable) {
@@ -203,7 +205,9 @@ public class SupportActivityDelegate {
         return !mFragmentClickable;
     }
 
-    /******************************************************************************************/
+    /*
+     **********************************************************************************************
+     */
 
     /**
      * 加载根Fragment

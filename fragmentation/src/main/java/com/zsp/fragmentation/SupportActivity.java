@@ -144,7 +144,9 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
         supportActivityDelegate.post(runnable);
     }
 
-    /****************************************以下为可选法（Optional methods）****************************************/
+    /*
+     ****************************************以下为可选法（Optional methods）****************************************
+     */
 
     /**
      * 加载根Fragment
