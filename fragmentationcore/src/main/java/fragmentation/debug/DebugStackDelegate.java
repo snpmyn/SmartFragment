@@ -28,7 +28,7 @@ import java.util.List;
 
 import fragmentation.Fragmentation;
 import fragmentation.ISupportFragment;
-import value.FragmentationMagic;
+import value.SmartFragmentFragmentationMagic;
 
 /**
  * @decs: DebugStackDelegate
@@ -92,7 +92,7 @@ public class DebugStackDelegate implements SensorEventListener {
         float[] values = event.values;
         if (sensorType == Sensor.TYPE_ACCELEROMETER) {
             int value = 12;
-            if ((Math.abs(values[0]) >= value || Math.abs(values[1]) >= value || Math.abs(values[FragmentationMagic.INT_TWO]) >= value)) {
+            if ((Math.abs(values[0]) >= value || Math.abs(values[1]) >= value || Math.abs(values[SmartFragmentFragmentationMagic.INT_TWO]) >= value)) {
                 showFragmentStackHierarchyView();
             }
         }

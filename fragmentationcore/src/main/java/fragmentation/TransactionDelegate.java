@@ -24,7 +24,7 @@ import fragmentation.helper.internal.ResultRecord;
 import fragmentation.helper.internal.TransactionRecord;
 import fragmentation.queue.ActionQueue;
 import fragmentation.queue.BaseAction;
-import value.FragmentationMagic;
+import value.SmartFragmentFragmentationMagic;
 
 /**
  * @decs: TransactionDelegate
@@ -371,7 +371,7 @@ class TransactionDelegate {
         } else {
             if (from.getSupportDelegate().mContainerId == 0) {
                 Fragment fromF = (Fragment) from;
-                if (fromF.getTag() != null && !fromF.getTag().startsWith(FragmentationMagic.STRING_ANDROID_SWITCHER)) {
+                if (fromF.getTag() != null && !fromF.getTag().startsWith(SmartFragmentFragmentationMagic.STRING_ANDROID_SWITCHER)) {
                     throw new IllegalStateException("Can't find container, please call loadRootFragment() first!");
                 }
             }

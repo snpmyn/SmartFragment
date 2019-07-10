@@ -4,9 +4,9 @@ package value;
  * Created on 2019/5/20.
  *
  * @author 郑少鹏
- * @desc FragmentationMagic
+ * @desc SmartFragmentFragmentationMagic
  */
-public class FragmentationMagic {
+public class SmartFragmentFragmentationMagic {
     /**
      * int
      */

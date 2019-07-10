@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentationMagician;
 import java.util.List;
 
 import fragmentation.ISupportFragment;
-import value.FragmentationMagic;
+import value.SmartFragmentFragmentationMagic;
 
 /**
  * @decs: VisibleDelegate
@@ -55,7 +55,7 @@ public class VisibleDelegate {
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (!mFirstCreateViewCompatReplace && mFragment.getTag() != null && mFragment.getTag().startsWith(FragmentationMagic.STRING_ANDROID_SWITCHER)) {
+        if (!mFirstCreateViewCompatReplace && mFragment.getTag() != null && mFragment.getTag().startsWith(SmartFragmentFragmentationMagic.STRING_ANDROID_SWITCHER)) {
             return;
         }
         if (mFirstCreateViewCompatReplace) {
