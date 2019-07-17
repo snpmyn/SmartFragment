@@ -7,7 +7,7 @@
     <dist:module dist:instant="true" />
 
     <application
-        android:name="application.App"
+        android:name="application.SmartFragmentApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

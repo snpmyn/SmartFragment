@@ -8,7 +8,7 @@ import android.app.Application;
  * @author 郑少鹏
  * @desc 应用
  */
-public class App extends Application {
+public class SmartFragmentApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
