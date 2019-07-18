@@ -3,9 +3,11 @@
 
 ### 依赖
 ##### 自身
+###### app
+implementation 'com.github.snpmyn:*Util*:master-SNAPSHOT'
 ###### AndroidLibrary - EventbusActivityScope
 implementation 'org.greenrobot:eventbus:3.1.1'
-##### com.github.snpmyn:Util
+##### com.github.snpmyn:Util(implementation)
 ###### AndroidLibrary - Application
 api 'org.litepal.android:java:3.0.0'（避重）
 ###### AndroidLibrary - UtilOne
