@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.zsp.fragmentation.SupportFragment;
 import com.zsp.smartfragment.R;
-import com.zsp.utilone.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -52,10 +51,6 @@ import fragmentation.ISupportFragment;
  */
 public abstract class BaseBackFragment extends SupportFragment {
     /**
-     * 视图
-     */
-    private View view;
-    /**
      * Unbinder
      */
     private Unbinder unbinder;
@@ -70,7 +65,7 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(this.getClass().getSimpleName(), "onCreateView");
-        view = inflater.inflate(layoutResId(), container, false);
+        View view = inflater.inflate(layoutResId(), container, false);
         // 返Unbinder解绑用
         // 此处this不可getActivity()
         unbinder = ButterKnife.bind(this, view);
@@ -143,15 +138,6 @@ public abstract class BaseBackFragment extends SupportFragment {
     abstract int layoutResId();
 
     /**
-     * 获内容视图
-     *
-     * @return 视图
-     */
-    protected View getContentView() {
-        return view;
-    }
-
-    /**
      * 初始ToolbarNavigation
      *
      * @param materialToolbar MaterialToolbar
@@ -184,14 +170,5 @@ public abstract class BaseBackFragment extends SupportFragment {
      * onDestroyView释放。
      */
     abstract void startLoad();
-
-    /**
-     * 短吐司
-     *
-     * @param text 文本
-     */
-    public void toastShort(String text) {
-        ToastUtils.shortShow(fragmentationSupportActivity, text);
-    }
 }
 

@@ -15,7 +15,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.zsp.fragmentation.SupportFragment;
 import com.zsp.smartfragment.R;
 import com.zsp.utilone.activity.ActivitySuperviseManager;
-import com.zsp.utilone.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -56,10 +55,6 @@ import fragmentation.zhihu.fragment.first.ZhiHuFirstFragment;
 public abstract class BaseFragment extends SupportFragment {
     private static final long WAIT_TIME = 2000L;
     /**
-     * 视图
-     */
-    private View view;
-    /**
      * OnBackToFirstListener
      */
     private OnBackToFirstListener onBackToFirstListener;
@@ -87,7 +82,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(this.getClass().getSimpleName(), "onCreateView");
-        view = inflater.inflate(layoutResId(), container, false);
+        View view = inflater.inflate(layoutResId(), container, false);
         // 返Unbinder解绑用
         // 此处this不可getActivity()
         unbinder = ButterKnife.bind(this, view);
@@ -191,15 +186,6 @@ public abstract class BaseFragment extends SupportFragment {
     protected abstract int layoutResId();
 
     /**
-     * 获内容视图
-     *
-     * @return 视图
-     */
-    protected View getContentView() {
-        return view;
-    }
-
-    /**
      * 初始ToolbarNavigation
      *
      * @param materialToolbar toolbar
@@ -242,15 +228,6 @@ public abstract class BaseFragment extends SupportFragment {
      * Fragment对用户不可见时调
      */
     protected abstract void invisibleToUser();
-
-    /**
-     * 短吐司
-     *
-     * @param text 文本
-     */
-    public void toastShort(String text) {
-        ToastUtils.shortShow(fragmentationSupportActivity, text);
-    }
 
     /**
      * APP退出
