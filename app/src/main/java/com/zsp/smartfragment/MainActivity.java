@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void execute() {
-        soulPermissionUtils.checkAndRequestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, soulPermissionUtils,
+        soulPermissionUtils.checkAndRequestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, soulPermissionUtils,
                 true, new SoulPermissionUtils.CheckAndRequestPermissionCallBack() {
                     @Override
                     public void onPermissionOk() {
