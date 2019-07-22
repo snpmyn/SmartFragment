@@ -39,4 +39,7 @@ dependencies {
     /*fragmentation*/
     implementation project(path: ':eventbusactivityscope')
     /*EventbusActivityScope*/
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    /*LeakCanary*/
 }

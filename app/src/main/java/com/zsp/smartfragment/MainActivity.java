@@ -1,11 +1,14 @@
 package com.zsp.smartfragment;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zsp.utilone.intent.IntentUtils;
+import com.zsp.utilone.permission.SoulPermissionUtils;
+import com.zsp.utilone.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,11 +20,39 @@ import fragmentation.zhihu.activity.ZhiHuActivity;
  * @date: 2019/5/18 20:27
  */
 public class MainActivity extends AppCompatActivity {
+    private SoulPermissionUtils soulPermissionUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        initConfiguration();
+        execute();
+    }
+
+    private void initConfiguration() {
+        soulPermissionUtils = new SoulPermissionUtils();
+    }
+
+    private void execute() {
+        soulPermissionUtils.checkAndRequestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, soulPermissionUtils,
+                true, new SoulPermissionUtils.CheckAndRequestPermissionCallBack() {
+                    @Override
+                    public void onPermissionOk() {
+
+                    }
+
+                    @Override
+                    public void onPermissionDeniedNotRationaleInMiUi(String s) {
+                        ToastUtils.shortShow(MainActivity.this, s);
+                    }
+
+                    @Override
+                    public void onPermissionDeniedNotRationaleWithoutLoopHint(String s) {
+
+                    }
+                });
     }
 
     @OnClick(R.id.mainActivityMbZhiHu)
