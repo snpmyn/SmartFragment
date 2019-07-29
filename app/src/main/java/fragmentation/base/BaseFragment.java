@@ -2,7 +2,6 @@ package fragmentation.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fragmentation.ISupportFragment;
 import fragmentation.zhihu.fragment.first.ZhiHuFirstFragment;
+import timber.log.Timber;
 
 /**
  * Created on 2019/1/14.
@@ -70,7 +70,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.e(this.getClass().getSimpleName(), "onAttach");
+        Timber.d("onAttach");
         if (context instanceof OnBackToFirstListener) {
             onBackToFirstListener = (OnBackToFirstListener) context;
         } else {
@@ -81,7 +81,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e(this.getClass().getSimpleName(), "onCreateView");
+        Timber.d("onCreateView");
         View view = inflater.inflate(layoutResId(), container, false);
         // 返Unbinder解绑用
         // 此处this不可getActivity()
@@ -100,7 +100,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        Log.e(this.getClass().getSimpleName(), "onSupportVisible");
+        Timber.d("onSupportVisible");
         visibleToUser();
     }
 
@@ -114,7 +114,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        Log.e(this.getClass().getSimpleName(), "onLazyInitView");
+        Timber.d("onLazyInitView");
         startLoad();
     }
 
@@ -127,7 +127,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        Log.e(this.getClass().getSimpleName(), "onEnterAnimationEnd");
+        Timber.d("onEnterAnimationEnd");
     }
 
     /**
@@ -142,15 +142,15 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public boolean onBackPressedSupport() {
         if (getChildFragmentManager().getBackStackEntryCount() > 1) {
-            Log.e(this.getClass().getSimpleName(), "onBackPressedSupport -> popChild");
+            Timber.d("onBackPressedSupport -> popChild");
             popChild();
         } else if (this instanceof ZhiHuFirstFragment) {
-            Log.e(this.getClass().getSimpleName(), "onBackPressedSupport -> finish");
+            Timber.d("onBackPressedSupport -> finish");
             // 第一Fragment退应用
             /*_mActivity.finish();*/
             appExit();
         } else {
-            Log.e(this.getClass().getSimpleName(), "onBackPressedSupport -> onBackToFirstFragment");
+            Timber.d("onBackPressedSupport -> onBackToFirstFragment");
             // 非第一则回第一Fragment
             onBackToFirstListener.onBackToFirstFragment();
         }
@@ -166,14 +166,14 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        Log.e(this.getClass().getSimpleName(), "onSupportInvisible");
+        Timber.d("onSupportInvisible");
         invisibleToUser();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e(this.getClass().getSimpleName(), "onDetach");
+        Timber.d("onDetach");
         onBackToFirstListener = null;
         unbinder.unbind();
     }

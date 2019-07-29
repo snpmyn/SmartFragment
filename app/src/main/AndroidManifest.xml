@@ -6,9 +6,6 @@
 
     <dist:module dist:instant="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:name="application.SmartFragmentApp"
         android:allowBackup="false"

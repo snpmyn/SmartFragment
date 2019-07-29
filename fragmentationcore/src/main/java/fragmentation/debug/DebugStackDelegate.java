@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -28,6 +27,7 @@ import java.util.List;
 
 import fragmentation.Fragmentation;
 import fragmentation.ISupportFragment;
+import timber.log.Timber;
 import value.SmartFragmentFragmentationMagic;
 
 /**
@@ -150,7 +150,7 @@ public class DebugStackDelegate implements SensorEventListener {
                 sb.append("\t栈底\t\t\t").append(fragmentRecord.fragmentName).append("\n\n");
                 processChildLog(fragmentRecord.childFragmentRecord, sb, 1);
                 sb.append("═══════════════════════════════════════════════════════════════════════════════════");
-                Log.i(tag, sb.toString());
+                Timber.d(sb.toString());
                 return;
             } else {
                 sb.append("\t↓\t\t\t").append(fragmentRecord.fragmentName).append("\n\n");
@@ -267,7 +267,7 @@ public class DebugStackDelegate implements SensorEventListener {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (Math.abs(x - xDown) < clickLimitValue && Math.abs(y - yDown) < clickLimitValue && isClickState) {
-                        Log.e("onTouch", "isClickState = true");
+                        Timber.d("isClickState = true");
                     } else {
                         isClickState = false;
                         stackView.setX(event.getRawX() + dx);

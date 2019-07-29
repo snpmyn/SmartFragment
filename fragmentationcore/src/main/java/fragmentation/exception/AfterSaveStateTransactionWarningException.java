@@ -1,6 +1,6 @@
 package fragmentation.exception;
 
-import android.util.Log;
+import timber.log.Timber;
 
 /**
  * @decs: AfterSaveStateTransactionWarningException
@@ -16,7 +16,7 @@ public class AfterSaveStateTransactionWarningException extends RuntimeException 
         if (null == getMessage()) {
             return;
         }
-        Log.w("Fragmentation", getMessage());
+        Timber.d("Fragmentation: %s", getMessage());
     }
 }
 

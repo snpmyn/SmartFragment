@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -16,13 +15,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import timber.log.Timber;
+
 /**
  * @decs: EventBusActivityScope
  * @author: 郑少鹏
  * @date: 2019/6/17 18:07
  */
 public class EventBusActivityScope {
-    private static final String TAG = EventBusActivityScope.class.getSimpleName();
     private static AtomicBoolean sInitialized = new AtomicBoolean(false);
     private static volatile EventBus sInvalidEventBus;
     private static final Map<Activity, LazyEventBusInstance> S_ACTIVITY_EVENT_BUS_SCOPE_POOL = new ConcurrentHashMap<>();
@@ -86,12 +86,12 @@ public class EventBusActivityScope {
      */
     public static EventBus getDefault(Activity activity) {
         if (activity == null) {
-            Log.e(TAG, "Can't find the Activity, the Activity is null!");
+            Timber.d("Can't find the Activity, the Activity is null!");
             return invalidEventBus();
         }
         LazyEventBusInstance lazyEventBusInstance = S_ACTIVITY_EVENT_BUS_SCOPE_POOL.get(activity);
         if (lazyEventBusInstance == null) {
-            Log.e(TAG, "Can't find the Activity, it has been removed!");
+            Timber.d("Can't find the Activity, it has been removed!");
             return invalidEventBus();
         }
         return lazyEventBusInstance.getInstance();

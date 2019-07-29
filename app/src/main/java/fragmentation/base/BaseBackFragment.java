@@ -2,7 +2,6 @@ package fragmentation.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.zsp.smartfragment.R;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fragmentation.ISupportFragment;
+import timber.log.Timber;
 
 /**
  * Created on 2019/1/24.
@@ -58,13 +58,13 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.e(this.getClass().getSimpleName(), "onAttach");
+        Timber.d("onAttach");
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e(this.getClass().getSimpleName(), "onCreateView");
+        Timber.d("onCreateView");
         View view = inflater.inflate(layoutResId(), container, false);
         // 返Unbinder解绑用
         // 此处this不可getActivity()
@@ -83,7 +83,7 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        Log.e(this.getClass().getSimpleName(), "onSupportVisible");
+        Timber.d("onSupportVisible");
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        Log.e(this.getClass().getSimpleName(), "onEnterAnimationEnd");
+        Timber.d("onEnterAnimationEnd");
     }
 
     /**
@@ -108,7 +108,7 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        Log.e(this.getClass().getSimpleName(), "onLazyInitView");
+        Timber.d("onLazyInitView");
         startLoad();
     }
 
@@ -120,13 +120,13 @@ public abstract class BaseBackFragment extends SupportFragment {
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        Log.e(this.getClass().getSimpleName(), "onSupportInvisible");
+        Timber.d("onSupportInvisible");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e(this.getClass().getSimpleName(), "onDetach");
+        Timber.d("onDetach");
         unbinder.unbind();
     }
 

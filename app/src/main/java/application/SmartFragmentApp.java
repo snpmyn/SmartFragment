@@ -3,6 +3,8 @@ package application;
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
+import com.zsp.smartfragment.BuildConfig;
+import com.zsp.utilone.timber.configure.TimberInitConfigure;
 
 /**
  * Created on 2019/7/5.
@@ -20,6 +22,7 @@ public class SmartFragmentApp extends Application {
             return;
         }
         LeakCanary.install(this);
+        TimberInitConfigure.initTimber(BuildConfig.DEBUG);
         FragmentationInitConfig.initFragmentation();
     }
 }

@@ -30,4 +30,6 @@ dependencies {
     /*自带*/
     implementation 'org.greenrobot:eventbus:3.1.1'
     /*eventbus*/
+    implementation project(path: ':fragmentationcore')
+    /*FragmentationCore（目的为用其Util包）*/
 }

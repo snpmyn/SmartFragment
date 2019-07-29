@@ -1,7 +1,6 @@
 package fragmentation.zhihu.fragment.second.child.child;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import androidx.annotation.Nullable;
 
 import com.zsp.fragmentation.SupportFragment;
 import com.zsp.smartfragment.R;
+
+import timber.log.Timber;
 
 /**
  * @decs: ZhiHuOtherPagerFragment
@@ -52,6 +53,6 @@ public class ZhiHuOtherPagerFragment extends SupportFragment {
     }
 
     private void initView() {
-        Log.e("initView", mTitle);
+        Timber.d(mTitle);
     }
 }

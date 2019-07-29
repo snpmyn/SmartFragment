@@ -3,7 +3,6 @@ package com.zsp.fragmentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 
@@ -16,6 +15,7 @@ import fragmentation.ISupportFragment;
 import fragmentation.SupportFragmentDelegate;
 import fragmentation.SupportHelper;
 import fragmentation.animation.FragmentAnimator;
+import timber.log.Timber;
 
 /**
  * Created on 2019/1/14.
@@ -92,62 +92,62 @@ public class SupportFragment extends Fragment implements ISupportFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e(this.getClass().getSimpleName(), "onActivityCreated");
+        Timber.d("onActivityCreated");
         supportFragmentDelegate.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e(this.getClass().getSimpleName(), "onSaveInstanceState");
+        Timber.d("onSaveInstanceState");
         supportFragmentDelegate.onSaveInstanceState(outState);
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Log.e(this.getClass().getSimpleName(), "onCreateAnimation");
+        Timber.d("onCreateAnimation");
         return supportFragmentDelegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(this.getClass().getSimpleName(), "onResume");
+        Timber.d("onResume");
         supportFragmentDelegate.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(this.getClass().getSimpleName(), "onPause");
+        Timber.d("onPause");
         supportFragmentDelegate.onPause();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.e(this.getClass().getSimpleName(), "onDestroyView");
+        Timber.d("onDestroyView");
         supportFragmentDelegate.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(this.getClass().getSimpleName(), "onDestroy");
+        Timber.d("onDestroy");
         supportFragmentDelegate.onDestroy();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.e(this.getClass().getSimpleName(), "onHiddenChanged");
+        Timber.d("onHiddenChanged");
         supportFragmentDelegate.onHiddenChanged(hidden);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.e(this.getClass().getSimpleName(), "setUserVisibleHint");
+        Timber.d("setUserVisibleHint");
         supportFragmentDelegate.setUserVisibleHint(isVisibleToUser);
     }
 
@@ -161,7 +161,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      */
     @Override
     public void onSupportVisible() {
-        Log.e(this.getClass().getSimpleName(), "onSupportVisible");
+        Timber.d("onSupportVisible");
         supportFragmentDelegate.onSupportVisible();
     }
 
@@ -176,7 +176,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      */
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        Log.e(this.getClass().getSimpleName(), "onLazyInitView");
+        Timber.d("onLazyInitView");
         supportFragmentDelegate.onLazyInitView(savedInstanceState);
     }
 
@@ -190,7 +190,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      */
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        Log.e(this.getClass().getSimpleName(), "onEnterAnimationEnd");
+        Timber.d("onEnterAnimationEnd");
         supportFragmentDelegate.onEnterAnimationEnd(savedInstanceState);
     }
 
@@ -204,7 +204,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      */
     @Override
     public void onSupportInvisible() {
-        Log.e(this.getClass().getSimpleName(), "onSupportInvisible");
+        Timber.d("onSupportInvisible");
         supportFragmentDelegate.onSupportInvisible();
     }
 

@@ -3,7 +3,6 @@ package fragmentation;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -24,6 +23,7 @@ import fragmentation.helper.internal.ResultRecord;
 import fragmentation.helper.internal.TransactionRecord;
 import fragmentation.queue.ActionQueue;
 import fragmentation.queue.BaseAction;
+import timber.log.Timber;
 import value.SmartFragmentFragmentationMagic;
 
 /**
@@ -32,7 +32,6 @@ import value.SmartFragmentFragmentationMagic;
  * @date: 2019/5/20 9:55
  */
 class TransactionDelegate {
-    private static final String TAG = "TransactionDelegate";
     static final int DEFAULT_POP_TO_ANIM = Integer.MAX_VALUE;
     static final String FRAGMENTATION_ARG_RESULT_RECORD = "fragment_arg_result_record";
     static final String FRAGMENTATION_ARG_ROOT_STATUS = "fragmentation_arg_root_status";
@@ -319,7 +318,7 @@ class TransactionDelegate {
 
     private void enqueue(FragmentManager fm, BaseAction action) {
         if (fm == null) {
-            Log.w(TAG, "FragmentManager is null, skip the action!");
+            Timber.d("FragmentManager is null, skip the action!");
             return;
         }
         mActionQueue.enqueue(action);
@@ -330,7 +329,7 @@ class TransactionDelegate {
         boolean flag = (type == TYPE_ADD_RESULT || type == TYPE_ADD_RESULT_WITHOUT_HIDE) && from != null;
         if (flag) {
             if (!((Fragment) from).isAdded()) {
-                Log.w(TAG, ((Fragment) from).getClass().getSimpleName() + " has not been attached yet! startForResult() converted to start()");
+                Timber.d(((Fragment) from).getClass().getSimpleName(), " has not been attached yet! startForResult() converted to start()");
             } else {
                 saveRequestCode(fm, (Fragment) from, (Fragment) to, requestCode);
             }
@@ -338,7 +337,7 @@ class TransactionDelegate {
         from = getTopFragmentForStart(from, fm);
         int containerId = getArguments((Fragment) to).getInt(FRAGMENTATION_ARG_CONTAINER, 0);
         if (from == null && containerId == 0) {
-            Log.e(TAG, "There is no Fragment in the FragmentManager, maybe you need to call loadRootFragment()!");
+            Timber.d("There is no Fragment in the FragmentManager, maybe you need to call loadRootFragment()!");
             return;
         }
         if (from != null && containerId == 0) {
@@ -512,7 +511,7 @@ class TransactionDelegate {
         handleAfterSaveInStateTransactionException(fm, "popTo()");
         Fragment targetFragment = fm.findFragmentByTag(targetFragmentTag);
         if (targetFragment == null) {
-            Log.e(TAG, "Pop failure! Can't find FragmentTag:" + targetFragmentTag + " in the FragmentManager's Stack.");
+            Timber.d("Pop failure! Can't find FragmentTag:" + targetFragmentTag + " in the FragmentManager's Stack.");
             return;
         }
         int flag = 0;
