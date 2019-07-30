@@ -369,8 +369,8 @@ class TransactionDelegate {
             top = SupportHelper.getTopFragment(fm);
         } else {
             if (from.getSupportDelegate().mContainerId == 0) {
-                Fragment fromF = (Fragment) from;
-                if (fromF.getTag() != null && !fromF.getTag().startsWith(SmartFragmentFragmentationMagic.STRING_ANDROID_SWITCHER)) {
+                Fragment fFrom = (Fragment) from;
+                if (fFrom.getTag() != null && !fFrom.getTag().startsWith(SmartFragmentFragmentationMagic.STRING_ANDROID_SWITCHER)) {
                     throw new IllegalStateException("Can't find container, please call loadRootFragment() first!");
                 }
             }
@@ -383,9 +383,9 @@ class TransactionDelegate {
                        boolean doNotAddToBackStack, ArrayList<TransactionRecord.SharedElement> sharedElementList, boolean allowRootFragmentAnim, int type) {
         FragmentTransaction ft = fm.beginTransaction();
         boolean addMode = (type == TYPE_ADD || type == TYPE_ADD_RESULT || type == TYPE_ADD_WITHOUT_HIDE || type == TYPE_ADD_RESULT_WITHOUT_HIDE);
-        Fragment fromF = (Fragment) from;
-        Fragment toF = (Fragment) to;
-        Bundle args = getArguments(toF);
+        Fragment fFrom = (Fragment) from;
+        Fragment fTo = (Fragment) to;
+        Bundle args = getArguments(fTo);
         args.putBoolean(FRAGMENTATION_ARG_REPLACE, !addMode);
         if (sharedElementList == null) {
             if (addMode) {
@@ -410,7 +410,7 @@ class TransactionDelegate {
             }
         }
         if (from == null) {
-            ft.replace(args.getInt(FRAGMENTATION_ARG_CONTAINER), toF, toFragmentTag);
+            ft.replace(args.getInt(FRAGMENTATION_ARG_CONTAINER), fTo, toFragmentTag);
             if (!addMode) {
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 args.putInt(FRAGMENTATION_ARG_ROOT_STATUS, allowRootFragmentAnim ?
@@ -418,12 +418,12 @@ class TransactionDelegate {
             }
         } else {
             if (addMode) {
-                ft.add(from.getSupportDelegate().mContainerId, toF, toFragmentTag);
+                ft.add(from.getSupportDelegate().mContainerId, fTo, toFragmentTag);
                 if (type != TYPE_ADD_WITHOUT_HIDE && type != TYPE_ADD_RESULT_WITHOUT_HIDE) {
-                    ft.hide(fromF);
+                    ft.hide(fFrom);
                 }
             } else {
-                ft.replace(from.getSupportDelegate().mContainerId, toF, toFragmentTag);
+                ft.replace(from.getSupportDelegate().mContainerId, fTo, toFragmentTag);
             }
         }
         if (!doNotAddToBackStack && type != TYPE_REPLACE_DO_NOT_BACK) {
