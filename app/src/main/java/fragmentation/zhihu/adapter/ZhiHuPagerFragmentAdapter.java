@@ -18,7 +18,7 @@ public class ZhiHuPagerFragmentAdapter extends FragmentPagerAdapter {
     private String[] mTitles;
 
     public ZhiHuPagerFragmentAdapter(FragmentManager fm, String... titles) {
-        super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        super(fm);
         mTitles = titles;
     }
 
