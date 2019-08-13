@@ -83,6 +83,9 @@ public class EventBusActivityScope {
 
     /**
      * Get the activity-scope EventBus instance.
+     *
+     * @param activity Activity
+     * @return he activity-scope EventBus instance
      */
     public static EventBus getDefault(Activity activity) {
         if (activity == null) {
