@@ -160,7 +160,6 @@ public class ZhiHuDetailFragment extends BaseFragment {
             default:
                 break;
         }
-
     }
 
     /**
