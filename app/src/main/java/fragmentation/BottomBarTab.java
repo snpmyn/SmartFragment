@@ -49,7 +49,7 @@ public class BottomBarTab extends FrameLayout {
         params.gravity = Gravity.CENTER;
         mIcon.setImageResource(icon);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.tabUnselected));
+        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.colorc9c9c9));
         addView(mIcon);
     }
 
@@ -59,7 +59,7 @@ public class BottomBarTab extends FrameLayout {
         if (selected) {
             mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tabUnselected));
+            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorc9c9c9));
         }
     }
 
