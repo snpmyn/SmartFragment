@@ -15,7 +15,6 @@ api 'com.github.snpmyn:*Util*:master-SNAPSHOT'
 * implementation 'com.qw:soulpermission:1.2.1_x'
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
-
 ##### AndroidLibrary - UtilTwo
 * implementation 'androidx.core:core-ktx:1.2.0-alpha03'
 * implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
