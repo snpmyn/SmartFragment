@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zsp.smartfragment">
 
+    <dist:module dist:instant="true" />
+
     <application
         android:name="application.SmartFragmentApp"
         android:allowBackup="false"
@@ -22,7 +24,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <dist:module dist:instant="true" />
 
 </manifest>
