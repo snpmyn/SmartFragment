@@ -11,15 +11,19 @@
       <w>eventbus</w>
       <w>eventbusactivityscope</w>
       <w>fragmentationcore</w>
+      <w>getkeepsafe</w>
       <w>greenrobot</w>
       <w>jakewharton</w>
       <w>litepal</w>
+      <w>mmkv</w>
       <w>poped</w>
+      <w>relinker</w>
       <w>rxandroid</w>
       <w>rxjava</w>
       <w>smartfragment</w>
       <w>snpmyn</w>
       <w>soulpermission</w>
+      <w>tencent</w>
       <w>unbinder</w>
       <w>wechat</w>
       <w>windowbackground</w>

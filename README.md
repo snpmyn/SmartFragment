@@ -18,6 +18,8 @@ api 'com.github.snpmyn:*Util*:master-SNAPSHOT'
 * api 'io.reactivex:rxandroid:1.2.1'（避重）
 * api 'io.reactivex:rxjava:1.3.8'（避重）
 * api 'com.jakewharton.timber:timber:4.7.1'（避重）
+* api 'com.tencent:mmkv-static:1.0.23'（避重）
+* implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
 * implementation 'com.qw:soulpermission:1.2.1_x'
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
