@@ -444,7 +444,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * @param toFragment 目标Fragment
      * @param launchMode 启动模式（类似活动）
      */
-    void start(final ISupportFragment toFragment, @LaunchMode int launchMode) {
+    public void start(final ISupportFragment toFragment, @LaunchMode int launchMode) {
         supportFragmentDelegate.start(toFragment, launchMode);
     }
 
@@ -467,7 +467,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      *
      * @param toFragment 目标Fragment
      */
-    void startWithPop(ISupportFragment toFragment) {
+    public void startWithPop(ISupportFragment toFragment) {
         supportFragmentDelegate.startWithPop(toFragment);
     }
 
