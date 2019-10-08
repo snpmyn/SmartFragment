@@ -23,7 +23,7 @@ api 'com.github.snpmyn:*Util*:master-SNAPSHOT'
 * api 'com.jakewharton.timber:timber:4.7.1'（避重）
 * api 'com.tencent:mmkv-static:1.0.23'（避重）
 * implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
-* implementation 'com.qw:soulpermission:1.2.1_x'
+* implementation 'com.qw:soulpermission:1.2.2_x'
 * implementation 'org.apache.commons:commons-lang3:3.9'
 
 ##### AndroidLibrary - UtilTwo
