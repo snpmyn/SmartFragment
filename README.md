@@ -17,7 +17,7 @@ api 'com.github.snpmyn:*Util*:master-SNAPSHOT'
 #### com.github.snpmyn:Util(api)
 ##### AndroidLibrary - UtilOne
 * api 'com.github.bumptech.glide:glide:4.10.0'（避重）
-* api 'com.google.android.material:material:1.1.0-beta01'（避重）
+* api 'com.google.android.material:material:1.2.0-alpha01'（避重）
 * api 'io.reactivex:rxandroid:1.2.1'（避重）
 * api 'io.reactivex:rxjava:1.3.8'（避重）
 * api 'com.jakewharton.timber:timber:4.7.1'（避重）
