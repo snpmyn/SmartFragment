@@ -127,7 +127,9 @@ public abstract class BaseBackFragment extends SupportFragment {
     public void onDetach() {
         super.onDetach();
         Timber.d("onDetach");
-        unbinder.unbind();
+        if (null != unbinder) {
+            unbinder.unbind();
+        }
     }
 
     /**

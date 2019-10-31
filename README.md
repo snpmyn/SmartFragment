@@ -8,33 +8,92 @@
 ### 介绍
 聪明的碎片管理框架。
 
-### 依赖
-#### 自身
-##### AndroidLibrary - EventbusActivityScope
-implementation 'org.greenrobot:eventbus:3.1.1'
-##### AndroidLibrary - FragmentationCore
-api 'com.github.snpmyn:*Util*:master-SNAPSHOT'
-#### com.github.snpmyn:Util(api)
-##### AndroidLibrary - UtilOne
-* api 'com.github.bumptech.glide:glide:4.10.0'（避重）
-* api 'com.google.android.material:material:1.2.0-alpha01'（避重）
-* api 'io.reactivex:rxandroid:1.2.1'（避重）
-* api 'io.reactivex:rxjava:1.3.8'（避重）
-* api 'com.jakewharton.timber:timber:4.7.1'（避重）
-* api 'com.tencent:mmkv-static:1.0.23'（避重）
-* implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
-* implementation 'com.qw:soulpermission:1.2.2_x'
-* implementation 'org.apache.commons:commons-lang3:3.9'
+### 架构
+| 模块 | 说明 |
+|:-:|:-:|
+| 示例app | 用法举例 |
+| 一方库FragmentationCore | 核心依赖 |
+| 一方库Fragmentation | 功能实现 |
+| 一方库EventbusActivityScope | 传值功能实现 |
 
-##### AndroidLibrary - UtilTwo
-* implementation 'androidx.core:core-ktx:1.2.0-beta01'
-* implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version"
+### 依赖、权限
 
-### 权限
-#### com.github.snpmyn:Util
-##### app
-* android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）
-* android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）
+| 模块 | 依赖 |
+|:-:|:-:|
+| 一方库(FragmentationCore) | api 'com.github.snpmyn:*Util*:master-SNAPSHOT'（避重）|
+| 一方库(Fragmentation) | api project(path: ':fragmentationcore') |
+| 一方库(EventbusActivityScope) | implementation project(path: ':fragmentationcore') |
+| 一方库(EventbusActivityScope) | implementation 'org.greenrobot:eventbus:3.1.1' |
+| 二方库(Util-UtilOne) | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
+| 二方库(Util-UtilOne) | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
+| 二方库(Util-UtilOne) | api 'io.reactivex:rxandroid:1.2.1'（避重）|
+| 二方库(Util-UtilOne) | api 'io.reactivex:rxjava:1.3.8'（避重）|
+| 二方库(Util-UtilOne) | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
+| 二方库(Util-UtilOne) | api 'com.tencent:mmkv-static:1.0.23'（避重）|
+| 二方库(Util-UtilOne) | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
+| 二方库(Util-UtilOne) | implementation 'com.qw:soulpermission:1.2.2_x' |
+| 二方库(Util-UtilOne) | implementation 'org.apache.commons:commons-lang3:3.9' |
+| 二方库(Util-UtilTwo) | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 二方库(Util-UtilTwo) | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
+
+| 模块 | 权限 |
+|:-:|:-:|
+| 示例app | 无 |
+| 一方库(FragmentationCore) | 无 |
+| 一方库(Fragmentation) | 无 |
+| 一方库(EventbusActivityScope) | 无 |
+
+### 使用
+build.gradle(module)
+```
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+```
+build.gradle(app)
+```
+apply plugin: 'com.android.application'
+
+android {
+    ...
+    defaultConfig {
+        ...      
+    }       
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }       
+}
+
+dependencies {
+    implementation 'com.github.snpmyn.SmartFragment:fragmentation:master-SNAPSHOT'    
+    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:master-SNAPSHOT'    
+}
+```
 
 ### License
 ```
