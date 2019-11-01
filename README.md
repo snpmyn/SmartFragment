@@ -43,6 +43,8 @@
 | 一方库FragmentationCore | 无 |
 | 一方库Fragmentation | 无 |
 | 一方库EventbusActivityScope | 无 |
+| 二方库Util-app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
+| 二方库Util-app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
 
 ### 使用
 build.gradle(module)
