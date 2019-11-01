@@ -12,36 +12,36 @@
 | 模块 | 说明 |
 |:-:|:-:|
 | 示例app | 用法举例 |
-| 一方库FragmentationCore | 核心依赖 |
-| 一方库Fragmentation | 功能实现 |
+| 一方库FragmentationCore | 核心功能实现 |
+| 一方库Fragmentation | 基类实现 |
 | 一方库EventbusActivityScope | 传值功能实现 |
 
 ### 依赖、权限
 
 | 模块 | 依赖 |
 |:-:|:-:|
-| 一方库(FragmentationCore) | api 'com.github.snpmyn:*Util*:master-SNAPSHOT'（避重）|
-| 一方库(Fragmentation) | api project(path: ':fragmentationcore') |
-| 一方库(EventbusActivityScope) | implementation project(path: ':fragmentationcore') |
-| 一方库(EventbusActivityScope) | implementation 'org.greenrobot:eventbus:3.1.1' |
-| 二方库(Util-UtilOne) | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
-| 二方库(Util-UtilOne) | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
-| 二方库(Util-UtilOne) | api 'io.reactivex:rxandroid:1.2.1'（避重）|
-| 二方库(Util-UtilOne) | api 'io.reactivex:rxjava:1.3.8'（避重）|
-| 二方库(Util-UtilOne) | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
-| 二方库(Util-UtilOne) | api 'com.tencent:mmkv-static:1.0.23'（避重）|
-| 二方库(Util-UtilOne) | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
-| 二方库(Util-UtilOne) | implementation 'com.qw:soulpermission:1.2.2_x' |
-| 二方库(Util-UtilOne) | implementation 'org.apache.commons:commons-lang3:3.9' |
-| 二方库(Util-UtilTwo) | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
-| 二方库(Util-UtilTwo) | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
+| 一方库FragmentationCore | api 'com.github.snpmyn:*Util*:master-SNAPSHOT'（避重）|
+| 一方库Fragmentation | api project(path: ':fragmentationcore') |
+| 一方库EventbusActivityScope | implementation 'com.github.snpmyn:*Util*:master-SNAPSHOT' |
+| 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
+| 二方库Util-UtilOne | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
+| 二方库Util-UtilOne | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
+| 二方库Util-UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
+| 二方库Util-UtilOne | api 'io.reactivex:rxjava:1.3.8'（避重）|
+| 二方库Util-UtilOne | api 'com.jakewharton.timber:timber:4.7.1'（避重）|
+| 二方库Util-UtilOne | api 'com.tencent:mmkv-static:1.0.23'（避重）|
+| 二方库Util-UtilOne | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
+| 二方库Util-UtilOne | implementation 'com.qw:soulpermission:1.2.2_x' |
+| 二方库Util-UtilOne | implementation 'org.apache.commons:commons-lang3:3.9' |
+| 二方库Util-UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 二方库Util-UtilTwo | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
 | 模块 | 权限 |
 |:-:|:-:|
 | 示例app | 无 |
-| 一方库(FragmentationCore) | 无 |
-| 一方库(Fragmentation) | 无 |
-| 一方库(EventbusActivityScope) | 无 |
+| 一方库FragmentationCore | 无 |
+| 一方库Fragmentation | 无 |
+| 一方库EventbusActivityScope | 无 |
 
 ### 使用
 build.gradle(module)
@@ -86,6 +86,9 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }       
 }
 
