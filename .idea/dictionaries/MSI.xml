@@ -18,8 +18,11 @@
       <w>jakewharton</w>
       <w>jcenter</w>
       <w>jitpack</w>
+      <w>liberapay</w>
       <w>litepal</w>
       <w>mmkv</w>
+      <w>otechie</w>
+      <w>patreon</w>
       <w>poped</w>
       <w>relinker</w>
       <w>rxandroid</w>
@@ -28,7 +31,9 @@
       <w>snpmyn</w>
       <w>soulpermission</w>
       <w>tencent</w>
+      <w>tidelift</w>
       <w>unbinder</w>
+      <w>usernames</w>
       <w>wechat</w>
       <w>windowbackground</w>
       <w>writted</w>
