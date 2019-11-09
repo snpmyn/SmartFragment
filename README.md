@@ -27,6 +27,8 @@
 | 一方库Fragmentation | api project(path: ':fragmentationcore') |
 | 一方库EventbusActivityScope | implementation 'com.github.snpmyn:*Util*:master-SNAPSHOT' |
 | 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
+| 二方库Util-示例app | implementation project(path: ':utilone') |
+| 二方库Util-示例app | implementation project(path: ':utiltwo') |
 | 二方库Util-UtilOne | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
 | 二方库Util-UtilOne | api 'com.google.android.material:material:1.2.0-alpha01'（避重）|
 | 二方库Util-UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
@@ -36,7 +38,7 @@
 | 二方库Util-UtilOne | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
 | 二方库Util-UtilOne | implementation 'com.qw:soulpermission:1.2.2_x' |
 | 二方库Util-UtilOne | implementation 'org.apache.commons:commons-lang3:3.9' |
-| 二方库Util-UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta01' |
+| 二方库Util-UtilTwo | implementation 'androidx.core:core-ktx:1.2.0-beta02' |
 | 二方库Util-UtilTwo | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
 | 模块 | 权限 |
