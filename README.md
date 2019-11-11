@@ -1,7 +1,7 @@
 <div align=center><img src="https://github.com/snpmyn/SmartFragment/raw/master/image.png"/></div>
 
 [![SNAPSHOT](https://jitpack.io/v/Jaouan/Revealator.svg)](https://jitpack.io/#snpmyn/SmartFragment)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1c9a1b1d1ce4ca7a201ab93492bf6e0)](https://app.codacy.com/project/snpmyn/SmartFragment/dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0cff515e44f14f8dafc26d1ed483b7fa)](https://www.codacy.com/manual/snpmyn/SmartFragment?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=snpmyn/SmartFragment&amp;utm_campaign=Badge_Grade)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
 
@@ -49,8 +49,8 @@
 | 一方库EventbusActivityScope | 无 |
 | 二方库Util-app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 二方库Util-app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
-| 一方库UtilOne | 无 |
-| 一方库UtilTwo | 无 |
+| 二方库UtilOne | 无 |
+| 二方库UtilTwo | 无 |
 
 ### 使用
 build.gradle(module)
