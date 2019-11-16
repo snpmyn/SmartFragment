@@ -53,6 +53,9 @@
 | 二方库UtilTwo | 无 |
 
 ### 使用
+> 版本快速迭代中，暂时使用`master-SNAPSHOT`版。<br>
+> 如获取不成功，请暂时查看源码。
+
 build.gradle(module)
 ```
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
