@@ -23,9 +23,9 @@
 |:-:|:-:|
 | 示例app | implementation project(path: ':fragmentation') |
 | 示例app | implementation project(path: ':eventbusactivityscope') |
-| 一方库FragmentationCore | api 'com.github.snpmyn:*Util*:master-SNAPSHOT'（避重）|
+| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:master-SNAPSHOT'（避重）|
 | 一方库Fragmentation | api project(path: ':fragmentationcore') |
-| 一方库EventbusActivityScope | implementation 'com.github.snpmyn:*Util*:master-SNAPSHOT' |
+| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:master-SNAPSHOT' |
 | 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
 | 二方库Util-示例app | implementation project(path: ':utilone') |
 | 二方库Util-示例app | implementation project(path: ':utiltwo') |
@@ -54,7 +54,7 @@
 
 ### 使用
 > 版本快速迭代中，暂时使用`master-SNAPSHOT`版。<br>
-> 如获取不成功，请暂时查看源码。
+> 获取不成功请暂时查看源码。
 
 build.gradle(module)
 ```
