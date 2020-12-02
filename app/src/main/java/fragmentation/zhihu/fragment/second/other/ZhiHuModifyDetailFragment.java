@@ -1,5 +1,6 @@
 package fragmentation.zhihu.fragment.second.other;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +25,16 @@ public class ZhiHuModifyDetailFragment extends BaseFragment {
      * Key
      */
     private static final String KEY_TITLE = "keyTitle";
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.toolbarMt)
     MaterialToolbar toolbarMt;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuModifyDetailEtInput)
     EditText zhiHuModifyDetailEtInput;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuModifyDetailMbModify)
     Button zhiHuModifyDetailMbModify;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuModifyDetailMbLaunch)
     Button zhiHuModifyDetailMbLaunch;
     /**

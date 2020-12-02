@@ -50,9 +50,9 @@ class TransactionDelegate {
     static final int TYPE_ADD_RESULT_WITHOUT_HIDE = 3;
     static final int TYPE_REPLACE = 10;
     static final int TYPE_REPLACE_DO_NOT_BACK = 11;
-    private ISupportActivity mSupport;
-    private FragmentActivity mActivity;
-    private Handler mHandler;
+    private final ISupportActivity mSupport;
+    private final FragmentActivity mActivity;
+    private final Handler mHandler;
     ActionQueue mActionQueue;
 
     TransactionDelegate(ISupportActivity support) {

@@ -32,8 +32,8 @@ public class VisibleDelegate {
     private boolean mFirstCreateViewCompatReplace = true;
     private Handler mHandler;
     private Bundle mSaveInstanceState;
-    private ISupportFragment iSupportFragment;
-    private Fragment mFragment;
+    private final ISupportFragment iSupportFragment;
+    private final Fragment mFragment;
 
     public VisibleDelegate(ISupportFragment fragment) {
         this.iSupportFragment = fragment;

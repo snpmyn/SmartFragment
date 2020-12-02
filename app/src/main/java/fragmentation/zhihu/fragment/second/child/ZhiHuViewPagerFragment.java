@@ -1,5 +1,6 @@
 package fragmentation.zhihu.fragment.second.child;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,10 @@ import fragmentation.zhihu.adapter.ZhiHuPagerFragmentAdapter;
  * @date: 2019/1/21 16:34
  */
 public class ZhiHuViewPagerFragment extends SupportFragment {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuViewPagerFragmentTl)
     TabLayout zhiHuViewPagerFragmentTl;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuViewPagerFragmentVp)
     ViewPager zhiHuViewPagerFragmentVp;
     private Unbinder unbinder;

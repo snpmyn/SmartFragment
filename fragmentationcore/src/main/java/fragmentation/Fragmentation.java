@@ -129,9 +129,8 @@ public class Fragmentation {
             return this;
         }
 
-        public Fragmentation install() {
+        public void install() {
             Fragmentation.INSTANCE = new Fragmentation(this);
-            return Fragmentation.INSTANCE;
         }
     }
 }

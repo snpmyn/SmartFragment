@@ -1,6 +1,7 @@
 package com.zsp.smartfragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.mainActivityMbZhiHu)
     public void onViewClicked(View view) {
         if (view.getId() == R.id.mainActivityMbZhiHu) {

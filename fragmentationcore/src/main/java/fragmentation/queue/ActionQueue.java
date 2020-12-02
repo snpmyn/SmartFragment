@@ -16,8 +16,8 @@ import fragmentation.SupportHelper;
  * @date: 2019/5/20 9:38
  */
 public class ActionQueue {
-    private Queue<BaseAction> mQueue = new LinkedList<>();
-    private Handler mMainHandler;
+    private final Queue<BaseAction> mQueue = new LinkedList<>();
+    private final Handler mMainHandler;
 
     public ActionQueue(Handler mainHandler) {
         this.mMainHandler = mainHandler;

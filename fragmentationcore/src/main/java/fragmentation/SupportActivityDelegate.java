@@ -22,14 +22,14 @@ import fragmentation.queue.BaseAction;
  * @date: 2019/5/20 9:48
  */
 public class SupportActivityDelegate {
-    private ISupportActivity mSupport;
-    private FragmentActivity mActivity;
+    private final ISupportActivity mSupport;
+    private final FragmentActivity mActivity;
     boolean mPopMultipleNoAnim = false;
     boolean mFragmentClickable = true;
     private TransactionDelegate mTransactionDelegate;
     private FragmentAnimator mFragmentAnimator;
     private int mDefaultFragmentBackground = 0;
-    private DebugStackDelegate mDebugStackDelegate;
+    private final DebugStackDelegate mDebugStackDelegate;
 
     public SupportActivityDelegate(ISupportActivity support) {
         if (!(support instanceof FragmentActivity)) {

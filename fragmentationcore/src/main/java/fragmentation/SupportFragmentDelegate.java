@@ -41,7 +41,6 @@ public class SupportFragmentDelegate {
     private Handler mHandler;
     private boolean mFirstCreateView = true;
     private boolean mReplaceMode;
-    private boolean mIsHidden = true;
     Bundle mNewBundle;
     private TransactionDelegate mTransactionDelegate;
     boolean mAnimByActivity = true;
@@ -49,16 +48,16 @@ public class SupportFragmentDelegate {
     private int mRootStatus = STATUS_UN_ROOT;
     private Bundle mSaveInstanceState;
     private boolean mIsSharedElement;
-    private Fragment mFragment;
+    private final Fragment mFragment;
     /**
      * SupportVisible
      */
     private VisibleDelegate mVisibleDelegate;
     private ISupportActivity mSupport;
-    private ISupportFragment iSupportFragment;
+    private final ISupportFragment iSupportFragment;
     private FragmentActivity mFragmentActivity;
     private boolean mRootViewClickable;
-    private Runnable mNotifyEnterAnimEndRunnable = new Runnable() {
+    private final Runnable mNotifyEnterAnimEndRunnable = new Runnable() {
         @Override
         public void run() {
             if (mFragment == null) {
@@ -138,7 +137,6 @@ public class SupportFragmentDelegate {
             savedInstanceState.setClassLoader(getClass().getClassLoader());
             mSaveInstanceState = savedInstanceState;
             mFragmentAnimator = savedInstanceState.getParcelable(TransactionDelegate.FRAGMENTATION_STATE_SAVE_ANIMATOR);
-            mIsHidden = savedInstanceState.getBoolean(TransactionDelegate.FRAGMENTATION_STATE_SAVE_IS_HIDDEN);
             mContainerId = savedInstanceState.getInt(TransactionDelegate.FRAGMENTATION_ARG_CONTAINER);
         }
         mAnimHelper = new AnimatorHelper(mFragmentActivity.getApplicationContext(), mFragmentAnimator);

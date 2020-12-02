@@ -1,5 +1,6 @@
 package fragmentation.debug;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,7 +37,7 @@ import value.SmartFragmentFragmentationMagic;
  * @date: 2019/5/20 9:29
  */
 public class DebugStackDelegate implements SensorEventListener {
-    private FragmentActivity mActivity;
+    private final FragmentActivity mActivity;
     private SensorManager mSensorManager;
     private AlertDialog mStackDialog;
 
@@ -54,6 +55,7 @@ public class DebugStackDelegate implements SensorEventListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void onPostCreate(int mode) {
         if (mode != Fragmentation.BUBBLE) {
             return;
@@ -241,12 +243,12 @@ public class DebugStackDelegate implements SensorEventListener {
         return name;
     }
 
-    private class StackViewTouchListener implements View.OnTouchListener {
-        private View stackView;
+    private static class StackViewTouchListener implements View.OnTouchListener {
+        private final View stackView;
         private float dx, dy = 0f;
         private float xDown, yDown = 0f;
         private boolean isClickState;
-        private int clickLimitValue;
+        private final int clickLimitValue;
 
         StackViewTouchListener(View stackView, int clickLimitValue) {
             this.stackView = stackView;

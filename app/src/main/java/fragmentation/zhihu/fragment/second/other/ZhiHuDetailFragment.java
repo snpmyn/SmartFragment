@@ -1,5 +1,6 @@
 package fragmentation.zhihu.fragment.second.other;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,10 +21,13 @@ import fragmentation.base.BaseFragment;
  * @date: 2019/1/21 17:45
  */
 public class ZhiHuDetailFragment extends BaseFragment {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.toolbarMt)
     MaterialToolbar materialToolbar;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuDetailFragmentTv)
     TextView zhiHuDetailFragmentTv;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.zhiHuDetailFragmentFab)
     FloatingActionButton zhiHuDetailFragmentFab;
     /**

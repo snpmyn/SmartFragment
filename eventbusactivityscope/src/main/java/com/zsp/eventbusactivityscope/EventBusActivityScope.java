@@ -23,17 +23,17 @@ import timber.log.Timber;
  * @date: 2019/6/17 18:07
  */
 public class EventBusActivityScope {
-    private static AtomicBoolean sInitialized = new AtomicBoolean(false);
+    private static final AtomicBoolean S_INITIALIZED = new AtomicBoolean(false);
     private static volatile EventBus sInvalidEventBus;
     private static final Map<Activity, LazyEventBusInstance> S_ACTIVITY_EVENT_BUS_SCOPE_POOL = new ConcurrentHashMap<>();
 
     static void init(Context context) {
-        if (sInitialized.getAndSet(true)) {
+        if (S_INITIALIZED.getAndSet(true)) {
             return;
         }
         ((Application) context.getApplicationContext())
                 .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-                    private Handler mainHandler = new Handler(Looper.getMainLooper());
+                    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
                     @Override
                     public void onActivityCreated(@NonNull Activity activity, Bundle bundle) {

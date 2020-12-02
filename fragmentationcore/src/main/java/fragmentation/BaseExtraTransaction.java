@@ -252,12 +252,12 @@ public abstract class BaseExtraTransaction {
      * @param <T> ISupportFragment
      */
     final static class BaseExtraTransactionImpl<T extends ISupportFragment> extends BaseExtraTransaction implements DoNotAddToBackStackTransaction {
-        private FragmentActivity mActivity;
-        private T fSupport;
-        private Fragment mFragment;
-        private TransactionDelegate mTransactionDelegate;
-        private boolean mFromActivity;
-        private TransactionRecord mRecord;
+        private final FragmentActivity mActivity;
+        private final T fSupport;
+        private final Fragment mFragment;
+        private final TransactionDelegate mTransactionDelegate;
+        private final boolean mFromActivity;
+        private final TransactionRecord mRecord;
 
         BaseExtraTransactionImpl(FragmentActivity activity, T fSupport, TransactionDelegate transactionDelegate, boolean fromActivity) {
             this.mActivity = activity;

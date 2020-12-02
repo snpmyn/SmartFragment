@@ -1,5 +1,6 @@
 package fragmentation.zhihu.fragment.second.child.child;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ public class ZhiHuFirstPagerFragment extends SupportFragment {
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.mainActivityMbFatherFragmentLaunch)
     void onViewClicked(View view) {
         if (view.getId() == R.id.mainActivityMbFatherFragmentLaunch) {

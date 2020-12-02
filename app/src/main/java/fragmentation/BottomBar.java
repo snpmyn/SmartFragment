@@ -188,7 +188,7 @@ public class BottomBar extends LinearLayout {
                 return new SavedState[size];
             }
         };
-        private int position;
+        private final int position;
 
         SavedState(Parcel source) {
             super(source);

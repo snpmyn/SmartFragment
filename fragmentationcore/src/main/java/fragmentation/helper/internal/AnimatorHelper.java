@@ -19,7 +19,7 @@ import fragmentation.animation.FragmentAnimator;
 public final class AnimatorHelper {
     public Animation enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
     private Animation noneAnimation, noneAnimationFixed;
-    private Context context;
+    private final Context context;
     private FragmentAnimator fragmentAnimator;
 
     public AnimatorHelper(Context context, FragmentAnimator fragmentAnimator) {
@@ -63,39 +63,35 @@ public final class AnimatorHelper {
         return null;
     }
 
-    private Animation initEnterAnimation() {
+    private void initEnterAnimation() {
         if (fragmentAnimator.getEnter() == 0) {
             enterAnimation = AnimationUtils.loadAnimation(context, R.anim.no_anim);
         } else {
             enterAnimation = AnimationUtils.loadAnimation(context, fragmentAnimator.getEnter());
         }
-        return enterAnimation;
     }
 
-    private Animation initExitAnimation() {
+    private void initExitAnimation() {
         if (fragmentAnimator.getExit() == 0) {
             exitAnimation = AnimationUtils.loadAnimation(context, R.anim.no_anim);
         } else {
             exitAnimation = AnimationUtils.loadAnimation(context, fragmentAnimator.getExit());
         }
-        return exitAnimation;
     }
 
-    private Animation initPopEnterAnimation() {
+    private void initPopEnterAnimation() {
         if (fragmentAnimator.getPopEnter() == 0) {
             popEnterAnimation = AnimationUtils.loadAnimation(context, R.anim.no_anim);
         } else {
             popEnterAnimation = AnimationUtils.loadAnimation(context, fragmentAnimator.getPopEnter());
         }
-        return popEnterAnimation;
     }
 
-    private Animation initPopExitAnimation() {
+    private void initPopExitAnimation() {
         if (fragmentAnimator.getPopExit() == 0) {
             popExitAnimation = AnimationUtils.loadAnimation(context, R.anim.no_anim);
         } else {
             popExitAnimation = AnimationUtils.loadAnimation(context, fragmentAnimator.getPopExit());
         }
-        return popExitAnimation;
     }
 }

@@ -28,7 +28,7 @@ public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBac
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOURTH = 3;
-    private SupportFragment[] supportFragments = new SupportFragment[4];
+    private final SupportFragment[] supportFragments = new SupportFragment[4];
     private BottomBar bottomBar;
 
     @Override

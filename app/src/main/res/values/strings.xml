@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SmartFragment</string>
     <string name="exitAppHint">再按一次退出</string>
+    <string name="toDo">TODO</string>
     <string name="one">一</string>
     <string name="three">三</string>
     <string name="otherPager">其它页</string>

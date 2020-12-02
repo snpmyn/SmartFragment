@@ -15,10 +15,10 @@ import fragmentation.zhihu.fragment.second.child.child.ZhiHuOtherPagerFragment;
  * @desc ZhiHuPagerFragmentAdapter
  */
 public class ZhiHuPagerFragmentAdapter extends FragmentPagerAdapter {
-    private String[] mTitles;
+    private final String[] mTitles;
 
     public ZhiHuPagerFragmentAdapter(FragmentManager fm, String... titles) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mTitles = titles;
     }
 
