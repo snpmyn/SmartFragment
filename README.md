@@ -25,13 +25,13 @@
 |:-:|:-:|
 | 示例app | implementation project(path: ':fragmentation') |
 | 示例app | implementation project(path: ':eventbusactivityscope') |
-| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v1.0.1'（避重）|
+| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v0.1'（避重）|
 | 一方库Fragmentation | api project(path: ':fragmentationcore') |
-| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v1.0.1' |
+| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v0.1' |
 | 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
 | 二方库Util-示例app | implementation project(path: ':utilone') |
 | 二方库Util-示例app | implementation project(path: ':utiltwo') |
-| 二方库Util-UtilOne | api 'com.github.bumptech.glide:glide:4.10.0'（避重）|
+| 二方库Util-UtilOne | api 'com.github.bumptech.glide:glide:4.11.0'（避重）|
 | 二方库Util-UtilOne | api 'com.google.android.material:material:1.3.0-alpha04'（避重）|
 | 二方库Util-UtilOne | api 'io.reactivex:rxandroid:1.2.1'（避重）|
 | 二方库Util-UtilOne | api 'io.reactivex:rxjava:1.3.8'（避重）|
@@ -39,7 +39,7 @@
 | 二方库Util-UtilOne | api 'com.tencent:mmkv-static:1.0.23'（避重）|
 | 二方库Util-UtilOne | implementation 'com.getkeepsafe.relinker:relinker:1.3.1' |
 | 二方库Util-UtilOne | implementation 'com.qw:soulpermission:1.2.2_x' |
-| 二方库Util-UtilOne | implementation 'org.apache.commons:commons-lang3:3.9' |
+| 二方库Util-UtilOne | implementation 'org.apache.commons:commons-lang3:3.11' |
 | 二方库Util-UtilTwo | implementation 'androidx.core:core-ktx:1.5.0-alpha05' |
 | 二方库Util-UtilTwo | implementation "org.jetbrains.kotlin:*kotlin-stdlib-jdk7*:$kotlin_version" |
 
@@ -49,8 +49,8 @@
 | 一方库FragmentationCore | 无 |
 | 一方库Fragmentation | 无 |
 | 一方库EventbusActivityScope | 无 |
-| 二方库Util-app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 二方库Util-app | android:name="android.permission.READ_EXTERNAL_STORAGE"（避重）|
+| 二方库Util-app | android:name="android.permission.WRITE_EXTERNAL_STORAGE"（避重）|
 | 二方库UtilOne | 无 |
 | 二方库UtilTwo | 无 |
 
@@ -69,7 +69,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:4.1.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -107,8 +107,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v1.0.1'    
-    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v1.0.1'    
+    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v0.1'    
+    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v0.1'    
 }
 ```
 
