@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.FragmentationMagician;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -604,7 +606,7 @@ class TransactionDelegate {
         return mock;
     }
 
-    private ViewGroup findContainerById(Fragment fragment, int containerId) {
+    private @Nullable ViewGroup findContainerById(Fragment fragment, int containerId) {
         if (fragment.getView() == null) {
             return null;
         }

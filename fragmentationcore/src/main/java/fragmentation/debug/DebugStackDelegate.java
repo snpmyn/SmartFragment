@@ -23,6 +23,8 @@ import androidx.fragment.app.FragmentationMagician;
 
 import com.zsp.fragmentationcore.R;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,7 +163,7 @@ public class DebugStackDelegate implements SensorEventListener {
         }
     }
 
-    private List<DebugFragmentRecord> getFragmentRecords() {
+    private @Nullable List<DebugFragmentRecord> getFragmentRecords() {
         List<DebugFragmentRecord> fragmentRecordList = new ArrayList<>();
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(mActivity.getSupportFragmentManager());
         if (fragmentList.size() < 1) {
@@ -195,7 +197,7 @@ public class DebugStackDelegate implements SensorEventListener {
         }
     }
 
-    private List<DebugFragmentRecord> getChildFragmentRecords(Fragment parentFragment) {
+    private @Nullable List<DebugFragmentRecord> getChildFragmentRecords(Fragment parentFragment) {
         List<DebugFragmentRecord> fragmentRecords = new ArrayList<>();
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(parentFragment.getChildFragmentManager());
         if (fragmentList.size() < 1) {

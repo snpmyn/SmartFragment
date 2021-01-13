@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentationMagician;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +87,7 @@ public class SupportHelper {
         return getTopFragment(fragmentManager, 0);
     }
 
-    static ISupportFragment getTopFragment(FragmentManager fragmentManager, int containerId) {
+    static @Nullable ISupportFragment getTopFragment(FragmentManager fragmentManager, int containerId) {
         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(fragmentManager);
         for (int i = fragmentList.size() - 1; i >= 0; i--) {
             Fragment fragment = fragmentList.get(i);
@@ -107,7 +109,7 @@ public class SupportHelper {
      *
      * @param fragment 目标Fragment
      */
-    public static ISupportFragment getPreFragment(Fragment fragment) {
+    public static @Nullable ISupportFragment getPreFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getFragmentManager();
         if (fragmentManager == null) {
             return null;
@@ -196,7 +198,7 @@ public class SupportHelper {
     /**
      * Get the topFragment from BackStack.
      */
-    private static ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
+    private static @Nullable ISupportFragment getBackStackTopFragment(FragmentManager fragmentManager, int containerId) {
         int count = fragmentManager.getBackStackEntryCount();
         for (int i = count - 1; i >= 0; i--) {
             FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);

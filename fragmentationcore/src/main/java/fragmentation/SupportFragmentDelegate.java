@@ -690,7 +690,7 @@ public class SupportFragmentDelegate {
         return mFragmentActivity;
     }
 
-    private Animation getEnterAnim() {
+    private @org.jetbrains.annotations.Nullable Animation getEnterAnim() {
         if (mCustomEnterAnim == Integer.MIN_VALUE) {
             if (mAnimHelper != null && mAnimHelper.enterAnimation != null) {
                 return mAnimHelper.enterAnimation;
