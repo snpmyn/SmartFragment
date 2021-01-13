@@ -3,13 +3,12 @@ package fragmentation.zhihu.activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
-import com.zsp.fragmentation.SupportActivity;
 import com.zsp.fragmentation.SupportFragment;
 import com.zsp.smartfragment.R;
 
+import base.BaseActivity;
 import fragmentation.BottomBar;
 import fragmentation.BottomBarTab;
 import fragmentation.base.BaseFragment;
@@ -23,18 +22,42 @@ import fragmentation.zhihu.fragment.third.ZhiHuThirdFragment;
  * @author: 郑少鹏
  * @date: 2019/1/15 16:56
  */
-public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBackToFirstListener {
+public class ZhiHuActivity extends BaseActivity implements BaseFragment.OnBackToFirstListener {
+    private BottomBar bottomBar;
     public static final int FIRST = 0;
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOURTH = 3;
     private final SupportFragment[] supportFragments = new SupportFragment[4];
-    private BottomBar bottomBar;
 
+    /**
+     * 加载视图
+     *
+     * @param savedInstanceState 状态保存
+     */
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_zhi_hu);
+    }
+
+    /**
+     * 初始控件
+     */
+    @Override
+    protected void stepUi() {
+        bottomBar = findViewById(R.id.zhiHuActivityBr);
+    }
+
+    /**
+     * 初始配置
+     */
+    @Override
+    protected void initConfiguration() {
+        bottomBar.addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
+                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
+                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
+                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher));
+        // 碎片
         SupportFragment firstFragment = findFragment(ZhiHuFirstFragment.class);
         if (firstFragment == null) {
             supportFragments[FIRST] = ZhiHuFirstFragment.newInstance();
@@ -54,15 +77,13 @@ public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBac
             supportFragments[THIRD] = findFragment(ZhiHuThirdFragment.class);
             supportFragments[FOURTH] = findFragment(ZhiHuFourthFragment.class);
         }
-        initView();
     }
 
-    private void initView() {
-        bottomBar = findViewById(R.id.zhiHuActivityBr);
-        bottomBar.addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher))
-                .addItem(new BottomBarTab(this, R.mipmap.ic_launcher));
+    /**
+     * 设置监听
+     */
+    @Override
+    protected void setListener() {
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
@@ -105,6 +126,14 @@ public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBac
     }
 
     /**
+     * 开始逻辑
+     */
+    @Override
+    protected void startLogic() {
+
+    }
+
+    /**
      * 任意Fragment之onBackPressedSupport()返true，该法都不被回调。
      */
     @Override
@@ -120,8 +149,8 @@ public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBac
     public void onBackToFirstFragment() {
         bottomBar.setCurrentItem(0);
     }
-    /**
-     * 此处暂没实现（忽略）
+    /*
+      此处暂没实现（忽略）
      */
     /*@Subscribe
     public void onHiddenBottombarEvent(boolean hidden) {
@@ -132,3 +161,4 @@ public class ZhiHuActivity extends SupportActivity implements BaseFragment.OnBac
         }
     }*/
 }
+
