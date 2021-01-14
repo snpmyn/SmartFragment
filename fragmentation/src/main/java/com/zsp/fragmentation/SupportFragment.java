@@ -1,6 +1,7 @@
 package com.zsp.fragmentation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -76,10 +77,16 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         return supportFragmentDelegate.extraTransaction();
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context Context
+     */
     @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        supportFragmentDelegate.onAttach(activity);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        supportFragmentDelegate.onAttach((Activity) context);
         fragmentationSupportActivity = (SupportActivity) supportFragmentDelegate.getActivity();
     }
 

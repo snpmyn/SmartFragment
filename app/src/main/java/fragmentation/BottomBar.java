@@ -11,8 +11,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import androidx.core.view.ViewCompat;
-
 /**
  * @decs: BottomBar
  * @author: 郑少鹏
@@ -147,7 +145,7 @@ public class BottomBar extends LinearLayout {
             if (animate) {
                 animate().setInterpolator(mInterpolator).setDuration(TRANSLATE_DURATION_MILLIS).translationY(yTranslation);
             } else {
-                ViewCompat.setTranslationY(this, yTranslation);
+                setTranslationY(yTranslation);
             }
         }
     }

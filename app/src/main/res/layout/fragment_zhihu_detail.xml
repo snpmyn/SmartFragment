@@ -25,6 +25,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/toDo"
             app:srcCompat="@drawable/open"
-            app:tint="@color/background" />
+            app:tint="@color/white" />
     </FrameLayout>
 </LinearLayout>

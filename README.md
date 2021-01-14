@@ -25,9 +25,9 @@
 |:-:|:-:|
 | 示例app | implementation project(path: ':fragmentation') |
 | 示例app | implementation project(path: ':eventbusactivityscope') |
-| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v0.1.2'（避重）|
+| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v0.0.1.2X'（避重）|
 | 一方库Fragmentation | api project(path: ':fragmentationcore') |
-| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v0.1.2' |
+| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v0.0.1.2X' |
 | 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
 | 二方库Util-示例app | implementation project(path: ':utilone') |
 | 二方库Util-示例app | implementation project(path: ':utiltwo') |
@@ -98,8 +98,8 @@ android {
         ...      
     }       
     compileOptions {
-        sourceCompatibility rootProject.ext.compileOptions["sourceCompatibility"]
-        targetCompatibility rootProject.ext.compileOptions["targetCompatibility"]
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     configurations.all {
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -107,8 +107,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v0.0.1.1X'
-    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v0.0.1.1X'
+    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v0.0.1.2X'
+    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v0.0.1.2X'
 }
 ```
 

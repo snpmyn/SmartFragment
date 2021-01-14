@@ -28,7 +28,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     /*自带*/
-    implementation 'com.github.snpmyn.Util:utilone:v0.0.1.1X'
+    implementation 'com.github.snpmyn.Util:utilone:v0.0.1.2X'
     /*util*/
     implementation 'org.greenrobot:eventbus:3.1.1'
     /*eventbus*/
