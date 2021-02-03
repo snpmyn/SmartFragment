@@ -63,6 +63,7 @@ public class SupportHelper {
 
     /**
      * 显栈视图对话框
+     * <p>
      * 调试用。
      */
     public static void showFragmentStackHierarchyView(ISupportActivity support) {
@@ -71,10 +72,11 @@ public class SupportHelper {
 
     /**
      * 显栈视图日志
+     * <p>
      * 调试用。
      */
-    public static void logFragmentStackHierarchy(ISupportActivity support, String tag) {
-        support.getSupportDelegate().logFragmentStackHierarchy(tag);
+    public static void logFragmentStackHierarchy(ISupportActivity support) {
+        support.getSupportDelegate().logFragmentStackHierarchy();
     }
 
     /**

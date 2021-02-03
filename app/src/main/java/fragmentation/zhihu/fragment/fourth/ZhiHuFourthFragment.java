@@ -51,7 +51,7 @@ public class ZhiHuFourthFragment extends BaseFragment {
     @Override
     protected void stepUi(View view) {
         MaterialToolbar materialToolbar = view.findViewById(R.id.zhiHuFragmentFourthMt);
-        stepToolbarNavigation(materialToolbar);
+        stepMaterialToolbarNavigation(materialToolbar, R.drawable.back);
     }
 
     /**

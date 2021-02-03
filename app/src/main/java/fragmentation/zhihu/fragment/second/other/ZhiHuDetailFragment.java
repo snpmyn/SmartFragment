@@ -94,7 +94,7 @@ public class ZhiHuDetailFragment extends BaseFragment {
     @Override
     protected void stepUi(View view) {
         materialToolbar.setTitle(mTitle);
-        stepToolbarNavigation(materialToolbar);
+        stepMaterialToolbarNavigation(materialToolbar, R.drawable.back);
     }
 
     /**

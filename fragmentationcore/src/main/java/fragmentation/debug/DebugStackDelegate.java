@@ -131,10 +131,8 @@ public class DebugStackDelegate implements SensorEventListener {
      * 调试相关
      * <p>
      * Log形式打印栈视图。
-     *
-     * @param tag tag
      */
-    public void logFragmentRecords(String tag) {
+    public void logFragmentRecords() {
         List<DebugFragmentRecord> fragmentRecordList = getFragmentRecords();
         if (fragmentRecordList == null) {
             return;

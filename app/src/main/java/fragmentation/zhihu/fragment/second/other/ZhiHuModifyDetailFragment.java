@@ -89,7 +89,7 @@ public class ZhiHuModifyDetailFragment extends BaseFragment {
     @Override
     protected void stepUi(View view) {
         toolbarMt.setTitle(getString(R.string.testStartForResult));
-        stepToolbarNavigation(toolbarMt);
+        stepMaterialToolbarNavigation(toolbarMt, R.drawable.back);
         zhiHuModifyDetailEtInput.setText(mTitle);
     }
 

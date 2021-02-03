@@ -25,9 +25,9 @@
 |:-:|:-:|
 | 示例app | implementation project(path: ':fragmentation') |
 | 示例app | implementation project(path: ':eventbusactivityscope') |
-| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v0.0.1.2X'（避重）|
+| 一方库FragmentationCore | api 'com.github.snpmyn.Util:*utilone*:v0.0.1.3X'（避重）|
 | 一方库Fragmentation | api project(path: ':fragmentationcore') |
-| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v0.0.1.2X' |
+| 一方库EventbusActivityScope | implementation 'com.github.snpmyn.Util:*utilone*:v0.0.1.3X' |
 | 一方库EventbusActivityScope | implementation 'org.greenrobot:eventbus:3.1.1' |
 | 二方库Util-示例app | implementation project(path: ':utilone') |
 | 二方库Util-示例app | implementation project(path: ':utiltwo') |
@@ -69,7 +69,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -107,8 +107,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v0.0.1.2X'
-    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v0.0.1.2X'
+    implementation 'com.github.snpmyn.SmartFragment:fragmentation:v0.0.1.3X'
+    implementation 'com.github.snpmyn.SmartFragment:eventbusactivityscope:v0.0.1.3X'
 }
 ```
 

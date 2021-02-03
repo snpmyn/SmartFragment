@@ -188,12 +188,13 @@ public abstract class BaseFragment extends SupportFragment {
     protected abstract int layoutResId();
 
     /**
-     * 初始ToolbarNavigation
+     * 初始 MaterialToolbarNavigation
      *
-     * @param materialToolbar toolbar
+     * @param materialToolbar materialToolbar
+     * @param resId           资源 ID
      */
-    protected void stepToolbarNavigation(MaterialToolbar materialToolbar) {
-        materialToolbar.setNavigationIcon(R.drawable.back);
+    protected void stepMaterialToolbarNavigation(MaterialToolbar materialToolbar, int resId) {
+        materialToolbar.setNavigationIcon(resId);
         materialToolbar.setNavigationOnClickListener(view -> fragmentationSupportActivity.onBackPressed());
     }
 

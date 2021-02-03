@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.zsp.fragmentation.SupportFragment;
-import com.zsp.smartfragment.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -140,13 +139,14 @@ public abstract class BaseBackFragment extends SupportFragment {
     abstract int layoutResId();
 
     /**
-     * 初始ToolbarNavigation
+     * 初始 MaterialToolbarNavigation
      *
-     * @param materialToolbar MaterialToolbar
+     * @param materialToolbar materialToolbar
+     * @param resId           资源 ID
      */
-    protected void stepToolbarNavigation(MaterialToolbar materialToolbar) {
-        materialToolbar.setNavigationIcon(R.drawable.back);
-        materialToolbar.setNavigationOnClickListener(v -> fragmentationSupportActivity.onBackPressed());
+    protected void stepMaterialToolbarNavigation(MaterialToolbar materialToolbar, int resId) {
+        materialToolbar.setNavigationIcon(resId);
+        materialToolbar.setNavigationOnClickListener(view -> fragmentationSupportActivity.onBackPressed());
     }
 
     /**

@@ -30,6 +30,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     /*自带*/
-    api 'com.github.snpmyn.Util:utilone:v0.0.1.2X'
+    api 'com.github.snpmyn.Util:utilone:v0.0.1.3X'
     /*util*/
 }

@@ -143,8 +143,8 @@ public class SupportActivityDelegate {
      * <p>
      * 调试用。
      */
-    void logFragmentStackHierarchy(String tag) {
-        mDebugStackDelegate.logFragmentRecords(tag);
+    void logFragmentStackHierarchy() {
+        mDebugStackDelegate.logFragmentRecords();
     }
 
     /**
